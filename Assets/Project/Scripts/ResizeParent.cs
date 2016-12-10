@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 
 [DisallowMultipleComponent]
@@ -36,6 +37,21 @@ public class ResizeParent : MonoBehaviour
     Vector3 velocity;
     IEnumerator lastEnumerator = null;
     int currentTier = 0;
+    GameObject resizeHelper = null;
+
+    public struct TierPair
+    {
+        public readonly ResizingTier tierWithPodium;
+        public readonly ResizingTier tierToGrowInto;
+
+        public TierPair(ResizingTier podium, ResizingTier growth)
+        {
+            tierWithPodium = podium;
+            tierToGrowInto = growth;
+        }
+    }
+
+    public readonly Dictionary<TierPair, Podium> PodiumMap = new Dictionary<TierPair, Podium>();
 
     public static ResizeParent Instance
     {
@@ -47,6 +63,18 @@ public class ResizeParent : MonoBehaviour
     {
         get;
         private set;
+    }
+
+    public GameObject ResizeHelper
+    {
+        get
+        {
+            if(resizeHelper != null)
+            {
+                resizeHelper = new GameObject("Resize Helper");
+            }
+            return resizeHelper;
+        }
     }
 
     public int CurrentTier
