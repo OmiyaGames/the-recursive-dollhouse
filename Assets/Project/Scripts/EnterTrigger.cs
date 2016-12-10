@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(BoxCollider))]
 public class EnterTrigger : MonoBehaviour
@@ -59,6 +60,10 @@ public class EnterTrigger : MonoBehaviour
         if (other.CompareTag("Player") == true)
         {
             parentHouse.OnTrigger(this);
+        }
+        if (action == Change.Shrink)
+        {
+            FirstPersonController.Instance.ActivateSpring();
         }
     }
 }

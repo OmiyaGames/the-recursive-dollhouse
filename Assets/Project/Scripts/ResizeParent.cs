@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [DisallowMultipleComponent]
 public class ResizeParent : MonoBehaviour
@@ -22,6 +23,12 @@ public class ResizeParent : MonoBehaviour
     float smoothTime = 0.325f;
     [SerializeField]
     float snapDistance = 0.01f;
+
+    [Header("Slowdown")]
+    [SerializeField]
+    float slowdown = 0.1f;
+    [SerializeField]
+    float slowdownDuration = 0.5f;
 
     Vector3 shrinkScaleVector;
     Vector3 growScaleVector;
@@ -114,11 +121,11 @@ public class ResizeParent : MonoBehaviour
 
         // Run the new one
         velocity = Vector3.zero;
-        lastEnumerator = Neato();
+        lastEnumerator = ResizeCoroutine();
         StartCoroutine(lastEnumerator);
     }
 
-    IEnumerator Neato()
+    IEnumerator ResizeCoroutine()
     {
         // Run the before resize event
         if(OnBeforeResize != null)
@@ -126,11 +133,21 @@ public class ResizeParent : MonoBehaviour
             OnBeforeResize(this);
         }
 
+        // Start the slowdown on the player
+        float slowdownStartTime = 0;
+        FirstPersonController.Instance.StartSlowdown(slowdown);
+
         // Check if we met the target scale yet
-        while(Mathf.Abs(transform.localScale.x - targetScale.x) > snapDistance)
+        while (Mathf.Abs(transform.localScale.x - targetScale.x) > snapDistance)
         {
             // If not, smooth damp
             transform.localScale = Vector3.SmoothDamp(transform.localScale, targetScale, ref velocity, smoothTime);
+
+            // Check if slowdown should happen
+            if((Time.time - slowdownStartTime) > slowdownDuration)
+            {
+                FirstPersonController.Instance.StopSlowdown();
+            }
             yield return null;
         }
 
@@ -147,5 +164,6 @@ public class ResizeParent : MonoBehaviour
         // Cleanup everything
         lastEnumerator = null;
         currentDirection = ResizeDirection.None;
+        FirstPersonController.Instance.StopSlowdown();
     }
 }
