@@ -8,23 +8,20 @@ public class GrowShrinkObject : MonoBehaviour
     [SerializeField]
     Transform changeObject;
     [SerializeField]
+    Transform defaultCenter;
+    [SerializeField]
     float smoothTime = 0.5f;
     [SerializeField]
     float scaleIncrement = 10f;
-    [SerializeField]
-    float targetYPosition = 1f;
 
     int shrinkTier = 0;
 
     bool changingScale = false;
-    Vector3 originalLocalScale;
-    Vector3 targetLocalScale = Vector3.one;
-    Vector3 localScaleVelocity = Vector3.zero;
+    float originalLocalScale;
+    float targetLocalScale;
+    float localScaleVelocity = 0;
 
-    readonly Stack<Transform> centers = new Stack<Transform>();
-    float shrinkTierYPosition = 0f;
-    float yPositionVelocity = 0f;
-    Vector3 localPosition = Vector3.zero;
+    Vector3 pivotPoint;
 
     public int ShrinkTier
     {
@@ -49,7 +46,7 @@ public class GrowShrinkObject : MonoBehaviour
     public void IncrementShrinkTier(Transform centerTo)
     {
         shrinkTier += 1;
-        centers.Push(centerTo);
+        pivotPoint = centerTo.position;
 
         CalculateTargetScaleAndPosition();
 
@@ -59,12 +56,12 @@ public class GrowShrinkObject : MonoBehaviour
         }
     }
 
-    public void DecrementShrinkTier()
+    public void DecrementShrinkTier(Transform centerTo)
     {
         if (shrinkTier > 0)
         {
             shrinkTier -= 1;
-            centers.Pop();
+            pivotPoint = centerTo.position;
 
             CalculateTargetScaleAndPosition();
 
@@ -77,55 +74,43 @@ public class GrowShrinkObject : MonoBehaviour
 
     void Start()
     {
-        localPosition = Changing.localPosition;
-
-        originalLocalScale = Changing.localScale;
+        originalLocalScale = Changing.localScale.x;
         targetLocalScale = originalLocalScale;
+        pivotPoint = defaultCenter.position;
     }
 
     void Update()
     {
         if(changingScale == true)
         {
-            if (Mathf.Approximately(Changing.localScale.x, targetLocalScale.x) == false)
+            Vector3 A = Changing.position;
+            Vector3 B = pivotPoint;
+
+            float RS = Mathf.SmoothDamp(Changing.localScale.x, targetLocalScale, ref localScaleVelocity, smoothTime);
+            Vector3 endScale = Vector3.one * (originalLocalScale * RS);
+
+            Vector3 C = A - B; // diff from object pivot to desired pivot/origin
+
+            // calc final position post-scale
+            RS = (endScale.x / Changing.localScale.x);
+            Vector3 FP = (C * RS) + B;
+
+            // finally, actually perform the scale/translation
+            Changing.localScale = endScale;
+            Changing.position = FP;
+
+            // Check if we should stop scaling
+            if (Mathf.Approximately(Changing.localScale.x, targetLocalScale) == true)
             {
-                localPosition.y = Mathf.SmoothDamp(localPosition.y, shrinkTierYPosition, ref yPositionVelocity, smoothTime);
-                Changing.localPosition = localPosition;
-                Changing.localScale = Vector3.SmoothDamp(Changing.localScale, targetLocalScale, ref localScaleVelocity, smoothTime);
-            }
-            else
-            {
-                localPosition.y = shrinkTierYPosition;
-                Changing.localPosition = localPosition;
-                Changing.localScale = targetLocalScale;
                 changingScale = false;
             }
-        }
-    }
-
-    // FIXME: probably want to get rid of
-    float CurrentTierYPosition
-    {
-        get
-        {
-            float yPosition = transform.position.y;
-            if (centers.Peek() != null)
-            {
-                yPosition = centers.Peek().position.y;
-            }
-            return yPosition;
         }
     }
 
     void CalculateTargetScaleAndPosition()
     {
         // Calculate new scale
-        targetLocalScale.x = (originalLocalScale.x * Mathf.Pow(scaleIncrement, shrinkTier));
-        targetLocalScale.y = (originalLocalScale.y * Mathf.Pow(scaleIncrement, shrinkTier));
-        targetLocalScale.z = (originalLocalScale.z * Mathf.Pow(scaleIncrement, shrinkTier));
+        targetLocalScale = (originalLocalScale * Mathf.Pow(scaleIncrement, shrinkTier));
         changingScale = true;
-
-        // FIXME: calculate the proper y position
-        //shrinkTierYPosition
     }
 }

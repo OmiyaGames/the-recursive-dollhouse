@@ -221,7 +221,7 @@ MonoBehaviour:
     smooth: 0
     smoothTime: 5
     lockCursor: 1
-  m_UseFovKick: 1
+  m_UseFovKick: 0
   m_FovKick:
     Camera: {fileID: 0}
     originalFov: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_UseHeadBob: 1
+  m_UseHeadBob: 0
   m_HeadBob:
     HorizontalBobRange: 0.1
     VerticalBobRange: 0.1
@@ -281,8 +281,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     VerticaltoHorizontalRatio: 2
   m_JumpBob:
-    BobDuration: 0.2
-    BobAmount: 0.1
+    BobDuration: 0
+    BobAmount: 0
   m_StepInterval: 5
   m_FootstepSounds:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}

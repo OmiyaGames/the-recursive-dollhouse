@@ -299,5 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeObject: {fileID: 0}
+  center: {fileID: 4000012624035504}
   action: 0
   tier: 1

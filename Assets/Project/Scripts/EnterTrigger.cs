@@ -38,7 +38,7 @@ public class EnterTrigger : MonoBehaviour
             }
             else
             {
-                changeObject.DecrementShrinkTier();
+                changeObject.DecrementShrinkTier(center);
             }
         }
     }

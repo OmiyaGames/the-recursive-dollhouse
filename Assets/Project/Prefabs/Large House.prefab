@@ -161,6 +161,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeObject: {fileID: 0}
-  smoothTime: 0.5
+  defaultCenter: {fileID: 4000013183493022}
+  smoothTime: 0.375
   scaleIncrement: 20
-  changeYPosition: -48
