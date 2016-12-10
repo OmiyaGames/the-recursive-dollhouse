@@ -39,24 +39,57 @@ public class ResizeParent : MonoBehaviour
     int currentTier = 0;
     GameObject resizeHelper = null;
 
-    public struct TierPair
+    public struct TierPath
     {
-        public readonly ResizingTier tierWithPodium;
-        public readonly ResizingTier tierToGrowInto;
+        public readonly ResizingTier start;
+        public readonly ResizingTier end;
 
-        public TierPair(ResizingTier podium, ResizingTier growth)
+        public TierPath(ResizingTier start, ResizingTier end)
         {
-            tierWithPodium = podium;
-            tierToGrowInto = growth;
+            this.start = start;
+            this.end = end;
         }
     }
 
-    public readonly Dictionary<TierPair, Podium> PodiumMap = new Dictionary<TierPair, Podium>();
+    public readonly Dictionary<TierPath, Podium> PathToPodiumMap = new Dictionary<TierPath, Podium>();
+    public readonly Dictionary<ResizingTier, HashSet<Podium>> AllPodiumsPerTier = new Dictionary<ResizingTier, HashSet<Podium>>();
 
     public static ResizeParent Instance
     {
         get;
         private set;
+    }
+
+    public float ShrinkScale
+    {
+        get
+        {
+            return shrinkScale;
+        }
+    }
+
+    public Vector3 ShrinkScaleVector
+    {
+        get
+        {
+            return shrinkScaleVector;
+        }
+    }
+
+    public float GrowScale
+    {
+        get
+        {
+            return growScale;
+        }
+    }
+
+    public Vector3 GrowScaleVector
+    {
+        get
+        {
+            return growScaleVector;
+        }
     }
 
     public ResizeDirection currentDirection
@@ -69,7 +102,7 @@ public class ResizeParent : MonoBehaviour
     {
         get
         {
-            if(resizeHelper != null)
+            if(resizeHelper == null)
             {
                 resizeHelper = new GameObject("Resize Helper");
             }
