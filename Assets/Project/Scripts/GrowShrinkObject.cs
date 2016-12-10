@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GrowShrinkObject : MonoBehaviour
 {
+    public event System.Action<GrowShrinkObject> OnAfterShrinkTierChanged;
+
     [SerializeField]
     Transform changeObject;
     [SerializeField]
@@ -10,7 +12,7 @@ public class GrowShrinkObject : MonoBehaviour
     [SerializeField]
     float scaleIncrement = 10f;
     [SerializeField]
-    float changeYPosition = -10f;
+    float targetYPosition = 1f;
 
     int shrinkTier = 0;
 
@@ -19,37 +21,16 @@ public class GrowShrinkObject : MonoBehaviour
     Vector3 targetLocalScale = Vector3.one;
     Vector3 localScaleVelocity = Vector3.zero;
 
-    bool changingPosition = false;
-    Vector3 originalLocalPosition;
-    Vector3 targetLocalPosition = Vector3.one;
-    Vector3 localPositionVelocity = Vector3.zero;
+    Transform makeLevel = null;
+    float shrinkTierYPosition = 0f;
+    float yPositionVelocity = 0f;
+    Vector3 localPosition = Vector3.zero;
 
     public int ShrinkTier
     {
         get
         {
             return shrinkTier;
-        }
-        set
-        {
-            if(shrinkTier != value)
-            {
-                shrinkTier = value;
-                if(shrinkTier < 0)
-                {
-                    shrinkTier = 0;
-                }
-
-                // Calculate new scale
-                targetLocalScale.x = (originalLocalScale.x + (scaleIncrement * shrinkTier));
-                targetLocalScale.y = (originalLocalScale.y + (scaleIncrement * shrinkTier));
-                targetLocalScale.z = (originalLocalScale.z + (scaleIncrement * shrinkTier));
-                changingScale = true;
-
-                // Calculate new position
-                targetLocalPosition.y = (originalLocalPosition.y + (changeYPosition * shrinkTier));
-                changingPosition = true;
-            }
         }
     }
 
@@ -65,10 +46,47 @@ public class GrowShrinkObject : MonoBehaviour
         }
     }
 
+    public void SetShrinkTier(int value, Transform centerTo)
+    {
+        makeLevel = centerTo;
+
+        shrinkTier = value;
+        if(shrinkTier< 0)
+        {
+            shrinkTier = 0;
+        }
+
+        // Calculate new scale
+        targetLocalScale.x = (originalLocalScale.x * Mathf.Pow(scaleIncrement, shrinkTier));
+        targetLocalScale.y = (originalLocalScale.y * Mathf.Pow(scaleIncrement, shrinkTier));
+        targetLocalScale.z = (originalLocalScale.z * Mathf.Pow(scaleIncrement, shrinkTier));
+        changingScale = true;
+
+        // FIXME: calculate the proper y position
+        //shrinkTierYPosition
+
+        if (OnAfterShrinkTierChanged != null)
+        {
+            OnAfterShrinkTierChanged(this);
+        }
+    }
+
+    public float CurrentTierYPosition
+    {
+        get
+        {
+            float yPosition = transform.position.y;
+            if(makeLevel != null)
+            {
+                yPosition = makeLevel.position.y;
+            }
+            return yPosition;
+        }
+    }
+
     void Start()
     {
-        originalLocalPosition = Changing.localPosition;
-        targetLocalPosition = originalLocalPosition;
+        localPosition = Changing.localPosition;
 
         originalLocalScale = Changing.localScale;
         targetLocalScale = originalLocalScale;
@@ -80,24 +98,16 @@ public class GrowShrinkObject : MonoBehaviour
         {
             if (Mathf.Approximately(Changing.localScale.x, targetLocalScale.x) == false)
             {
+                localPosition.y = Mathf.SmoothDamp(localPosition.y, shrinkTierYPosition, ref yPositionVelocity, smoothTime);
+                Changing.localPosition = localPosition;
                 Changing.localScale = Vector3.SmoothDamp(Changing.localScale, targetLocalScale, ref localScaleVelocity, smoothTime);
             }
             else
             {
+                localPosition.y = shrinkTierYPosition;
+                Changing.localPosition = localPosition;
                 Changing.localScale = targetLocalScale;
                 changingScale = false;
-            }
-        }
-        if (changingPosition == true)
-        {
-            if (Mathf.Approximately(Changing.localPosition.y, targetLocalPosition.y) == false)
-            {
-                Changing.localPosition = Vector3.SmoothDamp(Changing.localPosition, targetLocalPosition, ref localPositionVelocity, smoothTime);
-            }
-            else
-            {
-                Changing.localPosition = targetLocalPosition;
-                changingPosition = false;
             }
         }
     }

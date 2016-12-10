@@ -9,16 +9,30 @@ public class EnterTrigger : MonoBehaviour
         Shrink,
         Grow
     }
+
     [SerializeField]
     GrowShrinkObject changeObject;
     [SerializeField]
+    Transform center;
+    [SerializeField]
     Change action = Change.Shrink;
+    [SerializeField]
+    int tier = 1;
+
+    BoxCollider thisCollider = null;
+
+    void Start()
+    {
+        thisCollider = GetComponent<BoxCollider>();
+        changeObject.OnAfterShrinkTierChanged += UpdateColliderState;
+        UpdateColliderState(changeObject);
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") == true)
+        if (other.CompareTag("Player") == true)
         {
-            if(action == Change.Shrink)
+            if (action == Change.Shrink)
             {
                 changeObject.ShrinkTier += 1;
             }
@@ -26,6 +40,20 @@ public class EnterTrigger : MonoBehaviour
             {
                 changeObject.ShrinkTier -= 1;
             }
+        }
+    }
+
+    void UpdateColliderState(GrowShrinkObject obj)
+    {
+        // Setup whether to turn the colliders on or off
+        thisCollider.enabled = false;
+        if ((action == Change.Shrink) && (obj.ShrinkTier == (tier - 1)))
+        {
+            thisCollider.enabled = true;
+        }
+        else if ((action == Change.Grow) && (obj.ShrinkTier == (tier + 1)))
+        {
+            thisCollider.enabled = true;
         }
     }
 }
