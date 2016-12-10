@@ -16,7 +16,8 @@ public class ResizingTier : MonoBehaviour
         set
         {
             startingTier = value;
-            if(OnCurrentTierChanged != null)
+            Instance_OnAfterResize(ResizeParent.Instance);
+            if (OnCurrentTierChanged != null)
             {
                 OnCurrentTierChanged(this);
             }
@@ -37,17 +38,34 @@ public class ResizingTier : MonoBehaviour
     {
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+        Instance_OnAfterResize(ResizeParent.Instance);
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
-        // Parent this to the resize parent
-        transform.SetParent(obj.transform, true);
+        if(Mathf.Abs(obj.CurrentTier - CurrentTier) > 1)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // Parent this to the resize parent
+            gameObject.SetActive(true);
+            transform.SetParent(obj.transform, true);
+        }
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)
     {
-        // Un-embed
-        transform.SetParent(null, true);
+        if (Mathf.Abs(obj.CurrentTier - CurrentTier) > 1)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            // Un-embed
+            gameObject.SetActive(true);
+            transform.SetParent(null, true);
+        }
     }
 }

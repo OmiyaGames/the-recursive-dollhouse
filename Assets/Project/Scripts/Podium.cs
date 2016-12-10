@@ -21,12 +21,12 @@ public class Podium : TierObject
     {
         if (item != null)
         {
-            if ((obj.currentDirection != ResizeParent.ResizeDirection.Shrinking) && (item.CurrentTier == (obj.CurrentTier + 1)))
+            if ((obj.currentDirection != ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier))
             {
                 // Check if this object is only one step smaller than the current tier
                 EmbedTier(obj);
             }
-            else if ((obj.currentDirection != ResizeParent.ResizeDirection.Growing) && (item.CurrentTier == (obj.CurrentTier - 1)))
+            else if ((obj.currentDirection != ResizeParent.ResizeDirection.Growing) && (ThisTier == (obj.CurrentTier - 1)))
             {
                 // Check if this object is only one step larger than the current tier
                 EmbedTier(obj);
