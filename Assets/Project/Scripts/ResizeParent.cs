@@ -20,6 +20,8 @@ public class ResizeParent : MonoBehaviour
     float growScale = 20;
     [SerializeField]
     float smoothTime = 0.325f;
+    [SerializeField]
+    float snapDistance = 0.01f;
 
     Vector3 shrinkScaleVector;
     Vector3 growScaleVector;
@@ -125,12 +127,16 @@ public class ResizeParent : MonoBehaviour
         }
 
         // Check if we met the target scale yet
-        while(Mathf.Approximately(transform.localScale.x, targetScale.x) == false)
+        while(Mathf.Abs(transform.localScale.x - targetScale.x) > snapDistance)
         {
             // If not, smooth damp
             transform.localScale = Vector3.SmoothDamp(transform.localScale, targetScale, ref velocity, smoothTime);
             yield return null;
         }
+
+        // Snap to the target scale
+        transform.localScale = targetScale;
+        yield return null;
 
         // Run the after resize event
         if (OnAfterResize != null)
