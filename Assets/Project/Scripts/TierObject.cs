@@ -2,11 +2,29 @@
 
 public abstract class TierObject : MonoBehaviour
 {
+    ResizingTier parentTier;
+
     public ResizingTier ParentTier
     {
-        get;
-        set;
+        get
+        {
+            return parentTier;
+        }
+        set
+        {
+            if (parentTier != null)
+            {
+                parentTier.OnCurrentTierChanged -= OnThisTierChanged;
+            }
+            parentTier = value;
+            if(parentTier != null)
+            {
+                parentTier.OnCurrentTierChanged += OnThisTierChanged;
+            }
+        }
     }
+
+    protected abstract void OnThisTierChanged(ResizingTier obj);
 
     public int ThisTier
     {

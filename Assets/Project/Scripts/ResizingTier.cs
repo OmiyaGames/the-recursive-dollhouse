@@ -5,10 +5,22 @@ public class ResizingTier : MonoBehaviour
     [SerializeField]
     int startingTier = 0;
 
+    public event System.Action<ResizingTier> OnCurrentTierChanged;
+
     public int CurrentTier
     {
-        get;
-        private set;
+        get
+        {
+            return startingTier;
+        }
+        set
+        {
+            startingTier = value;
+            if(OnCurrentTierChanged != null)
+            {
+                OnCurrentTierChanged(this);
+            }
+        }
     }
 
     // Use this for initialization
@@ -19,7 +31,6 @@ public class ResizingTier : MonoBehaviour
         {
             tier.ParentTier = this;
         }
-        CurrentTier = startingTier;
     }
 
     void Start()
@@ -30,11 +41,13 @@ public class ResizingTier : MonoBehaviour
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
-        throw new System.NotImplementedException();
+        // Parent this to the resize parent
+        transform.SetParent(obj.transform, true);
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)
     {
-        throw new System.NotImplementedException();
+        // Un-embed
+        transform.SetParent(null, true);
     }
 }

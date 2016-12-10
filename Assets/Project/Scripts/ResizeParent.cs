@@ -54,6 +54,11 @@ public class ResizeParent : MonoBehaviour
 
     public void Shrink(Transform centerTo)
     {
+        Shrink(centerTo.position);
+    }
+
+    public void Shrink(Vector3 centerTo)
+    {
         // Setup variables
         transform.localScale = growScaleVector;
         targetScale = shrinkScaleVector;
@@ -67,6 +72,11 @@ public class ResizeParent : MonoBehaviour
     }
 
     public void Grow(Transform centerTo)
+    {
+        Grow(centerTo.position);
+    }
+
+    public void Grow(Vector3 centerTo)
     {
         // Setup variables
         transform.localScale = shrinkScaleVector;
@@ -88,10 +98,10 @@ public class ResizeParent : MonoBehaviour
         currentDirection = ResizeDirection.None;
     }
 
-    void RunResize(Transform centerTo)
+    void RunResize(Vector3 centerTo)
     {
         // Position the parent
-        transform.position = centerTo.position;
+        transform.position = centerTo;
 
         // Stop the previous event
         if (lastEnumerator != null)
@@ -122,14 +132,14 @@ public class ResizeParent : MonoBehaviour
             yield return null;
         }
 
-        // Cleanup everything
-        lastEnumerator = null;
-        currentDirection = ResizeDirection.None;
-
         // Run the after resize event
         if (OnAfterResize != null)
         {
             OnAfterResize(this);
         }
+
+        // Cleanup everything
+        lastEnumerator = null;
+        currentDirection = ResizeDirection.None;
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
 public class Podium : TierObject
 {
@@ -51,7 +51,16 @@ public class Podium : TierObject
         item.transform.localScale = Vector3.one;
         item.transform.localRotation = Quaternion.identity;
 
+        // Update the tier of this object
+        item.CurrentTier = ThisTier + 1;
+
         // Parent this to the resize parent
         item.transform.SetParent(obj.transform, true);
+    }
+
+    protected override void OnThisTierChanged(ResizingTier obj)
+    {
+        // Do nothing
+        //throw new NotImplementedException();
     }
 }

@@ -16,7 +16,7 @@ public class EnterTrigger : MonoBehaviour
 
     BoxCollider thisCollider = null;
 
-    public BoxCollider Collider
+    BoxCollider Collider
     {
         get
         {
@@ -25,6 +25,18 @@ public class EnterTrigger : MonoBehaviour
                 thisCollider = GetComponent<BoxCollider>();
             }
             return thisCollider;
+        }
+    }
+
+    public bool IsEnabled
+    {
+        get
+        {
+            return Collider.enabled;
+        }
+        set
+        {
+            Collider.enabled = value;
         }
     }
 
