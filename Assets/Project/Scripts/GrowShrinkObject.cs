@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class GrowShrinkObject : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class GrowShrinkObject : MonoBehaviour
     Vector3 targetLocalScale = Vector3.one;
     Vector3 localScaleVelocity = Vector3.zero;
 
-    Transform makeLevel = null;
+    readonly Stack<Transform> centers = new Stack<Transform>();
     float shrinkTierYPosition = 0f;
     float yPositionVelocity = 0f;
     Vector3 localPosition = Vector3.zero;
@@ -46,24 +46,12 @@ public class GrowShrinkObject : MonoBehaviour
         }
     }
 
-    public void SetShrinkTier(int value, Transform centerTo)
+    public void IncrementShrinkTier(Transform centerTo)
     {
-        makeLevel = centerTo;
+        shrinkTier += 1;
+        centers.Push(centerTo);
 
-        shrinkTier = value;
-        if(shrinkTier< 0)
-        {
-            shrinkTier = 0;
-        }
-
-        // Calculate new scale
-        targetLocalScale.x = (originalLocalScale.x * Mathf.Pow(scaleIncrement, shrinkTier));
-        targetLocalScale.y = (originalLocalScale.y * Mathf.Pow(scaleIncrement, shrinkTier));
-        targetLocalScale.z = (originalLocalScale.z * Mathf.Pow(scaleIncrement, shrinkTier));
-        changingScale = true;
-
-        // FIXME: calculate the proper y position
-        //shrinkTierYPosition
+        CalculateTargetScaleAndPosition();
 
         if (OnAfterShrinkTierChanged != null)
         {
@@ -71,16 +59,19 @@ public class GrowShrinkObject : MonoBehaviour
         }
     }
 
-    public float CurrentTierYPosition
+    public void DecrementShrinkTier()
     {
-        get
+        if (shrinkTier > 0)
         {
-            float yPosition = transform.position.y;
-            if(makeLevel != null)
+            shrinkTier -= 1;
+            centers.Pop();
+
+            CalculateTargetScaleAndPosition();
+
+            if (OnAfterShrinkTierChanged != null)
             {
-                yPosition = makeLevel.position.y;
+                OnAfterShrinkTierChanged(this);
             }
-            return yPosition;
         }
     }
 
@@ -110,5 +101,31 @@ public class GrowShrinkObject : MonoBehaviour
                 changingScale = false;
             }
         }
+    }
+
+    // FIXME: probably want to get rid of
+    float CurrentTierYPosition
+    {
+        get
+        {
+            float yPosition = transform.position.y;
+            if (centers.Peek() != null)
+            {
+                yPosition = centers.Peek().position.y;
+            }
+            return yPosition;
+        }
+    }
+
+    void CalculateTargetScaleAndPosition()
+    {
+        // Calculate new scale
+        targetLocalScale.x = (originalLocalScale.x * Mathf.Pow(scaleIncrement, shrinkTier));
+        targetLocalScale.y = (originalLocalScale.y * Mathf.Pow(scaleIncrement, shrinkTier));
+        targetLocalScale.z = (originalLocalScale.z * Mathf.Pow(scaleIncrement, shrinkTier));
+        changingScale = true;
+
+        // FIXME: calculate the proper y position
+        //shrinkTierYPosition
     }
 }

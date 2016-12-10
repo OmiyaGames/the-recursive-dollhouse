@@ -34,11 +34,11 @@ public class EnterTrigger : MonoBehaviour
         {
             if (action == Change.Shrink)
             {
-                changeObject.ShrinkTier += 1;
+                changeObject.IncrementShrinkTier(center);
             }
             else
             {
-                changeObject.ShrinkTier -= 1;
+                changeObject.DecrementShrinkTier();
             }
         }
     }
