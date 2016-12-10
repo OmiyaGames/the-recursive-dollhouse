@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class GrowShrinkObject : MonoBehaviour
 {
@@ -22,6 +21,8 @@ public class GrowShrinkObject : MonoBehaviour
     float localScaleVelocity = 0;
 
     Vector3 pivotPoint;
+    Vector3 targetScaleVector;
+    Vector3 pivotOffset;
 
     public int ShrinkTier
     {
@@ -83,21 +84,20 @@ public class GrowShrinkObject : MonoBehaviour
     {
         if(changingScale == true)
         {
-            Vector3 A = Changing.position;
-            Vector3 B = pivotPoint;
+            float changeInScale = Mathf.SmoothDamp(Changing.localScale.x, targetLocalScale, ref localScaleVelocity, smoothTime);
+            targetScaleVector.x = (originalLocalScale * changeInScale);
+            targetScaleVector.y = (originalLocalScale * changeInScale);
+            targetScaleVector.z = (originalLocalScale * changeInScale);
 
-            float RS = Mathf.SmoothDamp(Changing.localScale.x, targetLocalScale, ref localScaleVelocity, smoothTime);
-            Vector3 endScale = Vector3.one * (originalLocalScale * RS);
+            // diff from object pivot to desired pivot/origin
+            pivotOffset = Changing.position - pivotPoint;
 
-            Vector3 C = A - B; // diff from object pivot to desired pivot/origin
-
-            // calc final position post-scale
-            RS = (endScale.x / Changing.localScale.x);
-            Vector3 FP = (C * RS) + B;
+            // calc change in scale
+            changeInScale = (targetScaleVector.x / Changing.localScale.x);
 
             // finally, actually perform the scale/translation
-            Changing.localScale = endScale;
-            Changing.position = FP;
+            Changing.localScale = targetScaleVector;
+            Changing.position = (pivotOffset * changeInScale) + pivotPoint;
 
             // Check if we should stop scaling
             if (Mathf.Approximately(Changing.localScale.x, targetLocalScale) == true)
