@@ -1,15 +1,40 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class ResizingTier : MonoBehaviour {
+public class ResizingTier : MonoBehaviour
+{
+    [SerializeField]
+    int startingTier = 0;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public int CurrentTier
+    {
+        get;
+        private set;
+    }
+
+    // Use this for initialization
+    void Awake()
+    {
+        TierObject[] allObjects = GetComponentsInChildren<TierObject>();
+        foreach (TierObject tier in allObjects)
+        {
+            tier.ParentTier = this;
+        }
+        CurrentTier = startingTier;
+    }
+
+    void Start()
+    {
+        ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
+        ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+    }
+
+    private void Instance_OnBeforeResize(ResizeParent obj)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void Instance_OnAfterResize(ResizeParent obj)
+    {
+        throw new System.NotImplementedException();
+    }
 }

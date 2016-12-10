@@ -203,10 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272c991d9d56e5b43801692e54bab173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeObject: {fileID: 0}
-  center: {fileID: 0}
-  action: 0
-  tier: 1
+  parentHouse: {fileID: 114000010779820306}
+  action: 1
 --- !u!114 &114000010779820306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,3 +216,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b8910417eb23b4b92c551ada7ab3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottom: {fileID: 4000011152957058}
+  growPoint: {fileID: 4000014277520094}

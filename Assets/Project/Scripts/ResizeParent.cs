@@ -26,16 +26,30 @@ public class ResizeParent : MonoBehaviour
     Vector3 targetScale;
     Vector3 velocity;
     IEnumerator lastEnumerator = null;
+    int currentTier = 0;
 
     public static ResizeParent Instance
     {
         get;
         private set;
     }
+
     public ResizeDirection currentDirection
     {
         get;
         private set;
+    }
+
+    public int CurrentTier
+    {
+        get
+        {
+            return currentTier;
+        }
+        private set
+        {
+            currentTier = value;
+        }
     }
 
     public void Shrink(Transform centerTo)
@@ -44,6 +58,9 @@ public class ResizeParent : MonoBehaviour
         transform.localScale = growScaleVector;
         targetScale = shrinkScaleVector;
         currentDirection = ResizeDirection.Shrinking;
+
+        // Decrement tier
+        CurrentTier -= 1;
 
         // Run the event
         RunResize(centerTo);
@@ -56,11 +73,14 @@ public class ResizeParent : MonoBehaviour
         targetScale = growScaleVector;
         currentDirection = ResizeDirection.Growing;
 
+        // Increment tier
+        CurrentTier += 1;
+
         // Run the event
         RunResize(centerTo);
     }
 
-    void Start()
+    void Awake()
     {
         Instance = this;
         shrinkScaleVector = Vector3.one * shrinkScale;
