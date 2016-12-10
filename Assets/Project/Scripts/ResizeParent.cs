@@ -58,6 +58,12 @@ public class ResizeParent : MonoBehaviour
         private set
         {
             currentTier = value;
+
+            // Prevent the tiers from going below 0
+            if(currentTier < 0)
+            {
+                currentTier = 0;
+            }
         }
     }
 

@@ -1,12 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Podium : TierObject
 {
     [SerializeField]
-    Transform itemPlacement;
+    ResizingTier parentItem;
     [SerializeField]
-    ResizingTier item;
+    [UnityEngine.Serialization.FormerlySerializedAs("item")]
+    ResizingTier embedItem;
+
+    [Header("Required Components")]
+    [SerializeField]
+    Transform itemPlacement;
 
     void Start()
     {
@@ -19,43 +23,53 @@ public class Podium : TierObject
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
-        if (item != null)
+        if (obj.currentDirection == ResizeParent.ResizeDirection.Shrinking)
         {
-            if ((obj.currentDirection != ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier))
-            {
-                // Check if this object is only one step smaller than the current tier
-                EmbedTier(obj);
-            }
-            else if ((obj.currentDirection != ResizeParent.ResizeDirection.Growing) && (ThisTier == (obj.CurrentTier - 1)))
+            if ((parentItem != null) && ((ThisTier - 1) == obj.CurrentTier))
             {
                 // Check if this object is only one step larger than the current tier
-                EmbedTier(obj);
+                UpdateParentItem(obj);
+            }
+        }
+        else
+        {
+            if ((embedItem != null) && (ThisTier == obj.CurrentTier))
+            {
+                // Check if this object is only one step smaller than the current tier
+                UpdateEmbedItem(obj);
             }
         }
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)
     {
-        if (item != null)
+        if (embedItem != null)
         {
             // Un-embed
-            item.transform.SetParent(null, true);
+            embedItem.transform.SetParent(null, true);
         }
     }
 
-    void EmbedTier(ResizeParent obj)
+    void UpdateParentItem(ResizeParent obj)
+    {
+        // Update the tier of this object
+        embedItem.CurrentTier = ThisTier - 1;
+        throw new System.NotImplementedException();
+    }
+
+    void UpdateEmbedItem(ResizeParent obj)
     {
         // If so, embed this tier to itemPlacement first
-        item.transform.SetParent(itemPlacement, false);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localScale = Vector3.one;
-        item.transform.localRotation = Quaternion.identity;
+        embedItem.transform.SetParent(itemPlacement, false);
+        embedItem.transform.localPosition = Vector3.zero;
+        embedItem.transform.localScale = Vector3.one;
+        embedItem.transform.localRotation = Quaternion.identity;
 
         // Update the tier of this object
-        item.CurrentTier = ThisTier + 1;
+        embedItem.CurrentTier = ThisTier + 1;
 
         // Parent this to the resize parent
-        item.transform.SetParent(obj.transform, true);
+        embedItem.transform.SetParent(obj.transform, true);
     }
 
     protected override void OnThisTierChanged(ResizingTier obj)
