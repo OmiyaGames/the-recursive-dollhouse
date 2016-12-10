@@ -269,3 +269,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272c991d9d56e5b43801692e54bab173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeObject: {fileID: 0}
+  action: 0

@@ -85,7 +85,6 @@ namespace OmiyaGames
         #endregion
 
         #region Version 0 Settings Member Variables
-        readonly StringBuilder listEntryBuilder = new StringBuilder();
         readonly StringBuilder fullListBuilder = new StringBuilder();
         readonly List<HighScore> bestScores = new List<HighScore>(LocalHighScoresMaxListSize);
         int numLevelsUnlocked = 1;
