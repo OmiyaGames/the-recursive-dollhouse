@@ -64,3 +64,5 @@ Assets/.~lock.*
 Assets/VSCode.meta
 Assets/VSCode/*
 .vscode
+*.blend1
+*.blend1.meta
