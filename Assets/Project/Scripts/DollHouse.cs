@@ -75,6 +75,14 @@ public class DollHouse : TierObject
                 trigger.IsEnabled = true;
             }
         }
+
+        if(ThisTier == 0)
+        {
+            foreach (EnterTrigger trigger in shrinkTriggers)
+            {
+                trigger.gameObject.SetActive(false);
+            }
+        }
     }
 
     protected override void OnThisTierChanged(ResizingTier obj)
