@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
-using System;
 
 public class DollHouse : TierObject
 {
@@ -43,7 +42,9 @@ public class DollHouse : TierObject
         }
         else
         {
-            ResizeParent.Instance.Shrink(growPoint.position + FirstPersonController.Instance.transform.forward * offsetOnShrink);
+            Vector3 shrinkOrigin = triggerInfo.transform.position;
+            shrinkOrigin += FirstPersonController.Instance.transform.forward * offsetOnShrink;
+            ResizeParent.Instance.Shrink(shrinkOrigin);
         }
     }
 
@@ -74,6 +75,11 @@ public class DollHouse : TierObject
             {
                 trigger.IsEnabled = true;
             }
+        }
+
+        foreach (EnterTrigger trigger in shrinkTriggers)
+        {
+            trigger.gameObject.SetActive(ThisTier > 0);
         }
     }
 

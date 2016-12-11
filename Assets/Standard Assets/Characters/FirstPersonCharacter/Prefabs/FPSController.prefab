@@ -44,7 +44,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26508114, y: 1.932, z: -4.049}
+  m_LocalPosition: {x: 0.26508114, y: 3, z: -4.049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -210,6 +210,7 @@ MonoBehaviour:
   m_RunSpeed: 10
   m_RunstepLenghten: 0.7
   m_JumpSpeed: 10
+  m_SpringSpeed: 12.5
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
   m_MouseLook:

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [DisallowMultipleComponent]
 public class ResizeParent : MonoBehaviour
@@ -20,6 +22,14 @@ public class ResizeParent : MonoBehaviour
     float growScale = 20;
     [SerializeField]
     float smoothTime = 0.325f;
+    [SerializeField]
+    float snapDistance = 0.01f;
+
+    [Header("Slowdown")]
+    [SerializeField]
+    float slowdown = 0.1f;
+    [SerializeField]
+    float slowdownDuration = 0.5f;
 
     Vector3 shrinkScaleVector;
     Vector3 growScaleVector;
@@ -27,6 +37,22 @@ public class ResizeParent : MonoBehaviour
     Vector3 velocity;
     IEnumerator lastEnumerator = null;
     int currentTier = 0;
+    GameObject resizeHelper = null;
+
+    public struct TierPath
+    {
+        public readonly ResizingTier start;
+        public readonly ResizingTier end;
+
+        public TierPath(ResizingTier start, ResizingTier end)
+        {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public readonly Dictionary<TierPath, Podium> PathToPodiumMap = new Dictionary<TierPath, Podium>();
+    public readonly Dictionary<ResizingTier, HashSet<Podium>> AllPodiumsPerTier = new Dictionary<ResizingTier, HashSet<Podium>>();
 
     public static ResizeParent Instance
     {
@@ -34,10 +60,54 @@ public class ResizeParent : MonoBehaviour
         private set;
     }
 
+    public float ShrinkScale
+    {
+        get
+        {
+            return shrinkScale;
+        }
+    }
+
+    public Vector3 ShrinkScaleVector
+    {
+        get
+        {
+            return shrinkScaleVector;
+        }
+    }
+
+    public float GrowScale
+    {
+        get
+        {
+            return growScale;
+        }
+    }
+
+    public Vector3 GrowScaleVector
+    {
+        get
+        {
+            return growScaleVector;
+        }
+    }
+
     public ResizeDirection currentDirection
     {
         get;
         private set;
+    }
+
+    public GameObject ResizeHelper
+    {
+        get
+        {
+            if(resizeHelper == null)
+            {
+                resizeHelper = new GameObject("Resize Helper");
+            }
+            return resizeHelper;
+        }
     }
 
     public int CurrentTier
@@ -49,6 +119,12 @@ public class ResizeParent : MonoBehaviour
         private set
         {
             currentTier = value;
+
+            // Prevent the tiers from going below 0
+            if(currentTier < 0)
+            {
+                currentTier = 0;
+            }
         }
     }
 
@@ -112,11 +188,11 @@ public class ResizeParent : MonoBehaviour
 
         // Run the new one
         velocity = Vector3.zero;
-        lastEnumerator = Neato();
+        lastEnumerator = ResizeCoroutine();
         StartCoroutine(lastEnumerator);
     }
 
-    IEnumerator Neato()
+    IEnumerator ResizeCoroutine()
     {
         // Run the before resize event
         if(OnBeforeResize != null)
@@ -124,13 +200,27 @@ public class ResizeParent : MonoBehaviour
             OnBeforeResize(this);
         }
 
+        // Start the slowdown on the player
+        float slowdownStartTime = 0;
+        FirstPersonController.Instance.StartSlowdown(slowdown);
+
         // Check if we met the target scale yet
-        while(Mathf.Approximately(transform.localScale.x, targetScale.x) == false)
+        while (Mathf.Abs(transform.localScale.x - targetScale.x) > snapDistance)
         {
             // If not, smooth damp
             transform.localScale = Vector3.SmoothDamp(transform.localScale, targetScale, ref velocity, smoothTime);
+
+            // Check if slowdown should happen
+            if((Time.time - slowdownStartTime) > slowdownDuration)
+            {
+                FirstPersonController.Instance.StopSlowdown();
+            }
             yield return null;
         }
+
+        // Snap to the target scale
+        transform.localScale = targetScale;
+        yield return null;
 
         // Run the after resize event
         if (OnAfterResize != null)
@@ -141,5 +231,6 @@ public class ResizeParent : MonoBehaviour
         // Cleanup everything
         lastEnumerator = null;
         currentDirection = ResizeDirection.None;
+        FirstPersonController.Instance.StopSlowdown();
     }
 }

@@ -15,11 +15,21 @@ public class ResizingTier : MonoBehaviour
         }
         set
         {
-            startingTier = value;
-            Instance_OnAfterResize(ResizeParent.Instance);
-            if (OnCurrentTierChanged != null)
+            if (startingTier != value)
             {
-                OnCurrentTierChanged(this);
+                startingTier = value;
+
+                // Prevent the tiers from going below 0
+                if (startingTier < 0)
+                {
+                    startingTier = 0;
+                }
+
+                Instance_OnAfterResize(ResizeParent.Instance);
+                if (OnCurrentTierChanged != null)
+                {
+                    OnCurrentTierChanged(this);
+                }
             }
         }
     }
