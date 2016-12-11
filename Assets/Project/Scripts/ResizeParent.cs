@@ -6,6 +6,10 @@ using UnityStandardAssets.Characters.FirstPerson;
 [DisallowMultipleComponent]
 public class ResizeParent : MonoBehaviour
 {
+    public const string TagPlayer = "Player";
+    public const string TagItem = "Item";
+    public const string TagSwitch = "Switch";
+
     public event System.Action<ResizeParent> OnBeforeResize;
     public event System.Action<ResizeParent> OnAfterResize;
 

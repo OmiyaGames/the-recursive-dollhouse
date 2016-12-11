@@ -16,6 +16,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             private set;
         }
 
+        public static Camera Camera
+        {
+            get
+            {
+                return Instance.m_Camera;
+            }
+        }
+
         [SerializeField]
         private bool m_IsWalking;
         [SerializeField]
