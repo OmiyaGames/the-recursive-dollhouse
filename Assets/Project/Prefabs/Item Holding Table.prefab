@@ -80,7 +80,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1000011294671340
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -185,13 +185,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011294671340}
-  m_LocalRotation: {x: -0.7071068, y: 0.000000014901163, z: 0.000000014901163, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.941, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4000012589638784}
-  m_RootOrder: 3
+  m_Father: {fileID: 4000011553490582}
+  m_RootOrder: 0
 --- !u!4 &4000011274010180
 Transform:
   m_ObjectHideFlags: 1
@@ -215,7 +215,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.3499999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000010949333788}
   m_Father: {fileID: 4000012589638784}
   m_RootOrder: 1
 --- !u!4 &4000012589638784
@@ -232,7 +233,6 @@ Transform:
   - {fileID: 4000011274010180}
   - {fileID: 4000011553490582}
   - {fileID: 4000013659063700}
-  - {fileID: 4000010949333788}
   - {fileID: 224000010223082146}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -876,7 +876,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 0
-    radius: 0.75
+    radius: 0.5
     angle: 25
     length: 5
     boxX: 1
@@ -891,7 +891,7 @@ ParticleSystem:
     m_MeshNormalOffset: 0
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    randomDirection: 1
+    randomDirection: 0
   EmissionModule:
     enabled: 1
     serializedVersion: 2
@@ -2242,7 +2242,7 @@ RectTransform:
   - {fileID: 224000013598787902}
   - {fileID: 224000011461757124}
   m_Father: {fileID: 4000012589638784}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 3}
