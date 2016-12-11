@@ -53,7 +53,7 @@ public class ResizingTier : MonoBehaviour
         // Add this tier to the stack if this is the first tier
         if (startingTier == 0)
         {
-            ResizeParent.Instance.TierStack.Add(this);
+            ResizeParent.Instance.TierHistory.Add(this);
         }
 
         // Bind to event
