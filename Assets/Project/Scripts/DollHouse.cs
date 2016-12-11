@@ -39,7 +39,7 @@ public class DollHouse : TierObject
         if (triggerInfo.Action == EnterTrigger.Change.Grow)
         {
             // Update stack
-            ResizeParent.Instance.TierStack.Push(ParentTier);
+            ResizeParent.Instance.TierStack.Add(ParentTier);
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
@@ -52,9 +52,9 @@ public class DollHouse : TierObject
             ResizeParent.Instance.Shrink(shrinkOrigin);
 
             // Update stack
-            if (ResizeParent.Instance.TierStack.Peek() == ParentTier)
+            if (ResizeParent.Instance.TopTierOnStack == ParentTier)
             {
-                ResizeParent.Instance.TierStack.Pop();
+                ResizeParent.Instance.TierStack.RemoveAt(ResizeParent.Instance.TierStack.Count - 1);
             }
         }
     }

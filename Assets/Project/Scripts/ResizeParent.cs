@@ -54,7 +54,21 @@ public class ResizeParent : MonoBehaviour
     public readonly Dictionary<TierPath, Podium> PathToPodiumMap = new Dictionary<TierPath, Podium>();
     public readonly Dictionary<ResizingTier, HashSet<Podium>> AllPodiumsPerTier = new Dictionary<ResizingTier, HashSet<Podium>>();
     public readonly List<ResizingTier> AllTiers = new List<ResizingTier>();
-    public readonly Stack<ResizingTier> TierStack = new Stack<ResizingTier>();
+    public readonly List<ResizingTier> TierStack = new List<ResizingTier>();
+
+    public ResizingTier TopTierOnStack
+    {
+
+        get
+        {
+            ResizingTier returnTier = null;
+            if(TierStack.Count > 0)
+            {
+                returnTier = TierStack[TierStack.Count - 1];
+            }
+            return returnTier;
+        }
+    }
 
     public static ResizeParent Instance
     {

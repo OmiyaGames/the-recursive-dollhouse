@@ -4,8 +4,8 @@ using System.Collections;
 
 public class Podium : TierObject
 {
-    [SerializeField]
-    ResizingTier parentItem;
+    static bool isParentItemsSetup = false;
+
     [SerializeField]
     [UnityEngine.Serialization.FormerlySerializedAs("item")]
     ResizingTier embedItem;
@@ -14,7 +14,9 @@ public class Podium : TierObject
     [SerializeField]
     Transform itemPlacement;
 
-    void Start()
+    readonly HashSet<ResizingTier> parentItems = new HashSet<ResizingTier>();
+
+    IEnumerator Start()
     {
         // Add path to embedded doll house
         HashSet<Podium> podiums;
@@ -36,47 +38,69 @@ public class Podium : TierObject
         // Do embedded setup
         Instance_OnBeforeResize(ResizeParent.Instance);
         Instance_OnAfterResize(ResizeParent.Instance);
+
+        // Wait until everything is setup
+        yield return null;
+
+        // Go through all the podiums in the embedded tier
+        foreach(Podium childPodium in ResizeParent.Instance.AllPodiumsPerTier[embedItem])
+        {
+            // Set their parent to this tier
+            childPodium.parentItems.Add(ParentTier);
+        }
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
-        if (obj.currentDirection == ResizeParent.ResizeDirection.Shrinking)
+        if (ResizeParent.Instance.TopTierOnStack == ParentTier)
         {
-            if ((parentItem != null) && ((ThisTier - 1) == obj.CurrentTier) && (ResizeParent.Instance.TierStack.Peek() == ParentTier))
+            if (obj.currentDirection == ResizeParent.ResizeDirection.Shrinking)
             {
-                // Check if this object is only one step larger than the current tier
-                //StartCoroutine(UpdateParentItem());
-                Podium parentPodium = UpdateParentItem(obj, ResizeParent.Instance.ShrinkScaleVector);
-
-                // Update the parent podum's embedded elements
-                foreach (Podium podium in ResizeParent.Instance.AllPodiumsPerTier[parentPodium.ParentTier])
+                ResizingTier parentItemLevel0 = null;
+                if(ResizeParent.Instance.TierStack.Count > 2)
                 {
-                    if (podium != parentPodium)
-                    {
-                        podium.UpdateEmbedItem(obj);
-                    }
+                    parentItemLevel0 = ResizeParent.Instance.TierStack[ResizeParent.Instance.TierStack.Count - 2];
                 }
-
-                // Check if there is at least one more parent above this
-                if ((parentPodium.parentItem != null) && (parentPodium.ThisTier > 0))
+                if ((parentItemLevel0 != null) && (parentItems.Contains(parentItemLevel0) == true) && ((ThisTier - 1) == obj.CurrentTier))
                 {
-                    // Setup this new parent as well
-                    parentPodium.UpdateParentItem(obj, ResizeParent.Instance.GrowScaleVector);
+                    // Check if this object is only one step larger than the current tier
+                    Podium parentPodium = UpdateParentItem(obj, parentItemLevel0, ResizeParent.Instance.ShrinkScaleVector);
+
+                    // Update the parent podum's embedded elements
+                    foreach (Podium podium in ResizeParent.Instance.AllPodiumsPerTier[parentPodium.ParentTier])
+                    {
+                        if (podium != parentPodium)
+                        {
+                            podium.UpdateEmbedItem(obj);
+                        }
+                    }
+
+                    // Check if there is at least one more parent above this
+                    ResizingTier parentItemLevel1 = null;
+                    if (ResizeParent.Instance.TierStack.Count > 3)
+                    {
+                        parentItemLevel1 = ResizeParent.Instance.TierStack[ResizeParent.Instance.TierStack.Count - 3];
+                    }
+                    if ((parentItemLevel1 != null) && (parentPodium.parentItems.Contains(parentItemLevel1) == true) && (parentPodium.ThisTier > 0))
+                    {
+                        // Setup this new parent as well
+                        parentPodium.UpdateParentItem(obj, parentItemLevel1, ResizeParent.Instance.GrowScaleVector);
+
+                        // Parent this to the resize parent
+                        parentItemLevel1.transform.SetParent(obj.transform, true);
+                    }
 
                     // Parent this to the resize parent
-                    parentPodium.parentItem.transform.SetParent(obj.transform, true);
+                    parentItemLevel0.transform.SetParent(obj.transform, true);
                 }
-
-                // Parent this to the resize parent
-                parentItem.transform.SetParent(obj.transform, true);
             }
-        }
-        else
-        {
-            if ((embedItem != null) && (ThisTier == obj.CurrentTier) && (ResizeParent.Instance.TierStack.Peek() == ParentTier))
+            else
             {
-                // Check if this object is only one step smaller than the current tier
-                UpdateEmbedItem(obj);
+                if ((embedItem != null) && (ThisTier == obj.CurrentTier))
+                {
+                    // Check if this object is only one step smaller than the current tier
+                    UpdateEmbedItem(obj);
+                }
             }
         }
     }
@@ -90,7 +114,7 @@ public class Podium : TierObject
         }
     }
 
-    Podium UpdateParentItem(ResizeParent obj, Vector3 finalScale)
+    Podium UpdateParentItem(ResizeParent obj, ResizingTier parentItem, Vector3 finalScale)
     {
         // Grab the parent podium
         Podium parentPodium = ResizeParent.Instance.PathToPodiumMap[new ResizeParent.TierPath(parentItem, ParentTier)];
