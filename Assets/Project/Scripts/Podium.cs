@@ -24,11 +24,6 @@ public class Podium : TierObject
         {
             podiums = new HashSet<Podium>();
             ResizeParent.Instance.AllPodiumsPerTier.Add(ParentTier, podiums);
-            Debug.Log("Adding to Podium map: " + ParentTier.name);
-        }
-        else
-        {
-            Debug.Log("Appending to Podium map: " + ParentTier.name + ", entry number: " + podiums.Count);
         }
         podiums.Add(this);
         if (embedItem != null)
@@ -50,7 +45,6 @@ public class Podium : TierObject
         if (embedItem != null)
         {
             // Go through all the podiums in the embedded tier
-            Debug.Log("Access from Podium map: " + embedItem.name);
             foreach (Podium childPodium in ResizeParent.Instance.AllPodiumsPerTier[embedItem])
             {
                 // Set their parent to this tier
