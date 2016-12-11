@@ -23,6 +23,8 @@ public class FirstPersonModifiedController : FirstPersonController
     [SerializeField]
     protected SoundEffect jumpOutEffect;
 
+    PauseMenu pauseCache = null;
+
     protected override void PlayLandingSound()
     {
         landSoundEffect.Play();
@@ -41,6 +43,25 @@ public class FirstPersonModifiedController : FirstPersonController
             return;
         }
         footstepSoundEffect.Play();
+    }
+
+    protected override void RotateView()
+    {
+        if(pauseCache == null)
+        {
+            pauseCache = Singleton.Get<MenuManager>().GetMenu<PauseMenu>();
+        }
+        if((pauseCache != null) && (pauseCache.CurrentState != IMenu.State.Hidden))
+        {
+            return;
+        }
+        base.RotateView();
+    }
+
+    protected override void UpdateMouseLock()
+    {
+        // FIXME: until I know what Scene transition menu does, don't lock anything
+        //m_MouseLook.UpdateCursorLock();
     }
 
     public override void StartSlowdown(bool diveIn)

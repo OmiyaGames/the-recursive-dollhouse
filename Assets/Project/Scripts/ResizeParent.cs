@@ -38,8 +38,6 @@ public class ResizeParent : MonoBehaviour
 
     [Header("Slowdown")]
     [SerializeField]
-    float slowdown = 0.1f;
-    [SerializeField]
     float slowdownDuration = 0.5f;
 
     Vector3 shrinkScaleVector;
