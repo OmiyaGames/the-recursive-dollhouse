@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ResizingTier : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class ResizingTier : MonoBehaviour
         }
     }
 
-    void Start()
+    IEnumerator Start()
     {
         // Need to add this tier into all the lists
         ResizeParent.Instance.AllTiers.Add(this);
@@ -58,6 +59,10 @@ public class ResizingTier : MonoBehaviour
         // Bind to event
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+
+        // Wait until everything is setup
+        yield return null;
+        yield return null;
 
         // Setup this tier
         Instance_OnAfterResize(ResizeParent.Instance);
