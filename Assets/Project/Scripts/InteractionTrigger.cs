@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class ItemHolderTrigger : MonoBehaviour {
+public class ItemHolderTrigger : IGazed
+{
+    [SerializeField]
+    IGazed interactWith;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public override void OnGazeEnter(Gazer gazer)
+    {
+        interactWith.OnGazeEnter(gazer);
+    }
+
+    public override void OnGazeExit(Gazer gazer)
+    {
+        interactWith.OnGazeExit(gazer);
+    }
+
+    public override void OnInteract(Gazer gazer)
+    {
+        interactWith.OnInteract(gazer);
+    }
 }
