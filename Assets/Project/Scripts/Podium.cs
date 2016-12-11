@@ -18,7 +18,7 @@ public class Podium : TierObject
     {
         // Add path to embedded doll house
         HashSet<Podium> podiums;
-        if(ResizeParent.Instance.AllPodiumsPerTier.TryGetValue(ParentTier, out podiums) == false)
+        if (ResizeParent.Instance.AllPodiumsPerTier.TryGetValue(ParentTier, out podiums) == false)
         {
             podiums = new HashSet<Podium>();
             ResizeParent.Instance.AllPodiumsPerTier.Add(ParentTier, podiums);
@@ -42,7 +42,7 @@ public class Podium : TierObject
     {
         if (obj.currentDirection == ResizeParent.ResizeDirection.Shrinking)
         {
-            if ((parentItem != null) && ((ThisTier - 1) == obj.CurrentTier))
+            if ((parentItem != null) && ((ThisTier - 1) == obj.CurrentTier) && (ResizeParent.Instance.TierStack.Peek() == ParentTier))
             {
                 // Check if this object is only one step larger than the current tier
                 //StartCoroutine(UpdateParentItem());
@@ -73,7 +73,7 @@ public class Podium : TierObject
         }
         else
         {
-            if ((embedItem != null) && (ThisTier == obj.CurrentTier))
+            if ((embedItem != null) && (ThisTier == obj.CurrentTier) && (ResizeParent.Instance.TierStack.Peek() == ParentTier))
             {
                 // Check if this object is only one step smaller than the current tier
                 UpdateEmbedItem(obj);

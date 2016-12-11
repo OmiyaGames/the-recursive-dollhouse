@@ -38,13 +38,24 @@ public class DollHouse : TierObject
     {
         if (triggerInfo.Action == EnterTrigger.Change.Grow)
         {
+            // Update stack
+            ResizeParent.Instance.TierStack.Push(ParentTier);
+
+            // Run event
             ResizeParent.Instance.Grow(growPoint);
         }
         else
         {
+            // Run event
             Vector3 shrinkOrigin = triggerInfo.transform.position;
             shrinkOrigin += FirstPersonController.Instance.transform.forward * offsetOnShrink;
             ResizeParent.Instance.Shrink(shrinkOrigin);
+
+            // Update stack
+            if (ResizeParent.Instance.TierStack.Peek() == ParentTier)
+            {
+                ResizeParent.Instance.TierStack.Pop();
+            }
         }
     }
 
