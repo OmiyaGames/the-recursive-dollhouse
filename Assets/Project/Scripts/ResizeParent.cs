@@ -217,7 +217,7 @@ public class ResizeParent : MonoBehaviour
         }
 
         // Start the slowdown on the player
-        float slowdownStartTime = 0;
+        float slowdownStartTime = Time.time;
         FirstPersonController.Instance.StartSlowdown(slowdown);
 
         // Check if we met the target scale yet

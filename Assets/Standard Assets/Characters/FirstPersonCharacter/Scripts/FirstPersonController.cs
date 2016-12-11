@@ -53,6 +53,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField]
         private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField]
+        private ParticleSystem m_ZoomEffect;
 
         private Camera m_Camera;
         private bool m_Spring;
@@ -72,12 +74,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void StartSlowdown(float slowdownFactor)
         {
-            m_SlowdownMultiplier = slowdownFactor;
+            //m_SlowdownMultiplier = slowdownFactor;
+            m_ZoomEffect.Play();
         }
 
         public void StopSlowdown()
         {
-            m_SlowdownMultiplier = 1f;
+            //m_SlowdownMultiplier = 1f;
+            m_ZoomEffect.Stop();
         }
 
         public void ActivateSpring()
@@ -103,6 +107,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
             m_MouseLook.Init(transform, m_Camera.transform);
+            //m_ZoomEffect.Stop();
         }
 
 
