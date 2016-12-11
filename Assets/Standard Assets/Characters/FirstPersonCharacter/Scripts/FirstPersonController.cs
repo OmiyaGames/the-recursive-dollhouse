@@ -55,6 +55,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField]
         private ParticleSystem m_ZoomEffect;
+        [SerializeField]
+        private Kino.Motion m_BlurEffect;
 
         private Camera m_Camera;
         private bool m_Spring;
@@ -70,17 +72,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-        private float m_SlowdownMultiplier = 1f;
+        private bool m_Slowdown = false;
 
-        public void StartSlowdown(float slowdownFactor)
+        public virtual void StartSlowdown(float slowdownFactor)
         {
-            //m_SlowdownMultiplier = slowdownFactor;
+            m_Slowdown = true;
+            m_BlurEffect.enabled = true;
             m_ZoomEffect.Play();
         }
 
-        public void StopSlowdown()
+        public virtual void StopSlowdown()
         {
-            //m_SlowdownMultiplier = 1f;
+            m_Slowdown = false;
+            m_BlurEffect.enabled = false;
             m_ZoomEffect.Stop();
         }
 
@@ -186,7 +190,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
             }
-            m_MoveDir *= m_SlowdownMultiplier;
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
@@ -224,7 +227,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            if (!m_CharacterController.isGrounded)
+            if ((!m_CharacterController.isGrounded) || (m_Slowdown == true))
             {
                 return;
             }
