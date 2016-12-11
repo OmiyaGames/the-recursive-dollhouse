@@ -837,8 +837,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 25, y: 15, z: 25}
-  m_Center: {x: 0, y: 17, z: 0}
+  m_Size: {x: 20, y: 40, z: 20}
+  m_Center: {x: 0, y: 10, z: 0}
 --- !u!65 &65000012047647370
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1078,7 +1078,7 @@ MonoBehaviour:
   placement: {fileID: 4000012660410320}
   placeSoundEffect: {fileID: 114000010757520718}
   labelsAnimation: {fileID: 95000012115092534}
-  interactiveIndicator: {fileID: 198000013856026370}
+  trigger: {fileID: 114000013648349602}
 --- !u!114 &114000012263508500
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -15,7 +15,7 @@ public class InteractionTrigger : IGazed
     {
         get
         {
-            if(gazeBounds != null)
+            if(gazeBounds == null)
             {
                 gazeBounds = GetComponent<BoxCollider>();
             }

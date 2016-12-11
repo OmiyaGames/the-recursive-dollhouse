@@ -67,6 +67,14 @@ public class ResizeParent : MonoBehaviour
     public readonly List<ResizingTier> TierHistory = new List<ResizingTier>();
 
     #region Properties
+    public float SnapDistance
+    {
+        get
+        {
+            return snapDistance;
+        }
+    }
+
     public ResizingTier LatestTier
     {
 
