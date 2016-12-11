@@ -1,28 +1,22 @@
 fileFormatVersion: 2
-guid: a76142711d7329b4ea2196b98c20718b
-timeCreated: 1481344083
+guid: dab1052b3edb76f4da8969f6d23ccef2
+timeCreated: 1481434772
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Cube.002
-    100004: House
-    400000: //RootNode
-    400002: Cube.002
-    400004: House
-    2300000: //RootNode
-    2300002: Cube.002
-    2300004: House
-    3300000: //RootNode
-    3300002: Cube.002
-    3300004: House
-    4300000: Cube
-    4300002: Cube.002
-    4300004: House
-    6400000: //RootNode
-    6400002: Cube.002
-    6400004: House
+    100000: Base
+    100002: Switch
+    100004: //RootNode
+    400000: Base
+    400002: Switch
+    400004: //RootNode
+    2300000: Base
+    2300002: Switch
+    3300000: Base
+    3300002: Switch
+    4300000: Switch
+    4300002: Base
   materials:
     importMaterials: 0
     materialName: 0
@@ -47,9 +41,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

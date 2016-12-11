@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: a76142711d7329b4ea2196b98c20718b
-timeCreated: 1481344083
+guid: e15b343d9c5b3b746b7d3b3d0d57b5f7
+timeCreated: 1481434772
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Cube.002
-    100004: House
     400000: //RootNode
-    400002: Cube.002
-    400004: House
     2300000: //RootNode
-    2300002: Cube.002
-    2300004: House
     3300000: //RootNode
-    3300002: Cube.002
-    3300004: House
-    4300000: Cube
-    4300002: Cube.002
-    4300004: House
+    4300000: Circle
     6400000: //RootNode
-    6400002: Cube.002
-    6400004: House
   materials:
     importMaterials: 0
     materialName: 0
@@ -47,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 1
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
