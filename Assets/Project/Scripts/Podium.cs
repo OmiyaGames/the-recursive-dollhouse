@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
-public class Podium : TierObject
+public class Podium : TierObject, IDelayedSetup
 {
-    static bool isParentItemsSetup = false;
-
     [SerializeField]
     [UnityEngine.Serialization.FormerlySerializedAs("item")]
     ResizingTier embedItem;
@@ -16,7 +13,7 @@ public class Podium : TierObject
 
     readonly HashSet<ResizingTier> parentItems = new HashSet<ResizingTier>();
 
-    IEnumerator Start()
+    void Start()
     {
         // Add path to embedded doll house
         HashSet<Podium> podiums;
@@ -34,18 +31,19 @@ public class Podium : TierObject
         // Bind to events
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+    }
 
+    public void ExtraSetup(ResizeParent obj)
+    {
         // Do embedded setup
-        Instance_OnBeforeResize(ResizeParent.Instance);
-        Instance_OnAfterResize(ResizeParent.Instance);
+        Instance_OnBeforeResize(obj);
+        Instance_OnAfterResize(obj);
 
-        // Wait until everything is setup
-        yield return null;
-
+        // Update parents
         if (embedItem != null)
         {
             // Go through all the podiums in the embedded tier
-            foreach (Podium childPodium in ResizeParent.Instance.AllPodiumsPerTier[embedItem])
+            foreach (Podium childPodium in obj.AllPodiumsPerTier[embedItem])
             {
                 // Set their parent to this tier
                 childPodium.parentItems.Add(ParentTier);

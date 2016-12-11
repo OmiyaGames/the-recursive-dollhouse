@@ -13,6 +13,8 @@ public class DollHouse : TierObject
     Transform growPoint;
     [SerializeField]
     float offsetOnShrink = 1.5f;
+    [SerializeField]
+    Collider ceiling;
 
     // Use this for initialization
     void Start()
@@ -69,6 +71,9 @@ public class DollHouse : TierObject
         {
             trigger.IsEnabled = false;
         }
+
+        // Turn on the ceiling
+        ceiling.enabled = ((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier));
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)

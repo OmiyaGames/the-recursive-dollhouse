@@ -16,6 +16,13 @@ public class ResizeParent : MonoBehaviour
         Shrinking
     }
 
+    enum Setup
+    {
+        Podiums = 0,
+        ResizingTiers,
+        None
+    }
+
     [SerializeField]
     float shrinkScale = 1;
     [SerializeField]
@@ -38,6 +45,7 @@ public class ResizeParent : MonoBehaviour
     IEnumerator lastEnumerator = null;
     int currentTier = 0;
     GameObject resizeHelper = null;
+    Setup currentSetup = 0;
 
     public struct TierPath
     {
@@ -56,6 +64,7 @@ public class ResizeParent : MonoBehaviour
     public readonly List<ResizingTier> AllTiers = new List<ResizingTier>();
     public readonly List<ResizingTier> TierHistory = new List<ResizingTier>();
 
+    #region Properties
     public ResizingTier LatestTier
     {
 
@@ -143,6 +152,7 @@ public class ResizeParent : MonoBehaviour
             }
         }
     }
+    #endregion
 
     public void Shrink(Transform centerTo)
     {
@@ -188,6 +198,33 @@ public class ResizeParent : MonoBehaviour
         shrinkScaleVector = Vector3.one * shrinkScale;
         growScaleVector = Vector3.one * growScale;
         currentDirection = ResizeDirection.None;
+    }
+
+    void Update()
+    {
+        switch(currentSetup)
+        {
+            case Setup.Podiums:
+                foreach(HashSet<Podium> podiums in AllPodiumsPerTier.Values)
+                {
+                    foreach(Podium podium in podiums)
+                    {
+                        podium.ExtraSetup(this);
+                    }
+                }
+                break;
+            case Setup.ResizingTiers:
+                foreach (ResizingTier tier in AllTiers)
+                {
+                    tier.ExtraSetup(this);
+                }
+                break;
+        }
+
+        if(currentSetup != Setup.None)
+        {
+            currentSetup += 1;
+        }
     }
 
     void RunResize(Vector3 centerTo)

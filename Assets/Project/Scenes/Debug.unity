@@ -1299,7 +1299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e084ba1ac29afe419f5da77ed4b0f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingTier: 2
+  startingTier: 3
 --- !u!4 &1063285187
 Transform:
   m_ObjectHideFlags: 0

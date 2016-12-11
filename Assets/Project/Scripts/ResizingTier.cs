@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class ResizingTier : MonoBehaviour
+public class ResizingTier : MonoBehaviour, IDelayedSetup
 {
     [SerializeField]
     int startingTier = 0;
@@ -26,7 +25,7 @@ public class ResizingTier : MonoBehaviour
                     startingTier = 0;
                 }
 
-                Instance_OnAfterResize(ResizeParent.Instance);
+                ExtraSetup(ResizeParent.Instance);
                 if (OnCurrentTierChanged != null)
                 {
                     OnCurrentTierChanged(this);
@@ -45,7 +44,7 @@ public class ResizingTier : MonoBehaviour
         }
     }
 
-    IEnumerator Start()
+    void Start()
     {
         // Need to add this tier into all the lists
         ResizeParent.Instance.AllTiers.Add(this);
@@ -58,14 +57,7 @@ public class ResizingTier : MonoBehaviour
 
         // Bind to event
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
-        ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
-
-        // Wait until everything is setup
-        yield return null;
-        yield return null;
-
-        // Setup this tier
-        Instance_OnAfterResize(ResizeParent.Instance);
+        ResizeParent.Instance.OnAfterResize += ExtraSetup;
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)
@@ -82,7 +74,7 @@ public class ResizingTier : MonoBehaviour
         }
     }
 
-    private void Instance_OnAfterResize(ResizeParent obj)
+    public void ExtraSetup(ResizeParent obj)
     {
         if (IsActive(obj) == true)
         {
@@ -98,16 +90,6 @@ public class ResizingTier : MonoBehaviour
 
     bool IsActive(ResizeParent obj)
     {
-        bool returnFlag = false;
-        if(obj.CurrentTier == CurrentTier)
-        {
-            // Make only this tier visible
-            returnFlag = true; //(ResizeParent.Instance.TierStack.Peek() == this);
-        }
-        else if (Mathf.Abs(obj.CurrentTier - CurrentTier) <= 1)
-        {
-            returnFlag = true;
-        }
-        return returnFlag;
+        return (Mathf.Abs(obj.CurrentTier - CurrentTier) <= 1);
     }
 }
