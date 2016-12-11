@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
-using System.Collections;
 
 public class Gazer : MonoBehaviour
 {
     public const string GazeInteractInput = "Fire1";
 
+    [SerializeField]
+    FirstPersonModifiedController controller;
     [SerializeField]
     ItemHolder playerHolder;
     [SerializeField]
@@ -37,7 +38,7 @@ public class Gazer : MonoBehaviour
         rayCache.direction = transform.forward;
 
         // Ray cast
-        if (Physics.Raycast(rayCache, out info, raycastDistance, raycastMask) == true)
+        if ((controller.IsGrounded == true) && (Physics.Raycast(rayCache, out info, raycastDistance, raycastMask) == true))
         {
             // Grab ray-casted object
             currentTrigger = info.collider.GetComponent<InteractionTrigger>();

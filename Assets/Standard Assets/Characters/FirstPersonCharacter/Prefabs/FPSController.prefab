@@ -1289,6 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bd31f501e65544eb13061dc1c5146e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 114000012139295332}
   playerHolder: {fileID: 114000014084966864}
   raycastDistance: 3
   raycastMask:
@@ -1403,7 +1404,6 @@ MonoBehaviour:
   placement: {fileID: 4000013477077660}
   placeSoundEffect: {fileID: 114000012414073040}
   labelsAnimation: {fileID: 0}
-  interactiveIndicator: {fileID: 0}
   trigger: {fileID: 0}
 --- !u!114 &114000014196576850
 MonoBehaviour:

@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(PrintedCode))]
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : PrintedCode
 {
     public event System.Action<InventoryItem> OnAnimationEnd;
 
@@ -11,6 +9,7 @@ public class InventoryItem : MonoBehaviour
     static readonly Vector3 TargetScale = Vector3.one;
     static readonly Quaternion TargetRotation = Quaternion.identity;
 
+    [Header("Key variables")]
     [SerializeField]
     ParticleSystem interactiveIndicator;
     [SerializeField]
@@ -21,6 +20,7 @@ public class InventoryItem : MonoBehaviour
 
     bool animate = false;
     Vector3 velocity;
+    PrintedCode cacheCode;
 
     public ItemHolder HeldIn
     {
@@ -48,22 +48,27 @@ public class InventoryItem : MonoBehaviour
         }
     }
 
-    void Start()
+    public override int ThisTier
     {
-        ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
-        OnTierChanged();
+        get
+        {
+            int returnTier = -1;
+            if(HeldIn != null)
+            {
+                returnTier = HeldIn.InteractiveTier;
+            }
+            return returnTier;
+        }
     }
 
-    public void OnTierChanged()
+    protected override void Instance_OnBeforeResize(ResizeParent obj)
     {
-        Instance_OnBeforeResize(ResizeParent.Instance);
-    }
+        // Call base function
+        base.Instance_OnBeforeResize(obj);
 
-    private void Instance_OnBeforeResize(ResizeParent obj)
-    {
         if((interactiveIndicator != null) && (HeldIn != null))
         {
-            if(obj.CurrentTier == HeldIn.InteractiveTier)
+            if((obj.CurrentTier == HeldIn.InteractiveTier) && (HeldIn.ThisType != ItemHolder.Type.Player))
             {
                 interactiveIndicator.Play();
             }
@@ -75,10 +80,12 @@ public class InventoryItem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         if(animate == true)
         {
+            base.Update();
+
             if (transform.localPosition.sqrMagnitude < ResizeParent.Instance.SnapDistance)
             {
                 // Flag end of animation

@@ -41,6 +41,14 @@ public class ItemHolder : IGazed
 
     bool interactive = false;
 
+    public Type ThisType
+    {
+        get
+        {
+            return type;
+        }
+    }
+
     public Transform ItemPosition
     {
 
@@ -71,10 +79,7 @@ public class ItemHolder : IGazed
                     // Set new item, if any
                     holdingItem.HeldIn = this;
                 }
-
-                // Run some after-math stuff
                 OnGazeExit(null);
-                //UpdateIndicator();
             }
         }
     }
@@ -108,7 +113,7 @@ public class ItemHolder : IGazed
             // Set new item, if any
             holdingItem.HeldIn = this;
         }
-        //UpdateIndicator();
+        Instance_OnAfterResize(ResizeParent.Instance);
     }
 
     Vector3 rotationCache;
@@ -145,12 +150,16 @@ public class ItemHolder : IGazed
                 labelsAnimation.SetInteger(StateField, (int)LabelState.Drop);
             }
         }
+        else if (labelsAnimation != null)
+        {
+            labelsAnimation.SetInteger(StateField, (int)LabelState.None);
+        }
     }
 
     public override void OnGazeExit(Gazer gazer)
     {
         interactive = false;
-        if (labelsAnimation != null)
+        if ((labelsAnimation != null) && (labelsAnimation.gameObject.activeInHierarchy == true))
         {
             labelsAnimation.SetInteger(StateField, (int)LabelState.None);
         }
@@ -163,12 +172,12 @@ public class ItemHolder : IGazed
             if (HoldingItem != null)
             {
                 TransferItem(this, gazer.PlayerHolder);
-                OnGazeExit(null);
+                OnGazeExit(gazer);
             }
             else if(gazer.PlayerHolder.HoldingItem != null)
             {
                 TransferItem(gazer.PlayerHolder, this);
-                OnGazeExit(null);
+                OnGazeExit(gazer);
             }
         }
     }

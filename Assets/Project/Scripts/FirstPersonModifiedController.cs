@@ -25,6 +25,14 @@ public class FirstPersonModifiedController : FirstPersonController
 
     PauseMenu pauseCache = null;
 
+    public bool IsGrounded
+    {
+        get
+        {
+            return m_CharacterController.isGrounded;
+        }
+    }
+
     protected override void PlayLandingSound()
     {
         landSoundEffect.Play();
