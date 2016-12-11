@@ -259,7 +259,7 @@ public class ResizeParent : MonoBehaviour
 
         // Start the slowdown on the player
         float slowdownStartTime = Time.time;
-        FirstPersonController.Instance.StartSlowdown(slowdown);
+        FirstPersonController.Instance.StartSlowdown(currentDirection == ResizeDirection.Growing);
 
         // Check if we met the target scale yet
         while (Mathf.Abs(transform.localScale.x - targetScale.x) > snapDistance)

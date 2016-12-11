@@ -24,75 +24,67 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
         [SerializeField]
-        private bool m_IsWalking;
+        protected bool m_IsWalking;
         [SerializeField]
-        private float m_WalkSpeed;
+        protected float m_WalkSpeed;
         [SerializeField]
-        private float m_RunSpeed;
+        protected float m_RunSpeed;
         [SerializeField]
         [Range(0f, 1f)]
-        private float m_RunstepLenghten;
+        protected float m_RunstepLenghten;
         [SerializeField]
-        private float m_JumpSpeed;
+        protected float m_JumpSpeed;
         [SerializeField]
-        private float m_SpringSpeed;
+        protected float m_SpringSpeed;
         [SerializeField]
-        private float m_StickToGroundForce;
+        protected float m_StickToGroundForce;
         [SerializeField]
-        private float m_GravityMultiplier;
+        protected float m_GravityMultiplier;
         [SerializeField]
-        private MouseLook m_MouseLook;
+        protected MouseLook m_MouseLook;
         [SerializeField]
-        private bool m_UseFovKick;
+        protected bool m_UseFovKick;
         [SerializeField]
-        private FOVKick m_FovKick = new FOVKick();
+        protected FOVKick m_FovKick = new FOVKick();
         [SerializeField]
-        private bool m_UseHeadBob;
+        protected bool m_UseHeadBob;
         [SerializeField]
-        private CurveControlledBob m_HeadBob = new CurveControlledBob();
+        protected CurveControlledBob m_HeadBob = new CurveControlledBob();
         [SerializeField]
-        private LerpControlledBob m_JumpBob = new LerpControlledBob();
+        protected LerpControlledBob m_JumpBob = new LerpControlledBob();
         [SerializeField]
-        private float m_StepInterval;
+        protected float m_StepInterval;
         [SerializeField]
-        private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+        protected AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField]
-        private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+        protected AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField]
-        private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-        [SerializeField]
-        private ParticleSystem m_ZoomEffect;
-        [SerializeField]
-        private Kino.Motion m_BlurEffect;
+        protected AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
-        private Camera m_Camera;
-        private bool m_Spring;
-        private bool m_Jump;
-        private float m_YRotation;
-        private Vector2 m_Input;
-        private Vector3 m_MoveDir = Vector3.zero;
-        private CharacterController m_CharacterController;
-        private CollisionFlags m_CollisionFlags;
-        private bool m_PreviouslyGrounded;
-        private Vector3 m_OriginalCameraPosition;
-        private float m_StepCycle;
-        private float m_NextStep;
-        private bool m_Jumping;
-        private AudioSource m_AudioSource;
-        private bool m_Slowdown = false;
+        protected Camera m_Camera;
+        protected bool m_Spring;
+        protected bool m_Jump;
+        protected float m_YRotation;
+        protected Vector2 m_Input;
+        protected Vector3 m_MoveDir = Vector3.zero;
+        protected CharacterController m_CharacterController;
+        protected CollisionFlags m_CollisionFlags;
+        protected bool m_PreviouslyGrounded;
+        protected Vector3 m_OriginalCameraPosition;
+        protected float m_StepCycle;
+        protected float m_NextStep;
+        protected bool m_Jumping;
+        protected AudioSource m_AudioSource;
+        protected bool m_Slowdown = false;
 
-        public virtual void StartSlowdown(float slowdownFactor)
+        public virtual void StartSlowdown(bool diveIn)
         {
             m_Slowdown = true;
-            m_BlurEffect.enabled = true;
-            m_ZoomEffect.Play();
         }
 
         public virtual void StopSlowdown()
         {
             m_Slowdown = false;
-            m_BlurEffect.enabled = false;
-            m_ZoomEffect.Stop();
         }
 
         public void ActivateSpring()
@@ -100,13 +92,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Spring = true;
         }
 
-        private void Awake()
+        protected void Awake()
         {
             Instance = this;
         }
 
         // Use this for initialization
-        private void Start()
+        protected void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -123,7 +115,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         // Update is called once per frame
-        private void Update()
+        protected void Update()
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
@@ -148,7 +140,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayLandingSound()
+        protected virtual void PlayLandingSound()
         {
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
@@ -156,7 +148,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void FixedUpdate()
+        protected void FixedUpdate()
         {
             float speed;
             GetInput(out speed);
@@ -206,7 +198,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayJumpSound()
+        protected virtual void PlayJumpSound()
         {
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
@@ -232,7 +224,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayFootStepAudio()
+        protected virtual void PlayFootStepAudio()
         {
             if ((!m_CharacterController.isGrounded) || (m_Slowdown == true))
             {
@@ -312,7 +304,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void OnControllerColliderHit(ControllerColliderHit hit)
+        protected void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;
             //dont move the rigidbody if the character is on top of it
