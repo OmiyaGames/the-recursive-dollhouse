@@ -703,7 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottom: {fileID: 4000011152957058}
   growPoint: {fileID: 4000014277520094}
-  offsetOnShrink: 2.5
+  offsetOnShrink: 2.25
   ceiling: {fileID: 65000011725062702}
 --- !u!114 &114000012438881378
 MonoBehaviour:
