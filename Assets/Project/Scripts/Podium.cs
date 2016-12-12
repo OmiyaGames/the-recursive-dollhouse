@@ -36,6 +36,17 @@ public class Podium : TierObject, IDelayedSetup
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if(embedItem != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(transform.position, embedItem.transform.position);
+        }
+    }
+#endif
+
     public void ExtraSetup(ResizeParent obj)
     {
         // Do embedded setup
