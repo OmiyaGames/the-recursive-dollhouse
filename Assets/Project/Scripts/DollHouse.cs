@@ -8,17 +8,46 @@ public class DollHouse : TierObject
     readonly List<EnterTrigger> shrinkTriggers = new List<EnterTrigger>();
 
     [SerializeField]
+    bool enableItemHolder = true;
+    [SerializeField]
+    float offsetOnShrink = 1.5f;
+
+    [Header("Required Components")]
+    [SerializeField]
     Transform bottom;
     [SerializeField]
     Transform growPoint;
     [SerializeField]
-    float offsetOnShrink = 1.5f;
-    [SerializeField]
     Collider ceiling;
+    [SerializeField]
+    ItemHolder itemHolder;
+
+    public bool IsItemHolderEnabled
+    {
+        get
+        {
+            return enableItemHolder;
+        }
+        set
+        {
+            if(enableItemHolder != value)
+            {
+                enableItemHolder = value;
+                if (itemHolder != null)
+                {
+                    itemHolder.gameObject.SetActive(enableItemHolder);
+                }
+            }
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
+        if(itemHolder != null)
+        {
+            itemHolder.gameObject.SetActive(enableItemHolder);
+        }
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
         Instance_OnAfterResize(ResizeParent.Instance);

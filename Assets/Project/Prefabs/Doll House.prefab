@@ -1031,10 +1031,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b8910417eb23b4b92c551ada7ab3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableItemHolder: 1
+  offsetOnShrink: 2.25
   bottom: {fileID: 4000011152957058}
   growPoint: {fileID: 4000014277520094}
-  offsetOnShrink: 2.25
   ceiling: {fileID: 65000011725062702}
+  itemHolder: {fileID: 114000012238669612}
 --- !u!114 &114000011609434450
 MonoBehaviour:
   m_ObjectHideFlags: 1
