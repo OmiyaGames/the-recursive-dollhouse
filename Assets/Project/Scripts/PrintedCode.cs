@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public abstract class PrintedCode : MonoBehaviour
 {
     public const int NumberOfDigitsInCode = 4;
-    const int MaxCode = NumberOfDigitsInCode * 10;
+    static readonly int MaxCode = (int)Mathf.Pow(10, NumberOfDigitsInCode);
 
     [System.Serializable]
     public struct CanvasScale

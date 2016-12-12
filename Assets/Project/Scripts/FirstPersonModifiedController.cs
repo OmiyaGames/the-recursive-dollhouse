@@ -111,7 +111,7 @@ public class FirstPersonModifiedController : FirstPersonController
         }
         else
         {
-            SceneTransitionManager.CursorMode = CursorLockMode.Confined;
+            SceneTransitionManager.CursorMode = CursorLockMode.None;
         }
     }
 

@@ -69,10 +69,10 @@ public class DoorCode : IDoor
     {
         get
         {
-            if(allNumberKeyCodes == null)
+            if (allNumberKeyCodes == null)
             {
                 allNumberKeyCodes = new string[10];
-                for(int index = 0; index < allNumberKeyCodes.Length; ++index)
+                for (int index = 0; index < allNumberKeyCodes.Length; ++index)
                 {
                     allNumberKeyCodes[index] = index.ToString();
                 }
@@ -89,7 +89,7 @@ public class DoorCode : IDoor
         }
         protected set
         {
-            if(state != value)
+            if (state != value)
             {
                 state = value;
                 keypadAnimation.SetInteger(StateField, (int)state);
@@ -98,7 +98,7 @@ public class DoorCode : IDoor
                 ((FirstPersonModifiedController)FirstPersonController.Instance).AllowMovement = (state != KeypadState.Enabled);
 
                 // Setup Ready Trigger
-                switch(state)
+                switch (state)
                 {
                     case KeypadState.Enabled:
                     case KeypadState.Complete:
@@ -176,7 +176,7 @@ public class DoorCode : IDoor
 
     public override void OnGazeEnter(Gazer gazer)
     {
-        if((CurrentState == KeypadState.Disabled) && (ResizeParent.Instance.CurrentTier == ThisTier))
+        if ((CurrentState == KeypadState.Disabled) && (ResizeParent.Instance.CurrentTier == ThisTier))
         {
             // Indicate we're ready
             CurrentState = KeypadState.Ready;
@@ -185,7 +185,7 @@ public class DoorCode : IDoor
 
     public override void OnGazeExit(Gazer gazer)
     {
-        if (CurrentState != KeypadState.Complete)
+        if (CurrentState == KeypadState.Ready)
         {
             ResetGaze();
         }
@@ -237,7 +237,7 @@ public class DoorCode : IDoor
     void Update()
     {
         // Check if the keypad is active
-        if(CurrentState == KeypadState.Enabled)
+        if (CurrentState == KeypadState.Enabled)
         {
             // Go through all the accepted inputs on the keyboard
             for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
@@ -265,13 +265,6 @@ public class DoorCode : IDoor
         codeLabel.enabled = true;
         codeLabel.text = EnterCodeText;
         enterLabel.text = null;
-
-        // Stop any animations
-        if(failAnimation != null)
-        {
-            StopCoroutine(failAnimation);
-            failAnimation = null;
-        }
     }
 
     IEnumerator PlayFailAnimation()
@@ -279,26 +272,30 @@ public class DoorCode : IDoor
         CurrentState = KeypadState.Disabled;
 
         // Update label
+        enterLabel.enabled = true;
         if (firstTimeTryingCode == true)
         {
-            codeLabel.text = FirstWrongCodeText;
+            enterLabel.text = FirstWrongCodeText;
         }
         else
         {
-            codeLabel.text = OtherWrongCodeText.RandomElement;
+            enterLabel.text = OtherWrongCodeText.RandomElement;
         }
-        codeLabel.text = RightCodeText;
-        codeLabel.enabled = true;
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            codeLabel.enabled = false;
+            enterLabel.enabled = false;
             yield return blinkOffDurationEnum;
-            codeLabel.enabled = true;
+            enterLabel.enabled = true;
             yield return blinkOnDurationEnum;
         }
+
+        // Update labels
+        codeLabel.enabled = true;
+        codeLabel.text = EnterCodeText;
+        enterLabel.text = null;
 
         // Empty code
         failAnimation = null;
@@ -310,12 +307,12 @@ public class DoorCode : IDoor
         CurrentState = KeypadState.Complete;
 
         // Update label
-        enterLabel.text = RightCodeText;
         enterLabel.enabled = true;
+        enterLabel.text = RightCodeText;
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
-        for(int index = 0; index < numberOfBlinks; ++index)
+        for (int index = 0; index < numberOfBlinks; ++index)
         {
             enterLabel.enabled = false;
             yield return blinkOffDurationEnum;
