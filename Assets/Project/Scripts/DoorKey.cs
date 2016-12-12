@@ -54,7 +54,7 @@ public class DoorKey : IDoor
     {
         get
         {
-            return trigger.IsEnabled;
+            return (ResizeParent.Instance.CurrentTier == ThisTier);
         }
     }
 
