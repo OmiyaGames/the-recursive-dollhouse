@@ -1528,6 +1528,7 @@ MonoBehaviour:
   labelsAnimation: {fileID: 0}
   trigger: {fileID: 0}
   placeKey: {fileID: 198000013006582770}
+  checkIfEnabled: {fileID: 114000011767678838}
 --- !u!114 &114000011983045756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,7 +1725,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 0
-  randomSeed: -612150620
+  randomSeed: 1362024226
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -3438,7 +3439,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 0
-  randomSeed: -1640675778
+  randomSeed: -1001181671
   InitialModule:
     serializedVersion: 2
     enabled: 1

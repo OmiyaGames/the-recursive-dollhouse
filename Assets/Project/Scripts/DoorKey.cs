@@ -50,6 +50,14 @@ public class DoorKey : IDoor
         }
     }
 
+    public bool IsGazeEnabled
+    {
+        get
+        {
+            return trigger.IsEnabled;
+        }
+    }
+
     protected override void Start()
     {
         // Setup

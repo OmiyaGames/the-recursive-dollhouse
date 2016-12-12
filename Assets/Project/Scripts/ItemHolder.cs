@@ -38,6 +38,8 @@ public class ItemHolder : IGazed
     InteractionTrigger trigger;
     [SerializeField]
     ParticleSystem placeKey;
+    [SerializeField]
+    DoorKey checkIfEnabled;
 
     bool interactive = false;
 
@@ -107,7 +109,7 @@ public class ItemHolder : IGazed
         set
         {
             gameObject.SetActive(value);
-            if(trigger != null)
+            if (trigger != null)
             {
                 trigger.IsEnabled = value;
             }
@@ -193,7 +195,7 @@ public class ItemHolder : IGazed
                 TransferItem(this, gazer.PlayerHolder);
                 OnGazeExit(gazer);
             }
-            else if(gazer.PlayerHolder.HoldingItem != null)
+            else if (gazer.PlayerHolder.HoldingItem != null)
             {
                 TransferItem(gazer.PlayerHolder, this);
                 OnGazeExit(gazer);
@@ -212,7 +214,7 @@ public class ItemHolder : IGazed
         newHolder.HoldingItem = itemToTransfer;
 
         // Update the particles
-        foreach(ItemHolder holder in ResizeParent.Instance.AllItemHoldersWithParticles)
+        foreach (ItemHolder holder in ResizeParent.Instance.AllItemHoldersWithParticles)
         {
             holder.UpdateParticles();
         }
@@ -222,7 +224,7 @@ public class ItemHolder : IGazed
     {
         // If holding an item, change this item's tier value
         // (or do it automatically from the item's perspective)
-        if(HoldingItem != null)
+        if (HoldingItem != null)
         {
             HoldingItem.OnTierChanged();
         }
@@ -249,21 +251,46 @@ public class ItemHolder : IGazed
         UpdateParticles();
     }
 
-    private void UpdateParticles()
+    bool IsSpotAvailable
     {
-        if ((placeKey != null) && (trigger != null))
+        get
         {
-            // Check if this is NOT holdin an item, and the player is
-            if ((HoldingItem == null) && (ResizeParent.Instance.CurrentTier == InteractiveTier) && 
-                (((FirstPersonModifiedController)FirstPersonController.Instance).PlayerGazer.PlayerHolder.HoldingItem != null)
-                 && (trigger.IsEnabled == true))
+            bool returnFlag = false;
+
+            // Check if we have particles at all, and currently at the interactive layer
+            if ((placeKey != null) && (ResizeParent.Instance.CurrentTier == InteractiveTier))
             {
-                placeKey.Play();
+                // Check if this is NOT holding an item
+                if (HoldingItem == null)
+                {
+                    // Check if the player is holding an item
+                    if (((FirstPersonModifiedController)FirstPersonController.Instance).PlayerGazer.PlayerHolder.HoldingItem != null)
+                    {
+                        // Check if any check triggers are enabled
+                        if (trigger != null)
+                        {
+                            returnFlag = trigger.IsEnabled;
+                        }
+                        else if (checkIfEnabled != null)
+                        {
+                            returnFlag = checkIfEnabled.IsGazeEnabled;
+                        }
+                    }
+                }
             }
-            else
-            {
-                placeKey.Stop();
-            }
+            return returnFlag;
+        }
+    }
+
+    void UpdateParticles()
+    {
+        if (IsSpotAvailable == true)
+        {
+            placeKey.Play();
+        }
+        else if (placeKey != null)
+        {
+            placeKey.Stop();
         }
     }
 }
