@@ -42,6 +42,25 @@ public class DoorLever : IDoor
         base.Start();
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if (associatedLever != null)
+        {
+            if(isOnDoor == true)
+            {
+                Gizmos.color = Color.white;
+            }
+            else
+            {
+                Gizmos.color = Color.grey;
+            }
+            Gizmos.DrawLine(transform.position, associatedLever.transform.position);
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+        }
+    }
+#endif
+
     private void AssociatedLever_OnStateChanged(Lever obj)
     {
         IsOpen = (associatedLever.IsOn == isOnDoor);
