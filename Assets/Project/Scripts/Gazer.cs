@@ -12,6 +12,8 @@ public class Gazer : MonoBehaviour
     [SerializeField]
     float raycastDistance = 3f;
     [SerializeField]
+    float raycastDistanceWhenHoldingItem = 5f;
+    [SerializeField]
     LayerMask raycastMask;
 
     Ray rayCache;
@@ -27,6 +29,19 @@ public class Gazer : MonoBehaviour
         }
     }
 
+    public float RaycastDistance
+    {
+        get
+        {
+            float returnDistance = raycastDistance;
+            if (PlayerHolder.HoldingItem != null)
+            {
+                return raycastDistanceWhenHoldingItem;
+            }
+            return returnDistance;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -38,7 +53,7 @@ public class Gazer : MonoBehaviour
         rayCache.direction = transform.forward;
 
         // Ray cast
-        if ((controller.IsGrounded == true) && (Physics.Raycast(rayCache, out info, raycastDistance, raycastMask) == true))
+        if ((controller.IsGrounded == true) && (Physics.Raycast(rayCache, out info, RaycastDistance, raycastMask) == true))
         {
             // Grab ray-casted object
             currentTrigger = info.collider.GetComponent<InteractionTrigger>();

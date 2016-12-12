@@ -8,15 +8,20 @@ ModelImporter:
     100000: //RootNode
     100002: DoorRight
     100004: DoorRight.001
+    100006: DoorLeft
     400000: //RootNode
     400002: DoorRight
     400004: DoorRight.001
+    400006: DoorLeft
     2300000: DoorRight
     2300002: DoorRight.001
+    2300004: DoorLeft
     3300000: DoorRight
     3300002: DoorRight.001
+    3300004: DoorLeft
     4300000: DoorRight.001
     4300002: DoorRight
+    4300004: DoorLeft
   materials:
     importMaterials: 0
     materialName: 0

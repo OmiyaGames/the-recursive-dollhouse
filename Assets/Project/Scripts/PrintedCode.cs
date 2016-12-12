@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public abstract class PrintedCode : MonoBehaviour
 {
+    public const int NumberOfDigitsInCode = 4;
+    const int MaxCode = NumberOfDigitsInCode * 10;
+
     [System.Serializable]
     public struct CanvasScale
     {
@@ -20,12 +23,17 @@ public abstract class PrintedCode : MonoBehaviour
     protected Text[] allLabels;
 
     int code = -1;
+    string cachedCode = null;
 
     public string CodeString
     {
         get
         {
-            return CodeInt.ToString("0000");
+            if(cachedCode == null)
+            {
+                cachedCode = CodeInt.ToString("0000");
+            }
+            return cachedCode;
         }
     }
 
@@ -36,10 +44,10 @@ public abstract class PrintedCode : MonoBehaviour
             if(code < 0)
             {
                 // Generate a unique code
-                code = Random.Range(0, 10000);
+                code = Random.Range(0, MaxCode);
                 while(ResizeParent.Instance.CodeToPrintMap.ContainsKey(code) == true)
                 {
-                    code = Random.Range(0, 10000);
+                    code = Random.Range(0, MaxCode);
                 }
 
                 // Add the code into the map

@@ -48,7 +48,7 @@ public class DollHouse : TierObject
     {
         if(itemHolder != null)
         {
-            itemHolder.gameObject.SetActive(enableItemHolder);
+            itemHolder.IsActive = enableItemHolder;
         }
 
         // Setup vector

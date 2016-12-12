@@ -100,6 +100,18 @@ public class ItemHolder : IGazed
         }
     }
 
+    public bool IsActive
+    {
+        set
+        {
+            gameObject.SetActive(value);
+            if(trigger != null)
+            {
+                trigger.IsEnabled = value;
+            }
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -221,7 +233,7 @@ public class ItemHolder : IGazed
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
-        if (trigger != null)
+        if ((trigger != null) && (gameObject.activeInHierarchy == true))
         {
             trigger.IsEnabled = false;
             OnGazeExit(null);
@@ -230,7 +242,7 @@ public class ItemHolder : IGazed
 
     private void Instance_OnAfterResize(ResizeParent obj)
     {
-        if (trigger != null)
+        if ((trigger != null) && (gameObject.activeInHierarchy == true))
         {
             trigger.IsEnabled = (obj.CurrentTier == InteractiveTier);
         }
