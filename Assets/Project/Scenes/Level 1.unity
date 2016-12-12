@@ -6547,6 +6547,10 @@ Prefab:
       propertyPath: associatedCode
       value: 
       objectReference: {fileID: 1976545003}
+    - target: {fileID: 1000012104952850, guid: 0e6df9560f446604eaeaa5b7a08df816, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e6df9560f446604eaeaa5b7a08df816, type: 2}
   m_IsPrefabParent: 0
@@ -7124,7 +7128,7 @@ Prefab:
     - target: {fileID: 114000010779820306, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: enabledSpring
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
       propertyPath: m_LocalPosition.z
@@ -9299,7 +9303,7 @@ Prefab:
         type: 2}
       propertyPath: embedItem
       value: 
-      objectReference: {fileID: 1301337751}
+      objectReference: {fileID: 819766364}
     - target: {fileID: 114000010537885786, guid: 989ed4b742498374f820350c2eb9659e,
         type: 2}
       propertyPath: parentItem
@@ -13421,7 +13425,7 @@ Prefab:
     - target: {fileID: 114000010779820306, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: enabledSpring
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
       propertyPath: m_LocalPosition.z
