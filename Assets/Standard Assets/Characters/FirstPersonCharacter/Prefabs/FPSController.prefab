@@ -1068,6 +1068,7 @@ MonoBehaviour:
   m_BlurEffect: {fileID: 114000012804794384}
   diveInEffect: {fileID: 114000013788413176}
   jumpOutEffect: {fileID: 114000013082165556}
+  gazer: {fileID: 114000012821192306}
 --- !u!114 &114000012385361188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1406,6 +1407,7 @@ MonoBehaviour:
   placeSoundEffect: {fileID: 114000012414073040}
   labelsAnimation: {fileID: 0}
   trigger: {fileID: 0}
+  placeKey: {fileID: 0}
 --- !u!114 &114000014196576850
 MonoBehaviour:
   m_ObjectHideFlags: 1

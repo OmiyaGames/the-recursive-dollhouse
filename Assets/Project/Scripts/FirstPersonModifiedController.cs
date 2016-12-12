@@ -13,6 +13,7 @@ public class FirstPersonModifiedController : FirstPersonController
     protected SoundEffect landSoundEffect;
     [SerializeField]
     protected SoundEffect jumpSoundEffect;
+
     [Header("Zoom")]
     [SerializeField]
     protected ParticleSystem m_ZoomEffect;
@@ -22,9 +23,19 @@ public class FirstPersonModifiedController : FirstPersonController
     protected SoundEffect diveInEffect;
     [SerializeField]
     protected SoundEffect jumpOutEffect;
+    [SerializeField]
+    protected Gazer gazer;
 
     PauseMenu pauseCache = null;
     bool allowMovement = true;
+
+    public Gazer PlayerGazer
+    {
+        get
+        {
+            return gazer;
+        }
+    }
 
     public bool AllowMovement
     {

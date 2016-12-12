@@ -36,6 +36,8 @@ public class ItemHolder : IGazed
     Animator labelsAnimation;
     [SerializeField]
     InteractionTrigger trigger;
+    [SerializeField]
+    ParticleSystem placeKey;
 
     bool interactive = false;
 
@@ -62,7 +64,7 @@ public class ItemHolder : IGazed
         {
             return holdingItem;
         }
-        set
+        private set
         {
             if (holdingItem != value)
             {
@@ -77,6 +79,8 @@ public class ItemHolder : IGazed
                     // Set new item, if any
                     holdingItem.HeldIn = this;
                 }
+
+                // Update particle effect
                 OnGazeExit(null);
             }
         }
@@ -113,6 +117,10 @@ public class ItemHolder : IGazed
     // Use this for initialization
     void Start()
     {
+        if (placeKey != null)
+        {
+            ResizeParent.Instance.AllItemHoldersWithParticles.Add(this);
+        }
         if (type != Type.Player)
         {
             ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
@@ -123,6 +131,7 @@ public class ItemHolder : IGazed
             // Set new item, if any
             holdingItem.HeldIn = this;
         }
+        UpdateParticles();
         Instance_OnAfterResize(ResizeParent.Instance);
     }
 
@@ -201,6 +210,12 @@ public class ItemHolder : IGazed
         // starting with removal
         oldHolder.HoldingItem = null;
         newHolder.HoldingItem = itemToTransfer;
+
+        // Update the particles
+        foreach(ItemHolder holder in ResizeParent.Instance.AllItemHoldersWithParticles)
+        {
+            holder.UpdateParticles();
+        }
     }
 
     protected override void OnThisTierChanged(ResizingTier obj)
@@ -211,6 +226,7 @@ public class ItemHolder : IGazed
         {
             HoldingItem.OnTierChanged();
         }
+        UpdateParticles();
         Instance_OnAfterResize(ResizeParent.Instance);
     }
 
@@ -221,6 +237,7 @@ public class ItemHolder : IGazed
             trigger.IsEnabled = false;
             OnGazeExit(null);
         }
+        UpdateParticles();
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)
@@ -228,6 +245,25 @@ public class ItemHolder : IGazed
         if ((trigger != null) && (gameObject.activeInHierarchy == true))
         {
             trigger.IsEnabled = (obj.CurrentTier == InteractiveTier);
+        }
+        UpdateParticles();
+    }
+
+    private void UpdateParticles()
+    {
+        if ((placeKey != null) && (trigger != null))
+        {
+            // Check if this is NOT holdin an item, and the player is
+            if ((HoldingItem == null) && (ResizeParent.Instance.CurrentTier == InteractiveTier) && 
+                (((FirstPersonModifiedController)FirstPersonController.Instance).PlayerGazer.PlayerHolder.HoldingItem != null)
+                 && (trigger.IsEnabled == true))
+            {
+                placeKey.Play();
+            }
+            else
+            {
+                placeKey.Stop();
+            }
         }
     }
 }
