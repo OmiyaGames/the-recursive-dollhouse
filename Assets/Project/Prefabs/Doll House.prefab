@@ -1113,7 +1113,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Place Item
+  m_Text: Click to Place Key Inside
 --- !u!114 &114000012438881378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1159,7 +1159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pick-up Item
+  m_Text: Click to Pick-Up Key
 --- !u!114 &114000013236138352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3030,8 +3030,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0000018477444, y: 1.49}
-  m_SizeDelta: {x: 400, y: 200}
+  m_AnchoredPosition: {x: 0.0000018477444, y: 1.616}
+  m_SizeDelta: {x: 500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000012937104130
 RectTransform:
