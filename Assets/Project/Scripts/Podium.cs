@@ -54,7 +54,7 @@ public class Podium : TierObject, IDelayedSetup
         Instance_OnAfterResize(obj);
 
         // Update parents
-        if (embedItem != null)
+        if ((embedItem != null) && (obj.AllPodiumsPerTier.ContainsKey(embedItem) == true))
         {
             // Go through all the podiums in the embedded tier
             foreach (Podium childPodium in obj.AllPodiumsPerTier[embedItem])
