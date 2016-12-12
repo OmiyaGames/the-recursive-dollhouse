@@ -37,6 +37,12 @@ public abstract class PrintedCode : MonoBehaviour
         }
     }
 
+    public Color CodeColor(Text label)
+    {
+        // FIXME: grab a random color, and return that!
+        return label.color;
+    }
+
     public int CodeInt
     {
         get

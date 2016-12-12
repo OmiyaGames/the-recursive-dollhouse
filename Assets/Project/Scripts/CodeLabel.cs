@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(CodeWall))]
+[RequireComponent(typeof(TierObject))]
 public class CodeLabel : PrintedCode
 {
-    CodeWall wallCache = null;
+    TierObject wallCache = null;
 
     public override int ThisTier
     {
@@ -11,7 +11,7 @@ public class CodeLabel : PrintedCode
         {
             if (wallCache == null)
             {
-                wallCache = GetComponent<CodeWall>();
+                wallCache = GetComponent<TierObject>();
             }
             return wallCache.ThisTier - 1;
         }

@@ -2,6 +2,8 @@
 using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(BoxCollider))]
+[DisallowMultipleComponent]
+[SelectionBase]
 public class EnterTrigger : MonoBehaviour
 {
     public enum Change

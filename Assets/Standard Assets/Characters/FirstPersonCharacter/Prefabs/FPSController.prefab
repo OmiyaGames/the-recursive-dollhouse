@@ -905,7 +905,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1292,6 +1292,7 @@ MonoBehaviour:
   controller: {fileID: 114000012139295332}
   playerHolder: {fileID: 114000014084966864}
   raycastDistance: 3
+  raycastDistanceWhenHoldingItem: 5
   raycastMask:
     serializedVersion: 2
     m_Bits: 256

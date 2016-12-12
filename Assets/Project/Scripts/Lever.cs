@@ -3,6 +3,7 @@ using OmiyaGames;
 using System;
 using UnityStandardAssets.Characters.FirstPerson;
 
+[RequireComponent(typeof(CodeLabel))]
 public class Lever : IGazed
 {
     public enum LabelState
@@ -30,6 +31,8 @@ public class Lever : IGazed
 
     bool state = false;
     bool interactive = false;
+    Vector3 rotationCache;
+    CodeLabel labelCache = null;
 
     public bool IsOn
     {
@@ -65,6 +68,18 @@ public class Lever : IGazed
         }
     }
 
+    public CodeLabel AssociatedCode
+    {
+        get
+        {
+            if (labelCache == null)
+            {
+                labelCache = GetComponent<CodeLabel>();
+            }
+            return labelCache;
+        }
+    }
+
     protected virtual void Start()
     {
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
@@ -77,7 +92,6 @@ public class Lever : IGazed
         UpdateAnimation();
     }
 
-    Vector3 rotationCache;
     void Update()
     {
         if ((interactive == true) && (labelsAnimation != null))
@@ -136,6 +150,7 @@ public class Lever : IGazed
             trigger.IsEnabled = false;
             OnGazeExit(null);
         }
+        AssociatedCode.OnTierChanged();
         UpdateAnimation();
     }
 

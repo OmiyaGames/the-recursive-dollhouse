@@ -54,6 +54,8 @@ public class DoorKey : IDoor
     {
         // Setup
         codeLabel.text = associatedCode.CodeString;
+        codeLabel.color = associatedCode.CodeColor(codeLabel);
+
         keyHolder.gameObject.SetActive(true);
         errorLabel.gameObject.SetActive(false);
 

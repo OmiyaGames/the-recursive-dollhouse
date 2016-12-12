@@ -172,6 +172,7 @@ public class DoorCode : IDoor
     {
         // Setup
         codeLabel.text = EnterCodeText;
+        codeLabel.color = associatedCode.CodeColor(codeLabel);
         foreach (Button button in allNumberButtons)
         {
             button.interactable = false;
