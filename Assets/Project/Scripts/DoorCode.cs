@@ -129,11 +129,10 @@ public class DoorCode : IDoor
                 // Stop the failAnimation
                 StopCoroutine(failAnimation);
                 failAnimation = null;
-
-                // Revert the code label
-                codeLabel.enabled = true;
-                codeLabel.text = EnterCodeText;
             }
+
+            // Enable the code label
+            enterLabel.enabled = true;
 
             // Update enter label
             CodeBuilder.Append(key % 10);
@@ -161,7 +160,10 @@ public class DoorCode : IDoor
 
     public void OnExitPressed()
     {
-        OnGazeExit(null);
+        if (CurrentState != KeypadState.Complete)
+        {
+            ResetGaze();
+        }
     }
     #endregion
 
@@ -291,7 +293,9 @@ public class DoorCode : IDoor
         enterLabel.enabled = true;
         if (firstTimeTryingCode == true)
         {
+            // Grab first time text
             enterLabel.text = FirstWrongCodeText;
+            firstTimeTryingCode = false;
         }
         else
         {
