@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using OmiyaGames;
 
 public class DollHouse : TierObject
 {
@@ -10,6 +11,8 @@ public class DollHouse : TierObject
     bool enableItemHolder = true;
     [SerializeField]
     bool enabledSpring = true;
+    [SerializeField]
+    bool lastHouse = false;
     [SerializeField]
     float offsetOnShrink = 1.5f;
 
@@ -83,6 +86,12 @@ public class DollHouse : TierObject
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
+
+            // Check if we should play the credits...
+            if(lastHouse == true)
+            {
+                Singleton.Get<SceneTransitionManager>().LoadNextLevel();
+            }
         }
         else
         {
