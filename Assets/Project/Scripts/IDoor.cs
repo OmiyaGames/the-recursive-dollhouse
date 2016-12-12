@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using OmiyaGames;
 
 public abstract class IDoor : IGazed
 {
@@ -12,6 +13,10 @@ public abstract class IDoor : IGazed
     protected ParticleSystem openParticles;
     [SerializeField]
     protected ParticleSystem closeParticles;
+    [SerializeField]
+    protected SoundEffect openSound;
+    [SerializeField]
+    protected ParticleSystem closeSound;
 
     bool isOpen = false;
 
@@ -33,12 +38,20 @@ public abstract class IDoor : IGazed
                     {
                         openParticles.Play();
                     }
+                    if(openSound != null)
+                    {
+                        openSound.Play();
+                    }
                 }
                 else
                 {
                     if (closeParticles != null)
                     {
                         closeParticles.Play();
+                    }
+                    if(closeSound != null)
+                    {
+                        closeSound.Play();
                     }
                 }
             }

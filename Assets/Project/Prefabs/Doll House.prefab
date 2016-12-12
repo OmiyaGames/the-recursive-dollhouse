@@ -663,7 +663,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c134788ce6b006344b72e2ea8db9d289, type: 2}
+  - {fileID: 2100000, guid: ec0a8ca25be7491408f05171817c053e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -837,7 +837,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 40, z: 20}
+  m_Size: {x: 30, y: 45, z: 30}
   m_Center: {x: 0, y: 10, z: 0}
 --- !u!65 &65000012047647370
 BoxCollider:
@@ -873,7 +873,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.5, z: 1.5}
+  m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: 0, y: 2.15, z: 0}
 --- !u!65 &65000013286287584
 BoxCollider:

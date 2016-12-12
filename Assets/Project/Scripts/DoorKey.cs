@@ -5,6 +5,7 @@ using OmiyaGames;
 public class DoorKey : IDoor
 {
     public const string FirstWrongKeyText = "Wrong Key";
+    public const string VisibleField = "Visible";
     public readonly RandomList<string> OtherWrongKeyText = new RandomList<string>(new string[] {
         "Wrong Key",
         "Incorrect Key",
@@ -16,6 +17,8 @@ public class DoorKey : IDoor
 
     [Header("Required Components")]
     [SerializeField]
+    Animator labelAnimation;
+    [SerializeField]
     Text codeLabel;
     [SerializeField]
     Text errorLabel;
@@ -23,8 +26,29 @@ public class DoorKey : IDoor
     ItemHolder keyHolder;
     [SerializeField]
     InteractionTrigger trigger;
+    [SerializeField]
+    SoundEffect correctKeySound;
+    [SerializeField]
+    SoundEffect wrongKeySound;
 
     static bool firstTimeTryingKey = true;
+    bool interactive = false;
+
+    bool IsInteractive
+    {
+        get
+        {
+            return interactive;
+        }
+        set
+        {
+            if(interactive != value)
+            {
+                interactive = value;
+                labelAnimation.SetBool(VisibleField, interactive);
+            }
+        }
+    }
 
     protected override void Start()
     {
@@ -40,29 +64,9 @@ public class DoorKey : IDoor
     public override void OnGazeEnter(Gazer gazer)
     {
         // Check if the user is holding an item
-        if((IsOpen == false) && (gazer.PlayerHolder.HoldingItem != null))
+        if ((IsOpen == false) && (gazer.PlayerHolder.HoldingItem != null))
         {
-            // Check if they're holding the correct item
-            if(gazer.PlayerHolder.HoldingItem == associatedCode)
-            {
-                // Associate with the end of this key animation
-                gazer.PlayerHolder.HoldingItem.OnAnimationEnd += HoldingItem_OnAnimationEnd;
-                ItemHolder.TransferItem(gazer.PlayerHolder, keyHolder);
-            }
-            else
-            {
-                // Display error
-                errorLabel.gameObject.SetActive(true);
-                if(firstTimeTryingKey == true)
-                {
-                    errorLabel.text = FirstWrongKeyText;
-                    firstTimeTryingKey = false;
-                }
-                else
-                {
-                    errorLabel.text = OtherWrongKeyText.RandomElement;
-                }
-            }
+            IsInteractive = true;
         }
     }
 
@@ -77,11 +81,42 @@ public class DoorKey : IDoor
     public override void OnGazeExit(Gazer gazer)
     {
         errorLabel.gameObject.SetActive(false);
+        IsInteractive = false;
     }
 
     public override void OnInteract(Gazer gazer)
     {
-        // Do nothing!
+        if(IsInteractive == true)
+        {
+            // Check if they're holding the correct item
+            if (gazer.PlayerHolder.HoldingItem == associatedCode)
+            {
+                // Associate with the end of this key animation
+                gazer.PlayerHolder.HoldingItem.OnAnimationEnd += HoldingItem_OnAnimationEnd;
+                ItemHolder.TransferItem(gazer.PlayerHolder, keyHolder);
+
+                // Play sound effect
+                correctKeySound.Play();
+            }
+            else
+            {
+                // Display error
+                errorLabel.gameObject.SetActive(true);
+                if (firstTimeTryingKey == true)
+                {
+                    errorLabel.text = FirstWrongKeyText;
+                    firstTimeTryingKey = false;
+                }
+                else
+                {
+                    errorLabel.text = OtherWrongKeyText.RandomElement;
+                }
+
+                // Play sound effect
+                wrongKeySound.Play();
+            }
+            IsInteractive = false;
+        }
     }
 
     protected override void Instance_OnBeforeResize(ResizeParent obj)
