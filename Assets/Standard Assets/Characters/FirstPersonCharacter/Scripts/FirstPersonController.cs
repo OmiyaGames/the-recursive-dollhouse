@@ -15,10 +15,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             private set;
         }
 
-        public static Camera Camera
+        public static Camera InstanceCamera
         {
             get
             {
+                if(Instance.m_Camera == null)
+                {
+                    Instance.m_Camera = Camera.main;
+                }
                 return Instance.m_Camera;
             }
         }
@@ -101,15 +105,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         protected void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
-            m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_FovKick.Setup(m_Camera);
-            m_HeadBob.Setup(m_Camera, m_StepInterval);
+            m_OriginalCameraPosition = InstanceCamera.transform.localPosition;
+            m_FovKick.Setup(InstanceCamera);
+            m_HeadBob.Setup(InstanceCamera, m_StepInterval);
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle / 2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
-            m_MouseLook.Init(transform, m_Camera.transform);
+            m_MouseLook.Init(transform, InstanceCamera.transform);
             //m_ZoomEffect.Stop();
         }
 
@@ -118,11 +121,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         protected void Update()
         {
             RotateView();
+
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
+            GetJump(ref m_Jump);
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -206,6 +207,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.Play();
         }
 
+        protected virtual void GetJump(ref bool jump)
+        {
+            if (!jump)
+            {
+                jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+        }
 
         private void ProgressStepCycle(float speed)
         {
@@ -252,22 +260,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
             {
-                m_Camera.transform.localPosition =
+                InstanceCamera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
                                       (speed * (m_IsWalking ? 1f : m_RunstepLenghten)));
-                newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
+                newCameraPosition = InstanceCamera.transform.localPosition;
+                newCameraPosition.y = InstanceCamera.transform.localPosition.y - m_JumpBob.Offset();
             }
             else
             {
-                newCameraPosition = m_Camera.transform.localPosition;
+                newCameraPosition = InstanceCamera.transform.localPosition;
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
-            m_Camera.transform.localPosition = newCameraPosition;
+            InstanceCamera.transform.localPosition = newCameraPosition;
         }
 
 
-        private void GetInput(out float speed)
+        protected virtual void GetInput(out float speed)
         {
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -302,7 +310,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         protected virtual void RotateView()
         {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, InstanceCamera.transform);
         }
 
 

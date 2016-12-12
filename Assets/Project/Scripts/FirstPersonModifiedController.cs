@@ -24,6 +24,29 @@ public class FirstPersonModifiedController : FirstPersonController
     protected SoundEffect jumpOutEffect;
 
     PauseMenu pauseCache = null;
+    bool allowMovement = true;
+
+    public bool AllowMovement
+    {
+        get
+        {
+            bool returnFlag = allowMovement;
+            if (pauseCache == null)
+            {
+                pauseCache = Singleton.Get<MenuManager>().GetMenu<PauseMenu>();
+            }
+            if ((pauseCache != null) && (pauseCache.CurrentState != IMenu.State.Hidden))
+            {
+                returnFlag= false;
+            }
+            return returnFlag;
+        }
+        set
+        {
+            allowMovement = value;
+            UpdateMouseLock();
+        }
+    }
 
     public bool IsGrounded
     {
@@ -55,21 +78,38 @@ public class FirstPersonModifiedController : FirstPersonController
 
     protected override void RotateView()
     {
-        if(pauseCache == null)
+        if(AllowMovement == true)
         {
-            pauseCache = Singleton.Get<MenuManager>().GetMenu<PauseMenu>();
+            base.RotateView();
         }
-        if((pauseCache != null) && (pauseCache.CurrentState != IMenu.State.Hidden))
-        {
-            return;
-        }
-        base.RotateView();
     }
 
+    protected override void GetInput(out float speed)
+    {
+        speed = 0;
+        if (AllowMovement == true)
+        {
+            base.GetInput(out speed);
+        }
+    }
+
+    protected override void GetJump(ref bool jump)
+    {
+        if (AllowMovement == true)
+        {
+            base.GetJump(ref jump);
+        }
+    }
     protected override void UpdateMouseLock()
     {
-        // FIXME: until I know what Scene transition menu does, don't lock anything
-        //m_MouseLook.UpdateCursorLock();
+        if (AllowMovement == true)
+        {
+            Singleton.Get<SceneTransitionManager>().RevertCursorLockMode();
+        }
+        else
+        {
+            SceneTransitionManager.CursorMode = CursorLockMode.Confined;
+        }
     }
 
     public override void StartSlowdown(bool diveIn)

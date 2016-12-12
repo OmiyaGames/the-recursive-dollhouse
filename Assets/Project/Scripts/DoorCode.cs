@@ -3,12 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Text;
 using OmiyaGames;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class DoorCode : IDoor
 {
     public enum KeypadState
     {
         Disabled,
+        Ready,
         Enabled,
         Complete
     }
@@ -16,6 +18,7 @@ public class DoorCode : IDoor
     public const string EnterCodeText = "Enter Code:";
     public const string RightCodeText = "Success!";
     public const string FirstWrongCodeText = "Wrong Code";
+    public const string StateField = "State";
     public readonly RandomList<string> OtherWrongCodeText = new RandomList<string>(new string[] {
         "Wrong Code",
         "Incorrect Code",
@@ -28,9 +31,11 @@ public class DoorCode : IDoor
 
     [Header("Required Components")]
     [SerializeField]
-    Canvas setupCanvas;
+    Animator keypadAnimation;
     [SerializeField]
-    GraphicRaycaster raycaster;
+    InteractionTrigger readyTrigger;
+    [SerializeField]
+    Canvas setupCanvas;
     [SerializeField]
     Text codeLabel;
     [SerializeField]
@@ -55,7 +60,6 @@ public class DoorCode : IDoor
     static bool firstTimeTryingCode = true;
 
     KeypadState state = KeypadState.Disabled;
-    int gazeInNumber = 0;
     IEnumerator failAnimation = null;
     WaitForSeconds blinkOnDurationEnum, blinkOffDurationEnum;
     readonly StringBuilder CodeBuilder = new StringBuilder();
@@ -77,49 +81,73 @@ public class DoorCode : IDoor
         }
     }
 
+    public KeypadState CurrentState
+    {
+        get
+        {
+            return state;
+        }
+        protected set
+        {
+            if(state != value)
+            {
+                state = value;
+                keypadAnimation.SetInteger(StateField, (int)state);
+
+                // Setup movement
+                ((FirstPersonModifiedController)FirstPersonController.Instance).AllowMovement = (state != KeypadState.Enabled);
+
+                // Setup Ready Trigger
+                switch(state)
+                {
+                    case KeypadState.Enabled:
+                    case KeypadState.Complete:
+                        readyTrigger.IsEnabled = false;
+                        break;
+                    default:
+                        readyTrigger.IsEnabled = true;
+                        break;
+                }
+            }
+        }
+    }
+
     #region Button Events
-    public void OnGazeEnter()
-    {
-        OnGazeEnter(null);
-    }
-
-    public void OnGazeExit()
-    {
-        OnGazeExit(null);
-    }
-
     public void OnKeyPressed(int key)
     {
-        // Update enter label
-        CodeBuilder.Append(key % 10);
-        enterLabel.text = CodeBuilder.ToString();
-
-        // Check the length of input
-        if (CodeBuilder.Length >= PrintedCode.NumberOfDigitsInCode)
+        if (CurrentState == KeypadState.Enabled)
         {
-            // Revert Code Builder
-            CodeBuilder.Length = 0;
+            // Update enter label
+            CodeBuilder.Append(key % 10);
+            enterLabel.text = CodeBuilder.ToString();
 
-            if(failAnimation != null)
+            // Check the length of input
+            if (CodeBuilder.Length >= PrintedCode.NumberOfDigitsInCode)
             {
-                // Stop the failAnimation
-                StopCoroutine(failAnimation);
-                failAnimation = null;
+                // Revert Code Builder
+                CodeBuilder.Length = 0;
 
-                // Revert the code label
-                codeLabel.enabled = true;
-                codeLabel.text = EnterCodeText;
-            }
+                if (failAnimation != null)
+                {
+                    // Stop the failAnimation
+                    StopCoroutine(failAnimation);
+                    failAnimation = null;
 
-            // Check if the code is correct
-            if (enterLabel.text == associatedCode.CodeString)
-            {
-                StartCoroutine(PlaySuccessAnimation());
-            }
-            else
-            {
-                failAnimation = PlayFailAnimation();
-                StartCoroutine(failAnimation);
+                    // Revert the code label
+                    codeLabel.enabled = true;
+                    codeLabel.text = EnterCodeText;
+                }
+
+                // Check if the code is correct
+                if (enterLabel.text == associatedCode.CodeString)
+                {
+                    StartCoroutine(PlaySuccessAnimation());
+                }
+                else
+                {
+                    failAnimation = PlayFailAnimation();
+                    StartCoroutine(failAnimation);
+                }
             }
         }
     }
@@ -129,8 +157,16 @@ public class DoorCode : IDoor
     protected override void Start()
     {
         // Setup
-        codeLabel.text = associatedCode.CodeString;
+        codeLabel.text = EnterCodeText;
+
+        // Setup canvas
         setupCanvas.gameObject.SetActive(true);
+        setupCanvas.worldCamera = FirstPersonController.InstanceCamera;
+
+        // Reset everything
+        ResetGaze();
+
+        // Cache enumerators
         blinkOnDurationEnum = new WaitForSeconds(blinkOnDuration);
         blinkOffDurationEnum = new WaitForSeconds(blinkOffDuration);
 
@@ -140,35 +176,18 @@ public class DoorCode : IDoor
 
     public override void OnGazeEnter(Gazer gazer)
     {
-        if((state != KeypadState.Complete) && (ResizeParent.Instance.CurrentTier == ThisTier))
+        if((CurrentState == KeypadState.Disabled) && (ResizeParent.Instance.CurrentTier == ThisTier))
         {
-            // Check if this is the first time gazing
-            if(gazeInNumber == 0)
-            {
-                // Allow typing into the keyboard
-                state = KeypadState.Enabled;
-
-                // Turn on the reticle
-                Singleton.Get<MenuManager>().Show<ReticleMenu>();
-            }
-
-            // Increment gaze number
-            gazeInNumber += 1;
+            // Allow typing into the keyboard
+            CurrentState = KeypadState.Enabled;
         }
     }
 
     public override void OnGazeExit(Gazer gazer)
     {
-        if (state == KeypadState.Enabled)
+        if (CurrentState != KeypadState.Complete)
         {
-            // Decrement gaze number
-            gazeInNumber -= 1;
-
-            // Check if we should disable the keypad
-            if(gazeInNumber <= 0)
-            {
-                ResetGaze();
-            }
+            ResetGaze();
         }
     }
 
@@ -181,9 +200,9 @@ public class DoorCode : IDoor
     {
         base.Instance_OnBeforeResize(obj);
 
-        if (raycaster != null)
+        if (readyTrigger != null)
         {
-            raycaster.enabled = false;
+            readyTrigger.IsEnabled = false;
             ResetGaze();
         }
     }
@@ -192,9 +211,9 @@ public class DoorCode : IDoor
     {
         base.Instance_OnAfterResize(obj);
 
-        if (raycaster != null)
+        if (readyTrigger != null)
         {
-            raycaster.enabled = (obj.CurrentTier == ThisTier);
+            readyTrigger.IsEnabled = (obj.CurrentTier == ThisTier);
             ResetGaze();
         }
     }
@@ -203,9 +222,9 @@ public class DoorCode : IDoor
     {
         base.OnThisTierChanged(obj);
 
-        if (raycaster != null)
+        if (readyTrigger != null)
         {
-            raycaster.enabled = (obj.CurrentTier == ThisTier);
+            readyTrigger.IsEnabled = (obj.CurrentTier == ThisTier);
             ResetGaze();
         }
     }
@@ -214,7 +233,7 @@ public class DoorCode : IDoor
     void Update()
     {
         // Check if the keypad is active
-        if(state == KeypadState.Enabled)
+        if(CurrentState == KeypadState.Enabled)
         {
             // Go through all the accepted inputs on the keyboard
             for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
@@ -232,20 +251,31 @@ public class DoorCode : IDoor
 
     void ResetGaze()
     {
-        // Prevent gazeNumber from going below 0
-        gazeInNumber = 0;
-
         // Disable typing into the keyboard
-        state = KeypadState.Disabled;
+        CurrentState = KeypadState.Disabled;
 
-        // Turn off the reticle
-        Singleton.Get<MenuManager>().Hide<ReticleMenu>();
+        // Revert Code Builder
+        CodeBuilder.Length = 0;
+
+        // Update labels
+        codeLabel.enabled = true;
+        codeLabel.text = EnterCodeText;
+        enterLabel.text = null;
+
+        // Stop any animations
+        if(failAnimation != null)
+        {
+            StopCoroutine(failAnimation);
+            failAnimation = null;
+        }
     }
 
     IEnumerator PlayFailAnimation()
     {
+        CurrentState = KeypadState.Disabled;
+
         // Update label
-        if(firstTimeTryingCode == true)
+        if (firstTimeTryingCode == true)
         {
             codeLabel.text = FirstWrongCodeText;
         }
@@ -267,15 +297,13 @@ public class DoorCode : IDoor
         }
 
         // Empty code
-        codeLabel.enabled = true;
-        codeLabel.text = EnterCodeText;
-        enterLabel.text = null;
         failAnimation = null;
+        ResetGaze();
     }
 
     IEnumerator PlaySuccessAnimation()
     {
-        state = KeypadState.Complete;
+        CurrentState = KeypadState.Complete;
 
         // Update label
         enterLabel.text = RightCodeText;
