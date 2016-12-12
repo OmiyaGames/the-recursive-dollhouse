@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using OmiyaGames;
 using System;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Lever : IGazed
 {
@@ -12,6 +13,7 @@ public class Lever : IGazed
     }
 
     public const string StateField = "Visible";
+    public const string LabelField = "State";
     public event Action<Lever> OnStateChanged;
 
     [Header("Required Components")]
@@ -63,6 +65,21 @@ public class Lever : IGazed
         }
     }
 
+    Vector3 rotationCache;
+    void Update()
+    {
+        if ((interactive == true) && (labelsAnimation != null))
+        {
+            // Rotate the label to look at the player
+            labelsAnimation.transform.LookAt(FirstPersonController.Instance.transform.position);
+            rotationCache = labelsAnimation.transform.rotation.eulerAngles;
+            rotationCache.x = 0;
+            rotationCache.y += 180f;
+            rotationCache.z = 0;
+            labelsAnimation.transform.rotation = Quaternion.Euler(rotationCache);
+        }
+    }
+
     public override void OnGazeEnter(Gazer gazer)
     {
         interactive = true;
@@ -70,11 +87,11 @@ public class Lever : IGazed
         {
             if (State == false)
             {
-                labelsAnimation.SetInteger(StateField, (int)LabelState.SwitchOn);
+                labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOn);
             }
             else
             {
-                labelsAnimation.SetInteger(StateField, (int)LabelState.SwitchOff);
+                labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOff);
             }
         }
     }
@@ -84,7 +101,7 @@ public class Lever : IGazed
         interactive = false;
         if ((labelsAnimation != null) && (labelsAnimation.gameObject.activeInHierarchy == true))
         {
-            labelsAnimation.SetInteger(StateField, (int)LabelState.None);
+            labelsAnimation.SetInteger(LabelField, (int)LabelState.None);
         }
     }
 
