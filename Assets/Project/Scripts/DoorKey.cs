@@ -58,6 +58,18 @@ public class DoorKey : IDoor
         }
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if (associatedCode != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, associatedCode.transform.position);
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+        }
+    }
+#endif
+
     protected override void Start()
     {
         // Setup

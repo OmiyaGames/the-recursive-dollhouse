@@ -119,6 +119,18 @@ public class DoorCode : IDoor
         }
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if (associatedCode != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, associatedCode.transform.position);
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+        }
+    }
+#endif
+
     #region Button Events
     public void OnKeyPressed(int key)
     {
