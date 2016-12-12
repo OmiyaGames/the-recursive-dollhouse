@@ -43,8 +43,11 @@ public class FirstPersonModifiedController : FirstPersonController
         }
         set
         {
-            allowMovement = value;
-            UpdateMouseLock();
+            if (allowMovement != value)
+            {
+                allowMovement = value;
+                UpdateMouseLock();
+            }
         }
     }
 
