@@ -16,7 +16,7 @@ public abstract class IDoor : IGazed
     [SerializeField]
     protected SoundEffect openSound;
     [SerializeField]
-    protected ParticleSystem closeSound;
+    protected SoundEffect closeSound;
 
     bool isOpen = false;
 

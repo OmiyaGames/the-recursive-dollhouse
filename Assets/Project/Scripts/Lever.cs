@@ -31,7 +31,7 @@ public class Lever : IGazed
     bool state = false;
     bool interactive = false;
 
-    public bool State
+    public bool IsOn
     {
         get
         {
@@ -85,7 +85,7 @@ public class Lever : IGazed
         interactive = true;
         if (labelsAnimation != null)
         {
-            if (State == false)
+            if (IsOn == false)
             {
                 labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOn);
             }
@@ -110,7 +110,7 @@ public class Lever : IGazed
         if(interactive == true)
         {
             // Toggle state
-            State = !State;
+            IsOn = !IsOn;
 
             // Run gaze exit
             OnGazeExit(gazer);
