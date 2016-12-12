@@ -28,6 +28,9 @@ public class Podium : TierObject, IDelayedSetup
             ResizeParent.Instance.PathToPodiumMap.Add(new ResizeParent.TierPath(ParentTier, embedItem), this);
         }
 
+        // Rotate the item placement (for variety's sake)
+        itemPlacement.Rotate(0f, Random.Range(0f, 360f), 0f);
+
         // Bind to events
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;

@@ -261,7 +261,7 @@ public class DoorCode : IDoor
             for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
             {
                 // Check if this key is down
-                if (Input.GetKey(AllNumberKeyCodes[index]) == true)
+                if (Input.GetKeyDown(AllNumberKeyCodes[index]) == true)
                 {
                     // Enter this key
                     OnKeyPressed(index);
