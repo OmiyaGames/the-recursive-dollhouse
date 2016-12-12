@@ -22,6 +22,8 @@ public class DollHouse : TierObject
     [SerializeField]
     ItemHolder itemHolder;
 
+    Vector3 offsetOnShrinkVector = Vector3.zero;
+
     public bool IsItemHolderEnabled
     {
         get
@@ -48,9 +50,15 @@ public class DollHouse : TierObject
         {
             itemHolder.gameObject.SetActive(enableItemHolder);
         }
+
+        // Setup vector
+        offsetOnShrinkVector.z = offsetOnShrink;
+
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+
         Instance_OnAfterResize(ResizeParent.Instance);
+
     }
 
     public void AssociateWith(EnterTrigger triggerInfo)
@@ -79,7 +87,7 @@ public class DollHouse : TierObject
         {
             // Run event
             Vector3 shrinkOrigin = triggerInfo.transform.position;
-            shrinkOrigin += FirstPersonController.Instance.transform.forward * offsetOnShrink;
+            shrinkOrigin += Quaternion.Euler(0f, Random.Range(0f, 360f), 0f) * offsetOnShrinkVector;
             ResizeParent.Instance.Shrink(shrinkOrigin);
 
             // Update stack

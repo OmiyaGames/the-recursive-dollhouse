@@ -1,15 +1,117 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
+using OmiyaGames;
 
-public class DoorKey : MonoBehaviour {
+public class DoorKey : IDoor
+{
+    public const string FirstWrongKeyText = "Wrong Key";
+    public readonly RandomList<string> OtherWrongKeyText = new RandomList<string>(new string[] {
+        "Wrong Key",
+        "Incorrect Key",
+        "I Hate That Key",
+        "Correct Key Not Found",
+        "Nooo! Bad Key!",
+        "Key No Good!"
+    });
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [Header("Required Components")]
+    [SerializeField]
+    Text codeLabel;
+    [SerializeField]
+    Text errorLabel;
+    [SerializeField]
+    ItemHolder keyHolder;
+    [SerializeField]
+    InteractionTrigger trigger;
+
+    static bool firstTimeTryingKey = true;
+
+    protected override void Start()
+    {
+        // Setup
+        codeLabel.text = associatedCode.CodeString;
+        keyHolder.gameObject.SetActive(true);
+        errorLabel.gameObject.SetActive(false);
+
+        // Call base method last
+        base.Start();
+    }
+
+    public override void OnGazeEnter(Gazer gazer)
+    {
+        // Check if the user is holding an item
+        if((IsOpen == false) && (gazer.PlayerHolder.HoldingItem != null))
+        {
+            // Check if they're holding the correct item
+            if(gazer.PlayerHolder.HoldingItem == associatedCode)
+            {
+                // Associate with the end of this key animation
+                gazer.PlayerHolder.HoldingItem.OnAnimationEnd += HoldingItem_OnAnimationEnd;
+                ItemHolder.TransferItem(gazer.PlayerHolder, keyHolder);
+            }
+            else
+            {
+                // Display error
+                errorLabel.gameObject.SetActive(true);
+                if(firstTimeTryingKey == true)
+                {
+                    errorLabel.text = FirstWrongKeyText;
+                    firstTimeTryingKey = false;
+                }
+                else
+                {
+                    errorLabel.text = OtherWrongKeyText.RandomElement;
+                }
+            }
+        }
+    }
+
+    private void HoldingItem_OnAnimationEnd(InventoryItem obj)
+    {
+        IsOpen = true;
+        keyHolder.gameObject.SetActive(false);
+        codeLabel.gameObject.SetActive(false);
+        errorLabel.gameObject.SetActive(false);
+    }
+
+    public override void OnGazeExit(Gazer gazer)
+    {
+        errorLabel.gameObject.SetActive(false);
+    }
+
+    public override void OnInteract(Gazer gazer)
+    {
+        // Do nothing!
+    }
+
+    protected override void Instance_OnBeforeResize(ResizeParent obj)
+    {
+        base.Instance_OnBeforeResize(obj);
+
+        if (trigger != null)
+        {
+            trigger.IsEnabled = false;
+            OnGazeExit(null);
+        }
+    }
+
+    protected override void Instance_OnAfterResize(ResizeParent obj)
+    {
+        base.Instance_OnAfterResize(obj);
+
+        if (trigger != null)
+        {
+            trigger.IsEnabled = (obj.CurrentTier == ThisTier);
+        }
+    }
+
+    protected override void OnThisTierChanged(ResizingTier obj)
+    {
+        base.OnThisTierChanged(obj);
+
+        if (trigger != null)
+        {
+            trigger.IsEnabled = (obj.CurrentTier == ThisTier);
+        }
+    }
 }

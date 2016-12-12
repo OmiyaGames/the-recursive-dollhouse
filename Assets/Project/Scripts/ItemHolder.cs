@@ -182,7 +182,7 @@ public class ItemHolder : IGazed
         }
     }
 
-    static void TransferItem(ItemHolder oldHolder, ItemHolder newHolder)
+    public static void TransferItem(ItemHolder oldHolder, ItemHolder newHolder)
     {
         // Cache a reference to the item
         InventoryItem itemToTransfer = oldHolder.HoldingItem;
@@ -195,7 +195,7 @@ public class ItemHolder : IGazed
 
     protected override void OnThisTierChanged(ResizingTier obj)
     {
-        // FIXME: if holding an item, change this item's tier value
+        // If holding an item, change this item's tier value
         // (or do it automatically from the item's perspective)
         if(HoldingItem != null)
         {

@@ -19,12 +19,33 @@ public abstract class PrintedCode : MonoBehaviour
     [SerializeField]
     protected Text[] allLabels;
 
+    int code = -1;
+
     public string CodeString
     {
         get
         {
-            // FIXME: generate some code
-            return null;
+            return CodeInt.ToString("0000");
+        }
+    }
+
+    public int CodeInt
+    {
+        get
+        {
+            if(code < 0)
+            {
+                // Generate a unique code
+                code = Random.Range(0, 10000);
+                while(ResizeParent.Instance.CodeToPrintMap.ContainsKey(code) == true)
+                {
+                    code = Random.Range(0, 10000);
+                }
+
+                // Add the code into the map
+                ResizeParent.Instance.CodeToPrintMap.Add(code, this);
+            }
+            return code;
         }
     }
 
@@ -44,7 +65,14 @@ public abstract class PrintedCode : MonoBehaviour
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         OnTierChanged();
 
-        // FIXME: generate a unique code, and print that on all the labels
+        // Generate a unique code, and print that on all the labels
+        foreach(Text label in allLabels)
+        {
+            if(label != null)
+            {
+                label.text = CodeString;
+            }
+        }
     }
 
     protected virtual void Update()

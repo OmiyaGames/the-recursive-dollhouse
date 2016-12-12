@@ -65,6 +65,7 @@ public class ResizeParent : MonoBehaviour
     public readonly Dictionary<ResizingTier, HashSet<Podium>> AllPodiumsPerTier = new Dictionary<ResizingTier, HashSet<Podium>>();
     public readonly List<ResizingTier> AllTiers = new List<ResizingTier>();
     public readonly List<ResizingTier> TierHistory = new List<ResizingTier>();
+    public readonly Dictionary<int, PrintedCode> CodeToPrintMap = new Dictionary<int, PrintedCode>();
 
     #region Properties
     public float SnapDistance
