@@ -37,7 +37,7 @@ public class FirstPersonModifiedController : FirstPersonController
             }
             if ((pauseCache != null) && (pauseCache.CurrentState != IMenu.State.Hidden))
             {
-                returnFlag= false;
+                returnFlag = false;
             }
             return returnFlag;
         }
@@ -78,7 +78,7 @@ public class FirstPersonModifiedController : FirstPersonController
 
     protected override void RotateView()
     {
-        if(AllowMovement == true)
+        if (AllowMovement == true)
         {
             base.RotateView();
         }
@@ -115,7 +115,7 @@ public class FirstPersonModifiedController : FirstPersonController
     public override void StartSlowdown(bool diveIn)
     {
         base.StartSlowdown(diveIn);
-        if(diveIn == true)
+        if (diveIn == true)
         {
             diveInEffect.Play();
         }

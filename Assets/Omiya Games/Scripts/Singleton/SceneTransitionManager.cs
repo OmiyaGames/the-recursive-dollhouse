@@ -63,6 +63,10 @@ namespace OmiyaGames
         [SerializeField]
         SceneInfo[] levels;
 
+        [Header("Debugging")]
+        [SerializeField]
+        CursorLockMode defaultLockMode = CursorLockMode.Locked;
+
         SceneInfo lastScene = null;
         SceneInfo sceneToLoad = null;
         readonly Dictionary<string, SceneInfo> sceneNameToInfo = new Dictionary<string, SceneInfo>();
@@ -225,14 +229,16 @@ namespace OmiyaGames
 
         public void RevertCursorLockMode()
         {
-            if (Singleton.Instance.IsWebplayer == true)
+            CursorLockMode mode = defaultLockMode;
+            if (CurrentScene != null)
             {
-                CursorMode = CurrentScene.LockModeWeb;
+                mode = CurrentScene.LockMode;
+                if (Singleton.Instance.IsWebplayer == true)
+                {
+                    mode = CurrentScene.LockModeWeb;
+                }
             }
-            else
-            {
-                CursorMode = CurrentScene.LockMode;
-            }
+            CursorMode = mode;
         }
 
         /// <summary>

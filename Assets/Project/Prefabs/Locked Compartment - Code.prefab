@@ -508,7 +508,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1000013003038142
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -848,7 +848,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011179617982}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &4000010128878214
 Transform:
   m_ObjectHideFlags: 1
@@ -861,7 +861,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010215474498}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &4000010131134896
 Transform:
   m_ObjectHideFlags: 1
@@ -890,6 +890,7 @@ Transform:
   - {fileID: 4000013763579142}
   - {fileID: 4000013375622160}
   - {fileID: 4000013176724570}
+  - {fileID: 4000010705100152}
   - {fileID: 4000011179617982}
   - {fileID: 4000010128878214}
   - {fileID: 4000011848447302}
@@ -902,13 +903,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013003038142}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.625, y: -2.656, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.1250005, y: 1.3440001, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4000011179617982}
-  m_RootOrder: 0
+  m_Father: {fileID: 4000010215474498}
+  m_RootOrder: 4
 --- !u!4 &4000011179617982
 Transform:
   m_ObjectHideFlags: 1
@@ -920,13 +921,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 4000010705100152}
   - {fileID: 4000011669834158}
   - {fileID: 4000012017053740}
   - {fileID: 4000010068562340}
   - {fileID: 224000010289370090}
   m_Father: {fileID: 4000010215474498}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &4000011268431952
 Transform:
   m_ObjectHideFlags: 1
@@ -939,7 +939,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010215474498}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!4 &4000011526242788
 Transform:
   m_ObjectHideFlags: 1
@@ -980,7 +980,7 @@ Transform:
   - {fileID: 4000011534778852}
   - {fileID: 4000011526242788}
   m_Father: {fileID: 4000011179617982}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &4000011691447148
 Transform:
   m_ObjectHideFlags: 1
@@ -1006,7 +1006,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010215474498}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &4000012017053740
 Transform:
   m_ObjectHideFlags: 1
@@ -1021,7 +1021,7 @@ Transform:
   - {fileID: 4000010131134896}
   - {fileID: 4000011691447148}
   m_Father: {fileID: 4000011179617982}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &4000012442587240
 Transform:
   m_ObjectHideFlags: 1
@@ -2865,9 +2865,9 @@ MonoBehaviour:
   doorAnimation: {fileID: 95000013515700764}
   openParticles: {fileID: 0}
   closeParticles: {fileID: 0}
-  keypadAnimation: {fileID: 0}
+  keypadAnimation: {fileID: 95000012646137124}
+  readyTrigger: {fileID: 114000012287259172}
   setupCanvas: {fileID: 223000012582510764}
-  raycaster: {fileID: 114000012456566284}
   codeLabel: {fileID: 114000010813331422}
   enterLabel: {fileID: 114000012202473432}
   blinkOnDuration: 0.5
@@ -3544,7 +3544,7 @@ RectTransform:
   - {fileID: 224000013338519604}
   - {fileID: 224000012444468946}
   m_Father: {fileID: 4000011179617982}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.525, y: -1.586}

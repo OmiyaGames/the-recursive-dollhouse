@@ -178,8 +178,8 @@ public class DoorCode : IDoor
     {
         if((CurrentState == KeypadState.Disabled) && (ResizeParent.Instance.CurrentTier == ThisTier))
         {
-            // Allow typing into the keyboard
-            CurrentState = KeypadState.Enabled;
+            // Indicate we're ready
+            CurrentState = KeypadState.Ready;
         }
     }
 
@@ -193,7 +193,11 @@ public class DoorCode : IDoor
 
     public override void OnInteract(Gazer gazer)
     {
-        // Do nothing!
+        if (CurrentState == KeypadState.Ready)
+        {
+            // Indicate we allow typing
+            CurrentState = KeypadState.Enabled;
+        }
     }
 
     protected override void Instance_OnBeforeResize(ResizeParent obj)
