@@ -2604,11 +2604,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000013278946800}
-        m_MethodName: OnGazeExit
-        m_Mode: 2
+        m_MethodName: OnExitPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Gazer, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2870,6 +2870,19 @@ MonoBehaviour:
   setupCanvas: {fileID: 223000012582510764}
   codeLabel: {fileID: 114000010813331422}
   enterLabel: {fileID: 114000012202473432}
+  allNumberButtons:
+  - {fileID: 114000013383692042}
+  - {fileID: 114000011479745790}
+  - {fileID: 114000010077322904}
+  - {fileID: 114000013504656912}
+  - {fileID: 114000014044028226}
+  - {fileID: 114000012948882224}
+  - {fileID: 114000012878632148}
+  - {fileID: 114000010213795560}
+  - {fileID: 114000014010014310}
+  - {fileID: 114000012072831612}
+  - {fileID: 114000012636637408}
+  - {fileID: 114000013792151802}
   blinkOnDuration: 0.5
   blinkOffDuration: 0.5
   numberOfBlinks: 3
@@ -3134,11 +3147,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000013278946800}
-        m_MethodName: OnGazeExit
-        m_Mode: 2
+        m_MethodName: OnExitPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Gazer, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3857,7 +3870,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.3333333, y: 0.25}
   m_AnchoredPosition: {x: 1, y: 0.00000011920929}
-  m_SizeDelta: {x: -8, y: -10}
+  m_SizeDelta: {x: -10, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000012676179700
 RectTransform:
@@ -3986,7 +3999,7 @@ RectTransform:
   m_AnchorMin: {x: 0.6666667, y: 0}
   m_AnchorMax: {x: 1, y: 0.25}
   m_AnchoredPosition: {x: -1, y: 0}
-  m_SizeDelta: {x: -8, y: -10}
+  m_SizeDelta: {x: -10, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013855570128
 RectTransform:

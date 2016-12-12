@@ -40,6 +40,8 @@ public class DoorCode : IDoor
     Text codeLabel;
     [SerializeField]
     Text enterLabel;
+    [SerializeField]
+    Button[] allNumberButtons;
 
     [Header("Animation")]
     [SerializeField]
@@ -108,6 +110,11 @@ public class DoorCode : IDoor
                         readyTrigger.IsEnabled = true;
                         break;
                 }
+
+                foreach(Button button in allNumberButtons)
+                {
+                    button.interactable = (state == KeypadState.Enabled);
+                }
             }
         }
     }
@@ -117,6 +124,17 @@ public class DoorCode : IDoor
     {
         if (CurrentState == KeypadState.Enabled)
         {
+            if (failAnimation != null)
+            {
+                // Stop the failAnimation
+                StopCoroutine(failAnimation);
+                failAnimation = null;
+
+                // Revert the code label
+                codeLabel.enabled = true;
+                codeLabel.text = EnterCodeText;
+            }
+
             // Update enter label
             CodeBuilder.Append(key % 10);
             enterLabel.text = CodeBuilder.ToString();
@@ -126,17 +144,6 @@ public class DoorCode : IDoor
             {
                 // Revert Code Builder
                 CodeBuilder.Length = 0;
-
-                if (failAnimation != null)
-                {
-                    // Stop the failAnimation
-                    StopCoroutine(failAnimation);
-                    failAnimation = null;
-
-                    // Revert the code label
-                    codeLabel.enabled = true;
-                    codeLabel.text = EnterCodeText;
-                }
 
                 // Check if the code is correct
                 if (enterLabel.text == associatedCode.CodeString)
@@ -151,6 +158,11 @@ public class DoorCode : IDoor
             }
         }
     }
+
+    public void OnExitPressed()
+    {
+        OnGazeExit(null);
+    }
     #endregion
 
     #region Overrides
@@ -158,6 +170,10 @@ public class DoorCode : IDoor
     {
         // Setup
         codeLabel.text = EnterCodeText;
+        foreach (Button button in allNumberButtons)
+        {
+            button.interactable = false;
+        }
 
         // Setup canvas
         setupCanvas.gameObject.SetActive(true);
@@ -323,5 +339,11 @@ public class DoorCode : IDoor
         // Open door
         setupCanvas.gameObject.SetActive(false);
         IsOpen = true;
+    }
+
+    [ContextMenu("GetAllButons")]
+    private void GetAllButtons()
+    {
+        allNumberButtons = GetComponentsInChildren<Button>();
     }
 }
