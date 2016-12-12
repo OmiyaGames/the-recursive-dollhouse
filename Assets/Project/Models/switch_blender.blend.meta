@@ -8,15 +8,20 @@ ModelImporter:
     100000: Base
     100002: Switch
     100004: //RootNode
+    100006: Handle
     400000: Base
     400002: Switch
     400004: //RootNode
+    400006: Handle
     2300000: Base
     2300002: Switch
+    2300004: Handle
     3300000: Base
     3300002: Switch
+    3300004: Handle
     4300000: Switch
     4300002: Base
+    4300004: Handle
     7400000: Default Take
     9500000: //RootNode
   materials:
