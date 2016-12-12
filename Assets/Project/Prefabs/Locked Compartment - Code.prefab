@@ -2928,8 +2928,8 @@ MonoBehaviour:
   - {fileID: 114000012636637408}
   - {fileID: 114000013792151802}
   blinkOnDuration: 0.5
-  blinkOffDuration: 0.5
-  numberOfBlinks: 3
+  blinkOffDuration: 0.3
+  numberOfBlinks: 2
   buttonSound: {fileID: 114000011667303788}
   failedSound: {fileID: 114000012846854676}
   successSound: {fileID: 114000014111409834}
