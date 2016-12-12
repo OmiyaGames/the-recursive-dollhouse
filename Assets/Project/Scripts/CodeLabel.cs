@@ -9,11 +9,11 @@ public class CodeLabel : PrintedCode
     {
         get
         {
-            if(wallCache == null)
+            if (wallCache == null)
             {
                 wallCache = GetComponent<CodeWall>();
             }
-            return wallCache.ThisTier;
+            return wallCache.ThisTier - 1;
         }
     }
 }

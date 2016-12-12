@@ -65,6 +65,18 @@ public class Lever : IGazed
         }
     }
 
+    protected virtual void Start()
+    {
+        ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
+        ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+        UpdateAnimation();
+    }
+
+    protected virtual void OnEnable()
+    {
+        UpdateAnimation();
+    }
+
     Vector3 rotationCache;
     void Update()
     {
@@ -119,23 +131,38 @@ public class Lever : IGazed
 
     protected override void OnThisTierChanged(ResizingTier obj)
     {
-        Instance_OnAfterResize(ResizeParent.Instance);
+        if ((trigger != null) && (gameObject.activeInHierarchy == true))
+        {
+            trigger.IsEnabled = false;
+            OnGazeExit(null);
+        }
+        UpdateAnimation();
     }
 
-    private void Instance_OnBeforeResize(ResizeParent obj)
+    protected virtual void Instance_OnBeforeResize(ResizeParent obj)
     {
         if ((trigger != null) && (gameObject.activeInHierarchy == true))
         {
             trigger.IsEnabled = false;
             OnGazeExit(null);
         }
+        UpdateAnimation();
     }
 
-    private void Instance_OnAfterResize(ResizeParent obj)
+    protected virtual void Instance_OnAfterResize(ResizeParent obj)
     {
         if ((trigger != null) && (gameObject.activeInHierarchy == true))
         {
             trigger.IsEnabled = (obj.CurrentTier == ThisTier);
+        }
+        UpdateAnimation();
+    }
+
+    void UpdateAnimation()
+    {
+        if (switchAnimation.gameObject.activeInHierarchy == true)
+        {
+            switchAnimation.SetBool(StateField, IsOn);
         }
     }
 }
