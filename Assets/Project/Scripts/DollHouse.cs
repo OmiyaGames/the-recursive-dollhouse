@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class DollHouse : TierObject
 {
@@ -9,6 +8,8 @@ public class DollHouse : TierObject
 
     [SerializeField]
     bool enableItemHolder = true;
+    [SerializeField]
+    bool enabledSpring = true;
     [SerializeField]
     float offsetOnShrink = 1.5f;
 
@@ -132,7 +133,7 @@ public class DollHouse : TierObject
 
         foreach (EnterTrigger trigger in shrinkTriggers)
         {
-            trigger.gameObject.SetActive(ThisTier > 0);
+            trigger.gameObject.SetActive((ThisTier > 0) && (enabledSpring == true));
         }
     }
 

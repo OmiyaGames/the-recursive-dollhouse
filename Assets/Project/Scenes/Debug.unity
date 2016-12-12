@@ -375,7 +375,7 @@ Prefab:
     - target: {fileID: 224000012444468946, guid: 0e6df9560f446604eaeaa5b7a08df816,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 139.74185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e6df9560f446604eaeaa5b7a08df816, type: 2}
@@ -1074,6 +1074,11 @@ Prefab:
       propertyPath: m_Name
       value: Doll House 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010779820306, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
+        type: 2}
+      propertyPath: enabledSpring
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
   m_IsPrefabParent: 0
@@ -1247,7 +1252,7 @@ Prefab:
     - target: {fileID: 224000012444468946, guid: 0e6df9560f446604eaeaa5b7a08df816,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 139.74185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e6df9560f446604eaeaa5b7a08df816, type: 2}
@@ -1823,6 +1828,10 @@ Prefab:
     - target: {fileID: 1000013329798494, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
       propertyPath: m_Name
       value: Doll House 2 - 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
@@ -2870,6 +2879,10 @@ Prefab:
       propertyPath: m_Name
       value: Doll House 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
   m_IsPrefabParent: 0
@@ -3045,6 +3058,11 @@ Prefab:
     - target: {fileID: 1000013329798494, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
       propertyPath: m_Name
       value: Doll House 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010779820306, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
+        type: 2}
+      propertyPath: enableItemHolder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
