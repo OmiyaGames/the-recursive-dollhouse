@@ -1,183 +1,217 @@
 ﻿using UnityEngine;
 using OmiyaGames;
 using System;
+using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 
-[RequireComponent(typeof(CodeLabel))]
-public class Lever : IGazed
+namespace Toggler
 {
-    public enum LabelState
+    [RequireComponent(typeof(CodeLabel))]
+    public class Lever : IGazed
     {
-        None,
-        SwitchOn,
-        SwitchOff
-    }
-
-    public const string StateField = "Visible";
-    public const string LabelField = "State";
-    public event Action<Lever> OnStateChanged;
-
-    [Header("Required Components")]
-    [SerializeField]
-    SoundEffect trueStateSoundEffect;
-    [SerializeField]
-    SoundEffect falseStateSoundEffect;
-    [SerializeField]
-    Animator switchAnimation;
-    [SerializeField]
-    Animator labelsAnimation;
-    [SerializeField]
-    InteractionTrigger trigger;
-
-    bool state = false;
-    bool interactive = false;
-    Vector3 rotationCache;
-    CodeLabel labelCache = null;
-
-    public bool IsOn
-    {
-        get
+        public enum LabelState
         {
-            return state;
+            None,
+            SwitchOn,
+            SwitchOff
         }
-        private set
-        {
-            if (state != value)
-            {
-                state = value;
 
-                // Play sound effect
-                if (state == true)
+        public const string StateField = "Visible";
+        public const string LabelField = "State";
+        public event Action<Lever> OnStateChanged;
+
+        [Header("Required Components")]
+        [SerializeField]
+        SoundEffect trueStateSoundEffect;
+        [SerializeField]
+        SoundEffect falseStateSoundEffect;
+        [SerializeField]
+        Animator switchAnimation;
+        [SerializeField]
+        Animator labelsAnimation;
+        [SerializeField]
+        InteractionTrigger trigger;
+
+        [Header("Optional Components")]
+        [SerializeField]
+        LeverGroup associatedGroup;
+
+        bool state = false;
+        bool interactive = false;
+        Vector3 rotationCache;
+        CodeLabel labelCache = null;
+
+        public bool IsOn
+        {
+            get
+            {
+                if (associatedGroup == null)
                 {
-                    trueStateSoundEffect.Play();
+                    return state;
                 }
                 else
                 {
-                    falseStateSoundEffect.Play();
+                    return associatedGroup.IsOn;
                 }
-
-                // Play animation
-                switchAnimation.SetBool(StateField, state);
-
-                // Run event
-                if (OnStateChanged != null)
+            }
+            private set
+            {
+                if(associatedGroup == null)
                 {
-                    OnStateChanged(this);
+                    IsOnDirect = value;
+                }
+                else
+                {
+                    associatedGroup.IsOn = value;
                 }
             }
         }
-    }
 
-    public CodeLabel AssociatedCode
-    {
-        get
+        public CodeLabel AssociatedCode
         {
-            if (labelCache == null)
+            get
             {
-                labelCache = GetComponent<CodeLabel>();
-            }
-            return labelCache;
-        }
-    }
-
-    protected virtual void Start()
-    {
-        ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
-        ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
-        UpdateAnimation();
-    }
-
-    protected virtual void OnEnable()
-    {
-        UpdateAnimation();
-    }
-
-    void Update()
-    {
-        if ((interactive == true) && (labelsAnimation != null))
-        {
-            // Rotate the label to look at the player
-            labelsAnimation.transform.LookAt(FirstPersonController.Instance.transform.position);
-            rotationCache = labelsAnimation.transform.rotation.eulerAngles;
-            rotationCache.x = 0;
-            rotationCache.y += 180f;
-            rotationCache.z = 0;
-            labelsAnimation.transform.rotation = Quaternion.Euler(rotationCache);
-        }
-    }
-
-    public override void OnGazeEnter(Gazer gazer)
-    {
-        interactive = true;
-        if (labelsAnimation != null)
-        {
-            if (IsOn == false)
-            {
-                labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOn);
-            }
-            else
-            {
-                labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOff);
+                if (labelCache == null)
+                {
+                    labelCache = GetComponent<CodeLabel>();
+                }
+                return labelCache;
             }
         }
-    }
 
-    public override void OnGazeExit(Gazer gazer)
-    {
-        interactive = false;
-        if ((labelsAnimation != null) && (labelsAnimation.gameObject.activeInHierarchy == true))
+        internal bool IsOnDirect
         {
-            labelsAnimation.SetInteger(LabelField, (int)LabelState.None);
+            set
+            {
+                if (state != value)
+                {
+                    state = value;
+
+                    // Play sound effect
+                    if (state == true)
+                    {
+                        trueStateSoundEffect.Play();
+                    }
+                    else
+                    {
+                        falseStateSoundEffect.Play();
+                    }
+
+                    // Play animation
+                    switchAnimation.SetBool(StateField, state);
+
+                    // Run event
+                    if (OnStateChanged != null)
+                    {
+                        OnStateChanged(this);
+                    }
+                }
+            }
         }
-    }
 
-    public override void OnInteract(Gazer gazer)
-    {
-        if(interactive == true)
+        protected virtual void Start()
         {
-            // Toggle state
-            IsOn = !IsOn;
-
-            // Run gaze exit
-            OnGazeExit(gazer);
+            if(associatedGroup != null)
+            {
+                associatedGroup.AddToGroup(this);
+            }
+            ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
+            ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+            UpdateAnimation();
         }
-    }
 
-    protected override void OnThisTierChanged(ResizingTier obj)
-    {
-        if ((trigger != null) && (gameObject.activeInHierarchy == true))
+        protected virtual void OnEnable()
         {
-            trigger.IsEnabled = false;
-            OnGazeExit(null);
+            UpdateAnimation();
         }
-        AssociatedCode.OnTierChanged();
-        UpdateAnimation();
-    }
 
-    protected virtual void Instance_OnBeforeResize(ResizeParent obj)
-    {
-        if ((trigger != null) && (gameObject.activeInHierarchy == true))
+        void Update()
         {
-            trigger.IsEnabled = false;
-            OnGazeExit(null);
+            if ((interactive == true) && (labelsAnimation != null))
+            {
+                // Rotate the label to look at the player
+                labelsAnimation.transform.LookAt(FirstPersonController.Instance.transform.position);
+                rotationCache = labelsAnimation.transform.rotation.eulerAngles;
+                rotationCache.x = 0;
+                rotationCache.y += 180f;
+                rotationCache.z = 0;
+                labelsAnimation.transform.rotation = Quaternion.Euler(rotationCache);
+            }
         }
-        UpdateAnimation();
-    }
 
-    protected virtual void Instance_OnAfterResize(ResizeParent obj)
-    {
-        if ((trigger != null) && (gameObject.activeInHierarchy == true))
+        public override void OnGazeEnter(Gazer gazer)
         {
-            trigger.IsEnabled = (obj.CurrentTier == ThisTier);
+            interactive = true;
+            if (labelsAnimation != null)
+            {
+                if (IsOn == false)
+                {
+                    labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOn);
+                }
+                else
+                {
+                    labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOff);
+                }
+            }
         }
-        UpdateAnimation();
-    }
 
-    void UpdateAnimation()
-    {
-        if (switchAnimation.gameObject.activeInHierarchy == true)
+        public override void OnGazeExit(Gazer gazer)
         {
-            switchAnimation.SetBool(StateField, IsOn);
+            interactive = false;
+            if ((labelsAnimation != null) && (labelsAnimation.gameObject.activeInHierarchy == true))
+            {
+                labelsAnimation.SetInteger(LabelField, (int)LabelState.None);
+            }
+        }
+
+        public override void OnInteract(Gazer gazer)
+        {
+            if (interactive == true)
+            {
+                // Toggle state
+                IsOn = !IsOn;
+
+                // Run gaze exit
+                OnGazeExit(gazer);
+            }
+        }
+
+        protected override void OnThisTierChanged(ResizingTier obj)
+        {
+            if ((trigger != null) && (gameObject.activeInHierarchy == true))
+            {
+                trigger.IsEnabled = false;
+                OnGazeExit(null);
+            }
+            AssociatedCode.OnTierChanged();
+            UpdateAnimation();
+        }
+
+        protected virtual void Instance_OnBeforeResize(ResizeParent obj)
+        {
+            if ((trigger != null) && (gameObject.activeInHierarchy == true))
+            {
+                trigger.IsEnabled = false;
+                OnGazeExit(null);
+            }
+            UpdateAnimation();
+        }
+
+        protected virtual void Instance_OnAfterResize(ResizeParent obj)
+        {
+            if ((trigger != null) && (gameObject.activeInHierarchy == true))
+            {
+                trigger.IsEnabled = (obj.CurrentTier == ThisTier);
+            }
+            UpdateAnimation();
+        }
+
+        void UpdateAnimation()
+        {
+            if (switchAnimation.gameObject.activeInHierarchy == true)
+            {
+                switchAnimation.SetBool(StateField, IsOn);
+            }
         }
     }
 }
