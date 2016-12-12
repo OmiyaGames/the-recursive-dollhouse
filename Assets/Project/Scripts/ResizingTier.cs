@@ -68,6 +68,18 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
             gameObject.SetActive(true);
             transform.SetParent(obj.transform, true);
         }
+        else if((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && ((obj.CurrentTier + 2) == CurrentTier))
+        {
+            // Leave this object visible
+            gameObject.SetActive(true);
+            transform.SetParent(obj.transform, true);
+        }
+        else if ((obj.currentDirection == ResizeParent.ResizeDirection.Growing) && ((obj.CurrentTier - 2) == CurrentTier))
+        {
+            // Leave this object visible
+            gameObject.SetActive(true);
+            transform.SetParent(obj.transform, true);
+        }
         else
         {
             gameObject.SetActive(false);
