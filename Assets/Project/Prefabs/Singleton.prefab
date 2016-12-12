@@ -522,7 +522,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -544,7 +544,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &8237012
 AudioSource:
   m_ObjectHideFlags: 1
@@ -819,20 +819,11 @@ MonoBehaviour:
     revertTimeScale: 1
   levels:
   - scenePath: Assets/Project/Scenes/Level 1.unity
-    displayName: Level 1
-    cursorMode: 0
-    cursorModeWeb: 0
+    displayName: Room One
+    cursorMode: 1
+    cursorModeWeb: 1
     revertTimeScale: 1
-  - scenePath: Assets/Project/Scenes/Level 2.unity
-    displayName: Level 2
-    cursorMode: 0
-    cursorModeWeb: 0
-    revertTimeScale: 1
-  - scenePath: Assets/Project/Scenes/Level 3.unity
-    displayName: Level 3
-    cursorMode: 0
-    cursorModeWeb: 0
-    revertTimeScale: 1
+  defaultLockMode: 1
 --- !u!114 &11428920
 MonoBehaviour:
   m_ObjectHideFlags: 1
