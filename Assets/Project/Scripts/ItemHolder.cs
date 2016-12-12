@@ -34,8 +34,6 @@ public class ItemHolder : IGazed
     [Header("Optional Components")]
     [SerializeField]
     Animator labelsAnimation;
-    //[SerializeField]
-    //ParticleSystem interactiveIndicator;
     [SerializeField]
     InteractionTrigger trigger;
 
@@ -215,21 +213,6 @@ public class ItemHolder : IGazed
         }
         Instance_OnAfterResize(ResizeParent.Instance);
     }
-
-    //void UpdateIndicator()
-    //{
-    //    if (interactiveIndicator != null)
-    //    {
-    //        if (holdingItem != null)
-    //        {
-    //            interactiveIndicator.Play();
-    //        }
-    //        else
-    //        {
-    //            interactiveIndicator.Stop();
-    //        }
-    //    }
-    //}
 
     private void Instance_OnBeforeResize(ResizeParent obj)
     {
