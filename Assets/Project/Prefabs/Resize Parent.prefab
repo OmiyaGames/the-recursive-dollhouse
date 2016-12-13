@@ -54,3 +54,5 @@ MonoBehaviour:
   shrinkScale: 1
   growScale: 20
   smoothTime: 0.375
+  snapDistance: 0.05
+  slowdownDuration: 0.5

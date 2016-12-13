@@ -1095,11 +1095,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableItemHolder: 1
   enabledSpring: 1
+  lastHouse: 0
   offsetOnShrink: 2.175
   bottom: {fileID: 4000011152957058}
   growPoint: {fileID: 4000014277520094}
   ceiling: {fileID: 65000011725062702}
   itemHolder: {fileID: 114000012238669612}
+  houseRenderer: {fileID: 23000012759461300}
 --- !u!114 &114000011609434450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1145,6 +1147,7 @@ MonoBehaviour:
   labelsAnimation: {fileID: 95000012115092534}
   trigger: {fileID: 114000013648349602}
   placeKey: {fileID: 198000013750251436}
+  checkIfEnabled: {fileID: 0}
 --- !u!114 &114000012263508500
 MonoBehaviour:
   m_ObjectHideFlags: 1

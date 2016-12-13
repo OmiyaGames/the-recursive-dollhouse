@@ -25,8 +25,11 @@ public class DollHouse : TierObject
     Collider ceiling;
     [SerializeField]
     ItemHolder itemHolder;
+    [SerializeField]
+    Renderer houseRenderer;
 
     Vector3 offsetOnShrinkVector = Vector3.zero;
+    MoodTheme assignedTheme;
 
     public bool IsItemHolderEnabled
     {
@@ -53,6 +56,14 @@ public class DollHouse : TierObject
         if(itemHolder != null)
         {
             itemHolder.IsActive = enableItemHolder;
+        }
+
+        // Adjust to theme
+        assignedTheme = MoodSetter.Instance.RandomTheme;
+        if((assignedTheme != null) && (houseRenderer != null))
+        {
+            houseRenderer.material.color = assignedTheme.houseColor;
+            houseRenderer.material.mainTexture = assignedTheme.houseTexture;
         }
 
         // Setup vector
@@ -86,9 +97,10 @@ public class DollHouse : TierObject
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
+            MoodSetter.Instance.CurrentTheme = assignedTheme;
 
             // Check if we should play the credits...
-            if(lastHouse == true)
+            if (lastHouse == true)
             {
                 Singleton.Get<SceneTransitionManager>().LoadNextLevel();
             }
@@ -117,6 +129,11 @@ public class DollHouse : TierObject
         foreach (EnterTrigger trigger in shrinkTriggers)
         {
             trigger.IsEnabled = false;
+        }
+
+        if(obj.LatestTier == ParentTier)
+        {
+            MoodSetter.Instance.CurrentTheme = assignedTheme;
         }
 
         // Turn on the ceiling
