@@ -54,3 +54,10 @@ MonoBehaviour:
   shrinkScale: 1
   growScale: 20
   smoothTime: 0.375
+  snapDistance: 0.01
+  slowdownDuration: 0.5
+  allMusic:
+  - {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
+  - {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
+  - {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
+  - {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
