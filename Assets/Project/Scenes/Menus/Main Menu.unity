@@ -440,7 +440,7 @@ Prefab:
     - target: {fileID: 11491956, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
       propertyPath: backgroundMusic
       value: 
-      objectReference: {fileID: 8300000, guid: ef5c2db96fbf25c4e89d3a2c7e94eff7, type: 3}
+      objectReference: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
   m_IsPrefabParent: 0
