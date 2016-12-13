@@ -15,7 +15,7 @@ public class InteractionTrigger : IGazed
     {
         get
         {
-            if(gazeBounds == null)
+            if (gazeBounds == null)
             {
                 gazeBounds = GetComponent<BoxCollider>();
             }
@@ -32,7 +32,7 @@ public class InteractionTrigger : IGazed
         set
         {
             GazeBounds.enabled = value;
-            if((value == false) && (isGazed == true))
+            if ((value == false) && (isGazed == true))
             {
                 OnGazeExit(null);
             }
@@ -52,9 +52,9 @@ public class InteractionTrigger : IGazed
         interactWith.OnGazeExit(gazer);
     }
 
-    public override void OnInteract(Gazer gazer)
+    public override Gazer.SoundEffectType OnInteract(Gazer gazer)
     {
-        interactWith.OnInteract(gazer);
+        return interactWith.OnInteract(gazer);
     }
 
     protected override void OnThisTierChanged(ResizingTier obj)

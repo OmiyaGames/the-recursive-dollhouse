@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using OmiyaGames;
 
 public class Gazer : MonoBehaviour
 {
     public const string GazeInteractInput = "Fire1";
+
+    public enum SoundEffectType
+    {
+        None,
+        PickUpKey,
+        DropKey,
+        LeverOn,
+        LeverOff
+    }
 
     [SerializeField]
     FirstPersonModifiedController controller;
@@ -15,6 +25,16 @@ public class Gazer : MonoBehaviour
     float raycastDistanceWhenHoldingItem = 5f;
     [SerializeField]
     LayerMask raycastMask;
+
+    [Header("Sound effects")]
+    [SerializeField]
+    SoundEffect pickup;
+    [SerializeField]
+    SoundEffect drop;
+    [SerializeField]
+    SoundEffect leverOn;
+    [SerializeField]
+    SoundEffect leverOff;
 
     Ray rayCache;
     RaycastHit info;
@@ -67,7 +87,21 @@ public class Gazer : MonoBehaviour
                 }
                 if (CrossPlatformInputManager.GetButton(GazeInteractInput) == true)
                 {
-                    currentTrigger.OnInteract(this);
+                    switch(currentTrigger.OnInteract(this))
+                    {
+                        case SoundEffectType.PickUpKey:
+                            pickup.Play();
+                            break;
+                        case SoundEffectType.DropKey:
+                            drop.Play();
+                            break;
+                        case SoundEffectType.LeverOn:
+                            leverOn.Play();
+                            break;
+                        case SoundEffectType.LeverOff:
+                            leverOff.Play();
+                            break;
+                    }
                 }
             }
         }

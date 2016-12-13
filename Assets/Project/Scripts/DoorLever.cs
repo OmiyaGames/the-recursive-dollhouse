@@ -22,9 +22,9 @@ public class DoorLever : IDoor
         // Do nothing
     }
 
-    public override void OnInteract(Gazer gazer)
+    public override Gazer.SoundEffectType OnInteract(Gazer gazer)
     {
-        // Do nothing
+        return Gazer.SoundEffectType.None;
     }
 
     protected override void Start()

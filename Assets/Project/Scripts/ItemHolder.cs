@@ -186,21 +186,25 @@ public class ItemHolder : IGazed
         }
     }
 
-    public override void OnInteract(Gazer gazer)
+    public override Gazer.SoundEffectType OnInteract(Gazer gazer)
     {
+        Gazer.SoundEffectType returnSound = Gazer.SoundEffectType.None;
         if (interactive == true)
         {
             if (HoldingItem != null)
             {
                 TransferItem(this, gazer.PlayerHolder);
                 OnGazeExit(gazer);
+                returnSound = Gazer.SoundEffectType.PickUpKey;
             }
             else if (gazer.PlayerHolder.HoldingItem != null)
             {
                 TransferItem(gazer.PlayerHolder, this);
                 OnGazeExit(gazer);
+                returnSound = Gazer.SoundEffectType.DropKey;
             }
         }
+        return returnSound;
     }
 
     public static void TransferItem(ItemHolder oldHolder, ItemHolder newHolder)

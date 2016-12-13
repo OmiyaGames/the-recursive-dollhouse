@@ -106,9 +106,10 @@ public class DoorKey : IDoor
         IsInteractive = false;
     }
 
-    public override void OnInteract(Gazer gazer)
+    public override Gazer.SoundEffectType OnInteract(Gazer gazer)
     {
-        if(IsInteractive == true)
+        Gazer.SoundEffectType returnSound = Gazer.SoundEffectType.None;
+        if (IsInteractive == true)
         {
             // Check if they're holding the correct item
             if (gazer.PlayerHolder.HoldingItem == associatedCode)
@@ -119,6 +120,9 @@ public class DoorKey : IDoor
 
                 // Play sound effect
                 correctKeySound.Play();
+
+                // Play drop sound
+                returnSound = Gazer.SoundEffectType.DropKey;
             }
             else
             {
@@ -139,6 +143,7 @@ public class DoorKey : IDoor
             }
             IsInteractive = false;
         }
+        return returnSound;
     }
 
     protected override void Instance_OnBeforeResize(ResizeParent obj)

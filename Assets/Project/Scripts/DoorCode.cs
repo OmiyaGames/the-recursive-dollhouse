@@ -222,13 +222,14 @@ public class DoorCode : IDoor
         }
     }
 
-    public override void OnInteract(Gazer gazer)
+    public override Gazer.SoundEffectType OnInteract(Gazer gazer)
     {
         if (CurrentState == KeypadState.Ready)
         {
             // Indicate we allow typing
             CurrentState = KeypadState.Enabled;
         }
+        return Gazer.SoundEffectType.None;
     }
 
     protected override void Instance_OnBeforeResize(ResizeParent obj)
