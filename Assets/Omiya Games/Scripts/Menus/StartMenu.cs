@@ -143,6 +143,18 @@ namespace OmiyaGames
                 isButtonLocked = true;
             }
         }
+
+        public void OnStartClicked()
+        {
+            if (isButtonLocked == false)
+            {
+                Singleton.Get<SceneTransitionManager>().LoadNextLevel();
+                isButtonLocked = true;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
         #endregion
 
         protected override void OnStateChanged(IMenu.State from, IMenu.State to)
