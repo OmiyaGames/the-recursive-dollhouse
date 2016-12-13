@@ -39,13 +39,13 @@ public class MoodSetter : MonoBehaviour
         }
         set
         {
-            if (currentTheme != null)
+            if (currentTheme != value)
             {
                 if (currentTheme == null)
                 {
                     SnapToTheme(value);
                 }
-                else
+                else if (value != null)
                 {
                     animateTheme = true;
                 }
@@ -84,8 +84,8 @@ public class MoodSetter : MonoBehaviour
 
     void SnapToTheme(MoodTheme theme)
     {
-        sunlight.color = CurrentTheme.lightColor;
-        sunlight.intensity = CurrentTheme.lightIntensity;
+        sunlight.color = theme.lightColor;
+        sunlight.intensity = theme.lightIntensity;
         animateTheme = true;
     }
 }

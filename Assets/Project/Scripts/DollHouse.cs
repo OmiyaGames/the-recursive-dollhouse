@@ -131,13 +131,16 @@ public class DollHouse : TierObject
             trigger.IsEnabled = false;
         }
 
-        if(obj.LatestTier == ParentTier)
-        {
-            MoodSetter.Instance.CurrentTheme = assignedTheme;
-        }
-
         // Turn on the ceiling
-        ceiling.enabled = ((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier));
+        ceiling.enabled = false;
+        if ((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier))
+        {
+            ceiling.enabled = true;
+            if ((obj.TierHistory.Count >= 1) && (obj.TierHistory[obj.TierHistory.Count - 1] == ParentTier))
+            {
+                MoodSetter.Instance.CurrentTheme = assignedTheme;
+            }
+        }
     }
 
     private void Instance_OnAfterResize(ResizeParent obj)
