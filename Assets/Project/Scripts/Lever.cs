@@ -166,22 +166,15 @@ namespace Toggler
 
         public override Gazer.SoundEffectType OnInteract(Gazer gazer)
         {
-            Gazer.SoundEffectType returnSound = Gazer.SoundEffectType.None;
             if (interactive == true)
             {
                 // Toggle state
                 IsOn = !IsOn;
 
-                returnSound = Gazer.SoundEffectType.LeverOff;
-                if(IsOn == true)
-                {
-                    returnSound = Gazer.SoundEffectType.LeverOn;
-                }
-
                 // Run gaze exit
                 OnGazeExit(gazer);
             }
-            return returnSound;
+            return Gazer.SoundEffectType.None;
         }
 
         protected override void OnThisTierChanged(ResizingTier obj)

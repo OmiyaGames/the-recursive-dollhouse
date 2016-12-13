@@ -10,9 +10,7 @@ public class Gazer : MonoBehaviour
     {
         None,
         PickUpKey,
-        DropKey,
-        LeverOn,
-        LeverOff
+        DropKey
     }
 
     [SerializeField]
@@ -31,10 +29,6 @@ public class Gazer : MonoBehaviour
     SoundEffect pickup;
     [SerializeField]
     SoundEffect drop;
-    [SerializeField]
-    SoundEffect leverOn;
-    [SerializeField]
-    SoundEffect leverOff;
 
     Ray rayCache;
     RaycastHit info;
@@ -94,12 +88,6 @@ public class Gazer : MonoBehaviour
                             break;
                         case SoundEffectType.DropKey:
                             drop.Play();
-                            break;
-                        case SoundEffectType.LeverOn:
-                            leverOn.Play();
-                            break;
-                        case SoundEffectType.LeverOff:
-                            leverOff.Play();
                             break;
                     }
                 }
