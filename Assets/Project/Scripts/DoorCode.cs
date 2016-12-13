@@ -167,6 +167,10 @@ public class DoorCode : IDoor
                     StartCoroutine(failAnimation);
                 }
             }
+            else
+            {
+                buttonSound.Play();
+            }
         }
     }
 
@@ -302,6 +306,7 @@ public class DoorCode : IDoor
     IEnumerator PlayFailAnimation()
     {
         CurrentState = KeypadState.Disabled;
+        failedSound.Play();
 
         // Update label
         enterLabel.enabled = true;
@@ -339,6 +344,7 @@ public class DoorCode : IDoor
     IEnumerator PlaySuccessAnimation()
     {
         CurrentState = KeypadState.Complete;
+        successSound.Play();
 
         // Update label
         enterLabel.enabled = true;
