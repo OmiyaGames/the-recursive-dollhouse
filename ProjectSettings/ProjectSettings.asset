@@ -95,7 +95,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.omiyagames.templateproject
-  bundleVersion: 1.0
+  bundleVersion: 1.0.1
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
