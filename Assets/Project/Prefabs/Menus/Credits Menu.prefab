@@ -147,7 +147,7 @@ GameObject:
   - 222: {fileID: 22276670}
   - 114: {fileID: 11438682}
   m_Layer: 5
-  m_Name: Credits Text Programming
+  m_Name: Credits Text Motion Blur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,8 +427,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Special Thanks:</b>\n\tTech Valley Game Space\n\tTech Valley Center
-    of Gravity"
+  m_Text: "<b>Special Thanks:</b>\n\tLudum Dare 37\n\tTech Valley Game Space\n\tTech
+    Valley Center of Gravity"
 --- !u!114 &11416540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -600,7 +600,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Programming:</b>\n\tTaro Omiya\n"
+  m_Text: "<b>Special Effects:</b>\n\tParticles by Unity\n\tMotion Blurs by Keijiro
+    Takahashi\n\thttps://github.com/keijiro/KinoMotion"
 --- !u!114 &11440086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,7 +694,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Graphics:</b>\n\tModels by Taro Omiya\n\tParticle Effects by Unity\n"
+  m_Text: "<b>Graphics:</b>\n\tTaro Omiya"
 --- !u!114 &11460126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -857,7 +858,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Sound:</b>\n\tBy Taro Omiya, Petey Pezzulo, and Graham\n"
+  m_Text: "<b>Sound:</b>\n\tBy Taro Omiya, Petey Pezzulo, and Graham Lerch\n"
 --- !u!114 &11485366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -904,7 +905,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "<b>Thanks to These Patrons:</b>\n\tAdam R. Vierra\r\n\tJoshua Jennings\r\n\tXanderHD\r\n\tTommy
-    Pedersen\r\n\tJacob Clark\n"
+    Pedersen\r\n\tJacob Clark\n\tDavid Lin"
 --- !u!114 &11495552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1030,11 +1031,12 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 22441504}
-  - {fileID: 22495700}
+  - {fileID: 224000012371474544}
   - {fileID: 22458130}
   - {fileID: 224000012238059990}
   - {fileID: 22424096}
   - {fileID: 22451268}
+  - {fileID: 22495700}
   - {fileID: 22433760}
   - {fileID: 22420186}
   - {fileID: 22497638}
@@ -1077,7 +1079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22413310}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1113,7 +1115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22413310}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1318,7 +1320,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22413310}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1368,13 +1370,13 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138046}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22413310}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1392,7 +1394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 22413310}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1421,6 +1423,23 @@ GameObject:
   - 114: {fileID: 114000011991389358}
   m_Layer: 5
   m_Name: Credits Text Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000011091170936
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 224000012371474544}
+  - 222: {fileID: 222000011933253490}
+  - 114: {fileID: 114000013740541650}
+  m_Layer: 5
+  m_Name: Credits Text Programming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1458,13 +1477,52 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Music:</b>\n\tBy Petey Pezzulo and Graham\n"
+  m_Text: "<b>Music:</b>\n\tBy Petey Pezzulo and Graham Lerch\n"
+--- !u!114 &114000013740541650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011091170936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 02f5fba6ef4ae3943a673133f84c837a, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 200
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: "<b>Programming:</b>\n\tTaro Omiya\n"
 --- !u!222 &222000010652176802
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010251906278}
+--- !u!222 &222000011933253490
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011091170936}
 --- !u!224 &224000012238059990
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1478,6 +1536,24 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22413310}
   m_RootOrder: 3
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!224 &224000012371474544
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011091170936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 22413310}
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
