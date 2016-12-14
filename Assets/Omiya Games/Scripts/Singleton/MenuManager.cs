@@ -103,6 +103,18 @@ namespace OmiyaGames
             }
         }
 
+        public PauseMenu PauseMenu
+        {
+            get
+            {
+                if(pauseMenuCache == null)
+                {
+                    pauseMenuCache = GetMenu<PauseMenu>();
+                }
+                return pauseMenuCache;
+            }
+        }
+
         public SoundEffect ButtonClick
         {
             get
@@ -225,6 +237,14 @@ namespace OmiyaGames
             get
             {
                 return popUpManager;
+            }
+        }
+
+        public string PauseInput
+        {
+            get
+            {
+                return pauseInput;
             }
         }
 
@@ -454,25 +474,21 @@ namespace OmiyaGames
         void QueryInput(float unscaledDeltaTime)
         {
             // Detect input for pause button (make sure no managed dialogs are shown, either).
-            if((NumManagedMenus <= 0) && (Input.GetButtonDown(pauseInput) == true))
+            if((NumManagedMenus <= 0) && (Input.GetButtonDown(PauseInput) == true))
             {
                 // Attempt to grab the pause menu
-                if(pauseMenuCache == null)
+                if (PauseMenu != null)
                 {
-                    pauseMenuCache = GetMenu<PauseMenu>();
-                }
-                if (pauseMenuCache != null)
-                {
-                    if(pauseMenuCache.CurrentState == IMenu.State.Hidden)
+                    if(PauseMenu.CurrentState == IMenu.State.Hidden)
                     {
-                        pauseMenuCache.Show();
+                        PauseMenu.Show();
 
                         // Indicate button is clicked
                         ButtonClick.Play();
                     }
-                    else if(pauseMenuCache.CurrentState == IMenu.State.Visible)
+                    else if(PauseMenu.CurrentState == IMenu.State.Visible)
                     {
-                        pauseMenuCache.Hide();
+                        PauseMenu.Hide();
 
                         // Indicate button is clicked
                         ButtonClick.Play();

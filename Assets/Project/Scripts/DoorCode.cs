@@ -286,6 +286,12 @@ public class DoorCode : IDoor
                     break;
                 }
             }
+
+            // Check if the pause key is detected
+            if((Input.GetButtonDown(Singleton.Get<MenuManager>().PauseInput) == true) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResetGaze();
+            }
         }
     }
 

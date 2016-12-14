@@ -62,33 +62,37 @@ public class Gazer : MonoBehaviour
         // Reset current trigger this frame
         currentTrigger = null;
 
-        // Update ray-casting
-        rayCache.origin = transform.position;
-        rayCache.direction = transform.forward;
-
-        // Ray cast
-        if ((controller.IsGrounded == true) && (Physics.Raycast(rayCache, out info, RaycastDistance, raycastMask) == true))
+        // Make sure that we want to allow raycasting
+        if ((controller.IsGrounded == true) && (Singleton.Get<MenuManager>().PauseMenu.CurrentState == IMenu.State.Hidden))
         {
-            // Grab ray-casted object
-            currentTrigger = info.collider.GetComponent<InteractionTrigger>();
+            // Update ray-casting
+            rayCache.origin = transform.position;
+            rayCache.direction = transform.forward;
 
-            // Interact with the trigger
-            if(currentTrigger != null)
+            // Ray cast
+            if (Physics.Raycast(rayCache, out info, RaycastDistance, raycastMask) == true)
             {
-                if (lastTrigger != currentTrigger)
+                // Grab ray-casted object
+                currentTrigger = info.collider.GetComponent<InteractionTrigger>();
+
+                // Interact with the trigger
+                if (currentTrigger != null)
                 {
-                    currentTrigger.OnGazeEnter(this);
-                }
-                if (CrossPlatformInputManager.GetButton(GazeInteractInput) == true)
-                {
-                    switch(currentTrigger.OnInteract(this))
+                    if (lastTrigger != currentTrigger)
                     {
-                        case SoundEffectType.PickUpKey:
-                            pickup.Play();
-                            break;
-                        case SoundEffectType.DropKey:
-                            drop.Play();
-                            break;
+                        currentTrigger.OnGazeEnter(this);
+                    }
+                    if (CrossPlatformInputManager.GetButton(GazeInteractInput) == true)
+                    {
+                        switch (currentTrigger.OnInteract(this))
+                        {
+                            case SoundEffectType.PickUpKey:
+                                pickup.Play();
+                                break;
+                            case SoundEffectType.DropKey:
+                                drop.Play();
+                                break;
+                        }
                     }
                 }
             }
