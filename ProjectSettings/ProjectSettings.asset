@@ -568,6 +568,6 @@ PlayerSettings:
   iOS::VR::enabledDevices: []
   tvOS::VR::enabledDevices: []
   cloudProjectId: 49fa16f0-2460-4b6a-9af3-59e4dcc08636
-  projectName: Ludum Dare 37
+  projectName: The Recursive Dollhouse
   organizationId: omiya-games
   cloudEnabled: 0
