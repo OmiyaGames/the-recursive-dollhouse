@@ -114,11 +114,22 @@ public class FirstPersonModifiedController : FirstPersonController
             base.GetJump(ref jump);
         }
     }
-    protected override void UpdateMouseLock()
+
+    protected override void Start()
+    {
+        base.Start();
+        if(Singleton.Instance.IsWebplayer == true)
+        {
+            Singleton.Get<MenuManager>().Show<LevelIntroMenu>(StartMovement);
+            AllowMovement = false;
+        }
+    }
+
+    public override void UpdateMouseLock()
     {
         if (AllowMovement == true)
         {
-            Singleton.Get<SceneTransitionManager>().RevertCursorLockMode();
+            Singleton.Get<SceneTransitionManager>().RevertCursorLockMode(false);
         }
         else
         {
@@ -146,5 +157,13 @@ public class FirstPersonModifiedController : FirstPersonController
         base.StopSlowdown();
         m_BlurEffect.enabled = false;
         m_ZoomEffect.Stop();
+    }
+
+    void StartMovement(IMenu menu)
+    {
+        if(menu.CurrentState == IMenu.State.Hidden)
+        {
+            AllowMovement = true;
+        }
     }
 }

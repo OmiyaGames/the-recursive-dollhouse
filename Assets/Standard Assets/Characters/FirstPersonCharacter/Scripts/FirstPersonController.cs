@@ -7,7 +7,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : MonoBehaviour, IMouseLockChanger
     {
         public static FirstPersonController Instance
         {
@@ -102,7 +102,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
         // Use this for initialization
-        protected void Start()
+        protected virtual void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_OriginalCameraPosition = InstanceCamera.transform.localPosition;
@@ -196,7 +196,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
         }
 
-        protected virtual void UpdateMouseLock()
+        public virtual void UpdateMouseLock()
         {
             m_MouseLook.UpdateCursorLock();
         }
@@ -310,7 +310,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         protected virtual void RotateView()
         {
-            m_MouseLook.LookRotation(transform, InstanceCamera.transform);
+            m_MouseLook.LookRotation(transform, InstanceCamera.transform, this);
         }
 
 

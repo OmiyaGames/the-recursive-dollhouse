@@ -4,6 +4,11 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+    public interface IMouseLockChanger
+    {
+        void UpdateMouseLock();
+    }
+
     [Serializable]
     public class MouseLook
     {
@@ -28,7 +33,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character, Transform camera, IMouseLockChanger controller)
         {
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
@@ -52,7 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 camera.localRotation = m_CameraTargetRot;
             }
 
-            UpdateCursorLock();
+            controller.UpdateMouseLock();
         }
 
         public void SetCursorLock(bool value)

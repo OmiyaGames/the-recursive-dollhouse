@@ -6,7 +6,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
-    public class RigidbodyFirstPersonController : MonoBehaviour
+    public class RigidbodyFirstPersonController : MonoBehaviour, IMouseLockChanger
     {
         [Serializable]
         public class MovementSettings
@@ -221,6 +221,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             return input;
         }
 
+        public void UpdateMouseLock()
+        {
+            mouseLook.UpdateCursorLock();
+        }
 
         private void RotateView()
         {
@@ -230,7 +234,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            mouseLook.LookRotation (transform, cam.transform);
+            mouseLook.LookRotation (transform, cam.transform, this);
 
             if (m_IsGrounded || advancedSettings.airControl)
             {

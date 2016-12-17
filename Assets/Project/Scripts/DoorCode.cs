@@ -275,15 +275,19 @@ public class DoorCode : IDoor
         // Check if the keypad is active
         if (CurrentState == KeypadState.Enabled)
         {
-            // Go through all the accepted inputs on the keyboard
-            for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
+            // Prevent entering via keyboard if on WebGL.  Sorry, this just makes mouse locking easier.
+            if(Singleton.Instance.IsWebplayer == false)
             {
-                // Check if this key is down
-                if (Input.GetKeyDown(AllNumberKeyCodes[index]) == true)
+                // Go through all the accepted inputs on the keyboard
+                for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
                 {
-                    // Enter this key
-                    OnKeyPressed(index);
-                    break;
+                    // Check if this key is down
+                    if (Input.GetKeyDown(AllNumberKeyCodes[index]) == true)
+                    {
+                        // Enter this key
+                        OnKeyPressed(index);
+                        break;
+                    }
                 }
             }
 

@@ -80,6 +80,7 @@ namespace OmiyaGames
             }
             set
             {
+                print("Setting Cursor Lock: " + value);
                 Cursor.lockState = value;
                 Cursor.visible = (value != CursorLockMode.Locked);
             }
@@ -218,7 +219,7 @@ namespace OmiyaGames
             }
 
             // Update the cursor locking
-            RevertCursorLockMode();
+            RevertCursorLockMode(true);
 
             // Revert the time scale
             if (CurrentScene.RevertTimeScale == true)
@@ -227,13 +228,13 @@ namespace OmiyaGames
             }
         }
 
-        public void RevertCursorLockMode()
+        public void RevertCursorLockMode(bool allowWebplayerSettings)
         {
             CursorLockMode mode = defaultLockMode;
             if (CurrentScene != null)
             {
                 mode = CurrentScene.LockMode;
-                if (Singleton.Instance.IsWebplayer == true)
+                if ((allowWebplayerSettings == true) && (Singleton.Instance.IsWebplayer == true))
                 {
                     mode = CurrentScene.LockModeWeb;
                 }
