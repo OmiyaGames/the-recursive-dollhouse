@@ -65,7 +65,7 @@ namespace OmiyaGames
             AmazonGameCircle,
             //XboxLive,
             //Newgrounds,
-            //GameJolt,
+            GameJolt,
             //Kongregate,
             NumberOfServiceTypes
         }
@@ -183,6 +183,8 @@ namespace OmiyaGames
                 return ServiceType.None;
 #elif GOOGLE_PLAY_GAMES
                 return ServiceType.GooglePlayGames;
+#elif GAMEJOLT
+                return ServiceType.GameJolt;
 #elif UNITY_IOS
                 return ServiceType.AppleGameCenter;
 #else

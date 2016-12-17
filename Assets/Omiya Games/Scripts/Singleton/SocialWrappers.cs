@@ -375,10 +375,10 @@ namespace OmiyaGames
         //[SerializeField]
         //[Tooltip("ID for Newgrounds Web Portal (requires NEWGROUNDS macro defined)")]
         //string Newgrounds;
-        //// TODO: add support for GameJolt
-        //[SerializeField]
-        //[Tooltip("ID for GameJolt Web Portal (requires GAMEJOLT macro defined)")]
-        //string GameJolt;
+        // TODO: add support for GameJolt
+        [SerializeField]
+        [Tooltip("ID for GameJolt Web Portal (requires GAMEJOLT macro defined)")]
+        string GameJolt;
         //// TODO: add support for Kongregate
         //[SerializeField]
         //[Tooltip("ID for Kongregate Web Portal (requires KONGREGATE macro defined)")]
@@ -414,8 +414,8 @@ namespace OmiyaGames
                     //    return XboxLive;
                     //case ServiceType.Newgrounds:
                     //    return Newgrounds;
-                    //case ServiceType.GameJolt:
-                    //    return GameJolt;
+                    case SocialManager.ServiceType.GameJolt:
+                        return GameJolt;
                     //case ServiceType.Kongregate:
                     //    return Kongregate;
                     default:
