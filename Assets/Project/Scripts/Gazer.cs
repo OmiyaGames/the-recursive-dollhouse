@@ -30,7 +30,7 @@ public class Gazer : MonoBehaviour
     [SerializeField]
     SoundEffect drop;
 
-    Ray rayCache;
+    Ray rayCache = new Ray();
     RaycastHit info;
     InteractionTrigger currentTrigger = null;
     InteractionTrigger lastTrigger = null;
