@@ -46,23 +46,52 @@ namespace OmiyaGames
         [System.Serializable]
         public struct AudioControls
         {
-            public Slider volumeSlider;
-            public Text volumePercentLabel;
-            public Image checkBoxMark;
+            [SerializeField]
+            GameObject[] controlParents;
+            [SerializeField]
+            Slider volumeSlider;
+            [SerializeField]
+            Text volumePercentLabel;
+            [SerializeField]
+            Toggle checkBoxMark;
 
             public void Setup(float volume, bool mute)
             {
-                volumeSlider.value = volume;
-                volumePercentLabel.text = Percent(volume);
-                volumeSlider.interactable = !mute;
-                checkBoxMark.enabled = mute;
+                VolumeSlider.value = volume;
+                VolumePercentLabel.text = Percent(volume);
+                VolumeSlider.interactable = !mute;
+                CheckBoxMark.isOn = mute;
+            }
+
+            public Slider VolumeSlider
+            {
+                get
+                {
+                    return volumeSlider;
+                }
+            }
+
+            public Text VolumePercentLabel
+            {
+                get
+                {
+                    return volumePercentLabel;
+                }
+            }
+
+            public Toggle CheckBoxMark
+            {
+                get
+                {
+                    return checkBoxMark;
+                }
             }
 
             public float MinValue
             {
                 get
                 {
-                    return volumeSlider.minValue;
+                    return VolumeSlider.minValue;
                 }
             }
 
@@ -70,17 +99,137 @@ namespace OmiyaGames
             {
                 get
                 {
-                    return volumeSlider.maxValue;
+                    return VolumeSlider.maxValue;
+                }
+            }
+
+            public bool IsActive
+            {
+                get
+                {
+                    bool returnFlag = false;
+                    foreach(GameObject control in controlParents)
+                    {
+                        if(control != null)
+                        {
+                            returnFlag = control.activeSelf;
+                            break;
+                        }
+                    }
+                    return returnFlag;
+                }
+                set
+                {
+                    foreach(GameObject control in controlParents)
+                    {
+                        if(control != null)
+                        {
+                            control.SetActive(value);
+                        }
+                    }
                 }
             }
         }
 
+        [System.Serializable]
+        public struct MouseSensitivityControls
+        {
+            [SerializeField]
+            GameObject controlParent;
+            [SerializeField]
+            Slider slider;
+            [SerializeField]
+            Text percentLabel;
+
+            public void Setup(float sensitivity)
+            {
+                SensitivitySlider.value = sensitivity;
+                SensitivityPercentLabel.text = Percent(sensitivity);
+            }
+
+            public Slider SensitivitySlider
+            {
+                get
+                {
+                    return slider;
+                }
+            }
+
+            public Text SensitivityPercentLabel
+            {
+                get
+                {
+                    return percentLabel;
+                }
+            }
+
+            public float MinValue
+            {
+                get
+                {
+                    return SensitivitySlider.minValue;
+                }
+            }
+
+            public float MaxValue
+            {
+                get
+                {
+                    return SensitivitySlider.maxValue;
+                }
+            }
+
+            public bool IsActive
+            {
+                get
+                {
+                    return controlParent.activeSelf;
+                }
+                set
+                {
+                    controlParent.SetActive(value);
+                }
+            }
+        }
+
+        [Header("Features to Enable")]
+        [SerializeField]
+        bool enableMusicControls = true;
+        [SerializeField]
+        bool enableSoundEffectControls = true;
+        [SerializeField]
+        bool enableMouseSensitivityControls = true;
+        [SerializeField]
+        bool enableScrollWheelSensitivityControls = true;
+        [SerializeField]
+        bool enableMouseInvertedControls = true;
+        [SerializeField]
+        bool enableScrollWheelInvertedControls = true;
+        [SerializeField]
+        bool enableResetDataButton = true;
+
+        [Header("Audio Controls")]
         [SerializeField]
         AudioControls musicControls;
         [SerializeField]
         AudioControls soundEffectsControls;
+        [SerializeField]
+        GameObject audioDividers;
 
-        GameSettings settings = null;
+        [Header("Mouse Sensitivity")]
+        [SerializeField]
+        Toggle mouseSensitivityAdvancedToggle;
+        [SerializeField]
+        MouseSensitivityControls bothMouseAxisSensitivity;
+        [SerializeField]
+        MouseSensitivityControls mouseXAxisSensitivity;
+        [SerializeField]
+        MouseSensitivityControls mouseYAxisSensitivity;
+        [SerializeField]
+        MouseSensitivityControls scrollWheelSensitivity;
+        [SerializeField]
+        GameObject[] mouseSensitivityLabelsAndDividers;
+
         SoundEffect audioCache;
         bool inSetupMode = false;
 
@@ -98,6 +247,14 @@ namespace OmiyaGames
             }
         }
 
+        GameSettings settings
+        {
+            get
+            {
+                return Singleton.Get<GameSettings>();
+            }
+        }
+
         public override Type MenuType
         {
             get
@@ -110,22 +267,12 @@ namespace OmiyaGames
         {
             get
             {
-                return musicControls.volumeSlider.gameObject;
+                return musicControls.VolumeSlider.gameObject;
             }
         }
 
         void Start()
         {
-            // Check if we've already retrieve the settings
-            if (settings != null)
-            {
-                // If so, don't do anything
-                return;
-            }
-
-            // Retrieve settings
-            settings = Singleton.Get<GameSettings>();
-
             // Setup controls
             inSetupMode = true;
             musicControls.Setup(BackgroundMusic.GlobalVolume, BackgroundMusic.GlobalMute);
@@ -162,8 +309,8 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                BackgroundMusic.GlobalVolume = musicControls.volumeSlider.value;
-                musicControls.volumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume);
+                BackgroundMusic.GlobalVolume = musicControls.VolumeSlider.value;
+                musicControls.VolumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume);
             }
         }
 
@@ -171,8 +318,8 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                SoundEffect.GlobalVolume = soundEffectsControls.volumeSlider.value;
-                soundEffectsControls.volumePercentLabel.text = Percent(SoundEffect.GlobalVolume);
+                SoundEffect.GlobalVolume = soundEffectsControls.VolumeSlider.value;
+                soundEffectsControls.VolumePercentLabel.text = Percent(SoundEffect.GlobalVolume);
             }
         }
         
@@ -189,10 +336,10 @@ namespace OmiyaGames
                 BackgroundMusic.GlobalMute = !BackgroundMusic.GlobalMute;
 
                 // Change the check box
-                musicControls.checkBoxMark.enabled = BackgroundMusic.GlobalMute;
+                musicControls.CheckBoxMark.isOn = BackgroundMusic.GlobalMute;
 
                 // disable the slider
-                musicControls.volumeSlider.interactable = !BackgroundMusic.GlobalMute;
+                musicControls.VolumeSlider.interactable = !BackgroundMusic.GlobalMute;
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();
@@ -207,10 +354,10 @@ namespace OmiyaGames
                 SoundEffect.GlobalMute = !SoundEffect.GlobalMute;
 
                 // Change the check box
-                soundEffectsControls.checkBoxMark.enabled = SoundEffect.GlobalMute;
+                soundEffectsControls.CheckBoxMark.isOn = SoundEffect.GlobalMute;
 
                 // disable the slider
-                soundEffectsControls.volumeSlider.interactable = !SoundEffect.GlobalMute;
+                soundEffectsControls.VolumeSlider.interactable = !SoundEffect.GlobalMute;
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();
@@ -242,7 +389,7 @@ namespace OmiyaGames
             if(((ConfirmationMenu)menu).IsYesSelected == true)
             {
                 // Clear settings
-                Singleton.Get<GameSettings>().ClearSettings();
+                settings.ClearSettings();
 
                 // Update the level select menu, if one is available
                 LevelSelectMenu levelSelect = Manager.GetMenu<LevelSelectMenu>();
