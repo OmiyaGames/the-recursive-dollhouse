@@ -55,7 +55,7 @@ namespace OmiyaGames
             [SerializeField]
             Toggle checkBoxMark;
 
-            public void Setup(float volume, bool mute)
+            public void Update(float volume, bool mute)
             {
                 VolumeSlider.value = volume;
                 VolumePercentLabel.text = Percent(volume);
@@ -132,7 +132,7 @@ namespace OmiyaGames
         }
 
         [System.Serializable]
-        public struct MouseSensitivityControls
+        public struct SensitivityControls
         {
             [SerializeField]
             GameObject controlParent;
@@ -141,7 +141,7 @@ namespace OmiyaGames
             [SerializeField]
             Text percentLabel;
 
-            public void Setup(float sensitivity)
+            public void Update(float sensitivity)
             {
                 SensitivitySlider.value = sensitivity;
                 SensitivityPercentLabel.text = Percent(sensitivity);
@@ -192,15 +192,164 @@ namespace OmiyaGames
             }
         }
 
+        [System.Serializable]
+        public struct ToggleControls
+        {
+            [SerializeField]
+            GameObject controlParent;
+            [SerializeField]
+            Toggle toggle;
+
+            public bool IsInverted
+            {
+                get
+                {
+                    return toggle.isOn;
+                }
+                set
+                {
+                    toggle.isOn = value;
+                }
+            }
+
+            public bool IsActive
+            {
+                get
+                {
+                    return controlParent.activeSelf;
+                }
+                set
+                {
+                    controlParent.SetActive(value);
+                }
+            }
+        }
+
+        [System.Serializable]
+        public struct CompoundSensitivityControls
+        {
+            [SerializeField]
+            ToggleControls splitAxisToggle;
+            [SerializeField]
+            SensitivityControls overallSensitivity;
+            [SerializeField]
+            SensitivityControls xAxisSensitivity;
+            [SerializeField]
+            SensitivityControls yAxisSensitivity;
+
+            public void Update(bool splitSensitivity, float xSensitivity, float ySensitivity)
+            {
+                splitAxisToggle.IsInverted = splitSensitivity;
+
+                overallSensitivity.Update(xSensitivity);
+                xAxisSensitivity.Update(xSensitivity);
+                yAxisSensitivity.Update(ySensitivity);
+                
+                UpdateAxisSensitivityControls();
+            }
+
+            public bool IsAxisSplit
+            {
+                get
+                {
+                    return splitAxisToggle.IsInverted;
+                }
+                set
+                {
+                    splitAxisToggle.IsInverted = value;
+                    UpdateAxisSensitivityControls();
+                }
+            }
+
+            public float XAxisSensitivity
+            {
+                get
+                {
+                    if(splitAxisToggle.IsInverted == true)
+                    {
+                        return overallSensitivity.SensitivitySlider.value;
+                    }
+                    else
+                    {
+                        return xAxisSensitivity.SensitivitySlider.value;
+                    }
+                }
+                set
+                {
+                    overallSensitivity.Update(value);
+                    xAxisSensitivity.Update(value);
+                }
+            }
+
+            public float YAxisSensitivity
+            {
+                get
+                {
+                    if(splitAxisToggle.IsInverted == true)
+                    {
+                        return overallSensitivity.SensitivitySlider.value;
+                    }
+                    else
+                    {
+                        return yAxisSensitivity.SensitivitySlider.value;
+                    }
+                }
+                set
+                {
+                    yAxisSensitivity.Update(value);
+                }
+            }
+
+            public bool IsActive
+            {
+                get
+                {
+                    return splitAxisToggle.IsActive;
+                }
+                set
+                {
+                    splitAxisToggle.IsActive = value;
+                    UpdateAxisSensitivityControls();
+                }
+            }
+            
+            void UpdateAxisSensitivityControls()
+            {
+                if(splitAxisToggle.IsActive == false)
+                {
+                    xAxisSensitivity.IsActive = false;
+                    yAxisSensitivity.IsActive = false;
+                    overallSensitivity.IsActive = false;
+                }
+                else if(splitAxisToggle.IsInverted == true)
+                {
+                    xAxisSensitivity.IsActive = true;
+                    yAxisSensitivity.IsActive = true;
+                    overallSensitivity.IsActive = false;
+                }
+                else
+                {
+                    overallSensitivity.IsActive = true;
+                    xAxisSensitivity.IsActive = false;
+                    yAxisSensitivity.IsActive = false;
+                }
+            }
+        }
+
+        #region Serialized Fields
         [Header("Features to Enable")]
         [SerializeField]
         bool enableMusicControls = true;
         [SerializeField]
         bool enableSoundEffectControls = true;
         [SerializeField]
+        bool enableKeyboardSensitivityControls = true;
+        [SerializeField]
         bool enableMouseSensitivityControls = true;
         [SerializeField]
         bool enableScrollWheelSensitivityControls = true;
+        [SerializeField]
+        bool enableKeyboardInvertedControls = true;
         [SerializeField]
         bool enableMouseInvertedControls = true;
         [SerializeField]
@@ -218,23 +367,40 @@ namespace OmiyaGames
 
         [Header("Mouse Sensitivity")]
         [SerializeField]
-        Toggle mouseSensitivityAdvancedToggle;
+        CompoundSensitivityControls keyboardSensitivity;
         [SerializeField]
-        MouseSensitivityControls bothMouseAxisSensitivity;
+        CompoundSensitivityControls mouseSensitivity;
         [SerializeField]
-        MouseSensitivityControls mouseXAxisSensitivity;
-        [SerializeField]
-        MouseSensitivityControls mouseYAxisSensitivity;
-        [SerializeField]
-        MouseSensitivityControls scrollWheelSensitivity;
+        SensitivityControls scrollWheelSensitivity;
         [SerializeField]
         GameObject[] mouseSensitivityLabelsAndDividers;
+
+        [Header("Mouse Sensitivity")]
+        [SerializeField]
+        ToggleControls keyboardXInvert;
+        [SerializeField]
+        ToggleControls keyboardYInvert;
+        [SerializeField]
+        ToggleControls mouseXInvert;
+        [SerializeField]
+        ToggleControls mouseYInvert;
+        [SerializeField]
+        ToggleControls scrollWheelInvert;
+
+        [SerializeField]
+        GameObject[] mouseInvertLabelsAndDividers;
+
+        [Header("Other controls")]
+        [SerializeField]
+        GameObject resetAllDataParent;
+        #endregion
 
         SoundEffect audioCache;
         bool inSetupMode = false;
 
         System.Action<OptionsMenu> hideAction = null;
 
+        #region Properties
         public SoundEffect TestSoundEffect
         {
             get
@@ -270,13 +436,22 @@ namespace OmiyaGames
                 return musicControls.VolumeSlider.gameObject;
             }
         }
+        #endregion
 
         void Start()
         {
             // Setup controls
             inSetupMode = true;
-            musicControls.Setup(BackgroundMusic.GlobalVolume, BackgroundMusic.GlobalMute);
-            soundEffectsControls.Setup(SoundEffect.GlobalVolume, SoundEffect.GlobalMute);
+
+            // Update how music controls are enabled
+            SetupAudioControls();
+
+            //SetupMouseSensitivityControls();
+
+            //SetupInvertControls();
+
+            // Update whether the rest of the controls are enabled
+            resetAllDataParent.SetActive(enableResetDataButton);
             inSetupMode = false;
         }
 
@@ -397,6 +572,24 @@ namespace OmiyaGames
                 {
                     levelSelect.SetButtonsEnabled(true);
                 }
+            }
+        }
+
+        void SetupAudioControls()
+        {
+            musicControls.Update(BackgroundMusic.GlobalVolume, BackgroundMusic.GlobalMute);
+            musicControls.IsActive = enableMusicControls;
+            
+            soundEffectsControls.Update(SoundEffect.GlobalVolume, SoundEffect.GlobalMute);
+            soundEffectsControls.IsActive = enableSoundEffectControls;
+            
+            if((enableMusicControls == true) || (enableSoundEffectControls == true))
+            {
+                audioDividers.SetActive(true);
+            }
+            else
+            {
+                audioDividers.SetActive(false);
             }
         }
     }
