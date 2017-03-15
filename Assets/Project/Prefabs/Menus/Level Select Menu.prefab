@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 22494308}
   - component: {fileID: 22218500}
   - component: {fileID: 11419398}
+  - component: {fileID: 114451067334749640}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -123,6 +124,7 @@ GameObject:
   - component: {fileID: 22444500}
   - component: {fileID: 22204738}
   - component: {fileID: 11407906}
+  - component: {fileID: 114192436152445564}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -328,7 +330,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 67d0442f696d3bf4f9dedc7bdfc2181d, type: 3}
+    m_Font: {fileID: 12800000, guid: 02f5fba6ef4ae3943a673133f84c837a, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -1067,6 +1069,38 @@ MonoBehaviour:
   m_PreferredHeight: 75
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+--- !u!114 &114192436152445564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationKey: Level Select Title
+  extraFormatting: 
+  letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
+--- !u!114 &114451067334749640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationKey: Back Button
+  extraFormatting: 
+  letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
 --- !u!114 &114517646451407386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1092,9 +1126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: 
+  translationKey: Level Button
   extraFormatting: 
   letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
 --- !u!114 &114922025962554690
 MonoBehaviour:
   m_ObjectHideFlags: 1
