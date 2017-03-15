@@ -396,7 +396,7 @@ namespace OmiyaGames
             }
         }
 
-        Dictionary<string, FontMap> FontDictionary
+        internal Dictionary<string, FontMap> FontDictionary
         {
             get
             {

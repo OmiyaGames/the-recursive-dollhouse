@@ -361,7 +361,7 @@ namespace OmiyaGames
 
         [Header("Language Controls")]
         [SerializeField]
-        Dropdown languageDropDown;
+        LanguageDropDown languageDropDown;
         [SerializeField]
         GameObject[] languageParents;
 
@@ -590,13 +590,11 @@ namespace OmiyaGames
 
         void SetupLanguageControls()
         {
-            // Remove all language options
-            languageDropDown.ClearOptions();
-
-            // Setting up all the language options
-            TranslationManager manager = Singleton.Get<TranslationManager>();
-            languageDropDown.AddOptions(manager.SupportedLanguages);
-            languageDropDown.value = manager.SupportedLanguages.IndexOf(manager.CurrentLanguage);
+            if(languageDropDown.IsSetup == false)
+            {
+                // Setup the drop down
+                languageDropDown.Setup();
+            }
 
             // Update whether the controls are visible or not
             foreach(GameObject controls in languageParents)
