@@ -46,12 +46,22 @@ namespace OmiyaGames
         [SerializeField]
         [Tooltip("The key to the CSVLanguageParser.")]
         string translationKey = "";
+
+        [HeaderAttribute("Optional Formatting")]
         [SerializeField]
         [Tooltip("(Optional) Any extra formatting one might want to add to a translated text (e.g. \"<b>{0}</b>\" will create a bolded text. Leave it blank for no formatting.")]
         string extraFormatting = "";
         [SerializeField]
         [Tooltip("(Optional) Any extra formatting one might want to add to a translated text (e.g. \"<b>{0}</b>\" will create a bolded text. Leave it blank for no formatting.")]
         LetterFormatting letterFormatting = LetterFormatting.None;
+
+        [HeaderAttribute("Optional Font Adjustments")]
+        [SerializeField]
+        [Tooltip("(Optional) Name of the font key, set in the Translation Manager.")]
+        string fontKey = "";
+        [SerializeField]
+        [Tooltip("(Optional) If checked, sets the font based on the label's style.")]
+        bool changeFontOnStyle = false;
 
         /// <summary>
         /// The attached label.
@@ -117,6 +127,27 @@ namespace OmiyaGames
             }
         }
 
+        public string CurrentText
+        {
+            get
+            {
+                return Label.text;
+            }
+        }
+
+        public FontStyle CurrentStyle
+        {
+            get
+            {
+                return Label.fontStyle;
+            }
+            set
+            {
+                Label.fontStyle = value;
+                UpdateFont();
+            }
+        }
+
         void Start()
         {
             if (IsTranslating == true)
@@ -168,8 +199,11 @@ namespace OmiyaGames
                         break;
                 }
 
-                // Set the label
+                // Set the label's text
                 Label.text = displayString;
+
+                // Set the label's font
+                UpdateFont();
             }
         }
 
@@ -181,5 +215,23 @@ namespace OmiyaGames
             // Update the label
             UpdateLabel();
         }
+
+        #region Helper Methods
+        void UpdateFont()
+        {
+            TranslationManager.FontMap map = Parser.CurrentLanguageFont;
+            if(map != null)
+            {
+                if(changeFontOnStyle == true)
+                {
+                    Label.font = map.GetFont(fontKey, Label.fontStyle);
+                }
+                else
+                {
+                    Label.font = map.GetFont(fontKey);
+                }
+            }
+        }
+        #endregion
     }
 }

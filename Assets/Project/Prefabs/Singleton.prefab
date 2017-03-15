@@ -220,7 +220,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -806,10 +806,22 @@ MonoBehaviour:
   loadFileAsset: {fileID: 4900000, guid: d2e58b55fb3f2a44b9f3ac03d9583ec3, type: 3}
   loadFileName: 
   keyHeader: Keys
-  testLanguage: 
+  defaultLanguage: 
   languageMap:
   - language: 10
     header: English (USA)
+  - language: 22
+    header: "\u65E5\u672C\u8A9E"
+  fontMap:
+  - header: English (USA)
+    defaultFont: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    otherFonts: []
+  - header: Pig Latin (USA)
+    defaultFont: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    otherFonts: []
+  - header: "\u65E5\u672C\u8A9E"
+    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
+    otherFonts: []
 --- !u!114 &11428526
 MonoBehaviour:
   m_ObjectHideFlags: 1
