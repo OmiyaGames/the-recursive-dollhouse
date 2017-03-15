@@ -339,6 +339,8 @@ namespace OmiyaGames
         #region Serialized Fields
         [Header("Features to Enable")]
         [SerializeField]
+        bool enableLanguageControls = true;
+        [SerializeField]
         bool enableMusicControls = true;
         [SerializeField]
         bool enableSoundEffectControls = true;
@@ -356,6 +358,12 @@ namespace OmiyaGames
         bool enableScrollWheelInvertedControls = true;
         [SerializeField]
         bool enableResetDataButton = true;
+
+        [Header("Language Controls")]
+        [SerializeField]
+        Dropdown languageDropDown;
+        [SerializeField]
+        GameObject[] languageParents;
 
         [Header("Audio Controls")]
         [SerializeField]
@@ -443,15 +451,20 @@ namespace OmiyaGames
             // Setup controls
             inSetupMode = true;
 
+            // Update how the languages are enabled
+            SetupLanguageControls();
+
             // Update how music controls are enabled
             SetupAudioControls();
 
-            //SetupMouseSensitivityControls();
+            // Update how sensitivity controls are enabled
+            SetupSensitivityControls();
 
-            //SetupInvertControls();
+            // Update how invert controls are enabled
+            SetupInvertControls();
 
             // Update whether the rest of the controls are enabled
-            resetAllDataParent.SetActive(enableResetDataButton);
+            SetupOtherControls();
             inSetupMode = false;
         }
 
@@ -575,14 +588,34 @@ namespace OmiyaGames
             }
         }
 
+        void SetupLanguageControls()
+        {
+            // Remove all language options
+            languageDropDown.ClearOptions();
+
+            // Setting up all the language options
+            TranslationManager manager = Singleton.Get<TranslationManager>();
+            languageDropDown.AddOptions(manager.SupportedLanguages);
+            languageDropDown.value = manager.SupportedLanguages.IndexOf(manager.CurrentLanguage);
+
+            // Update whether the controls are visible or not
+            foreach(GameObject controls in languageParents)
+            {
+                controls.SetActive(enableLanguageControls);
+            }
+        }
+
         void SetupAudioControls()
         {
+            // Update music controls
             musicControls.Update(BackgroundMusic.GlobalVolume, BackgroundMusic.GlobalMute);
             musicControls.IsActive = enableMusicControls;
             
+            // Update sound effect controls
             soundEffectsControls.Update(SoundEffect.GlobalVolume, SoundEffect.GlobalMute);
             soundEffectsControls.IsActive = enableSoundEffectControls;
             
+            // Update divider
             if((enableMusicControls == true) || (enableSoundEffectControls == true))
             {
                 audioDividers.SetActive(true);
@@ -591,6 +624,77 @@ namespace OmiyaGames
             {
                 audioDividers.SetActive(false);
             }
+        }
+
+        void SetupSensitivityControls()
+        {
+            // FIXME: Update keyboard sensitivity
+            keyboardSensitivity.Update(false, 1f, 0.5f);
+            keyboardSensitivity.IsActive = enableKeyboardSensitivityControls;
+
+            // FIXME: Update mouse sensitivity
+            mouseSensitivity.Update(true, 0.1f, 0.01f);
+            mouseSensitivity.IsActive = enableMouseSensitivityControls;
+
+            // FIXME: Update scroll wheel sensitivity
+            scrollWheelSensitivity.Update(0.75f);
+            scrollWheelSensitivity.IsActive = enableScrollWheelSensitivityControls;
+
+            // Update label and dividers
+            if((enableKeyboardSensitivityControls == true) || (enableMouseSensitivityControls == true) || (enableScrollWheelSensitivityControls == true))
+            {
+                foreach(GameObject control in mouseSensitivityLabelsAndDividers)
+                {
+                    control.SetActive(true);
+                }
+            }
+            else
+            {
+                foreach(GameObject control in mouseSensitivityLabelsAndDividers)
+                {
+                    control.SetActive(false);
+                }
+            }
+        }
+
+        void SetupInvertControls()
+        {
+            // FIXME: Update keyboard inverting controls
+            keyboardXInvert.IsInverted = false;
+            keyboardXInvert.IsActive = enableKeyboardInvertedControls;
+            keyboardYInvert.IsInverted = true;
+            keyboardYInvert.IsActive = enableKeyboardInvertedControls;
+            
+            // FIXME: Update mouse inverting controls
+            mouseXInvert.IsInverted = true;
+            mouseXInvert.IsActive = enableMouseInvertedControls;
+            mouseYInvert.IsInverted = false;
+            mouseYInvert.IsActive = enableMouseInvertedControls;
+
+            // FIXME: Update scroll wheel inverting controls
+            scrollWheelInvert.IsInverted = true;
+            scrollWheelInvert.IsActive = enableScrollWheelInvertedControls;
+
+            // Update label and dividers
+            if((enableKeyboardInvertedControls == true) || (enableMouseInvertedControls == true) || (enableScrollWheelInvertedControls == true))
+            {
+                foreach(GameObject control in mouseInvertLabelsAndDividers)
+                {
+                    control.SetActive(true);
+                }
+            }
+            else
+            {
+                foreach(GameObject control in mouseInvertLabelsAndDividers)
+                {
+                    control.SetActive(false);
+                }
+            }
+        }
+
+        void SetupOtherControls()
+        {
+            resetAllDataParent.SetActive(enableResetDataButton);
         }
     }
 }
