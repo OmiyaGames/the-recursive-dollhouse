@@ -337,6 +337,7 @@ namespace OmiyaGames
         }
 
         #region Serialized Fields
+        // FIXME: Add more booleans based on new fields!
         [Header("Features to Enable")]
         [SerializeField]
         bool enableLanguageControls = true;
@@ -493,21 +494,38 @@ namespace OmiyaGames
             Manager.ButtonClick.Play();
         }
 
-        public void OnMusicSliderChanged()
+        public void OnLanguageSeleced(int selectedIndex)
         {
-            if (inSetupMode == false)
+            if ((inSetupMode == false) && (selectedIndex >= 0))
             {
-                BackgroundMusic.GlobalVolume = musicControls.VolumeSlider.value;
-                musicControls.VolumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume);
+                // Grab the translator
+                TranslationManager translator = Singleton.Get<TranslationManager>();
+                if((translator != null) && (selectedIndex < translator.SupportedLanguages.Count))
+                {
+                    // Change the language
+                    translator.CurrentLanguage = translator.SupportedLanguages[selectedIndex];
+                }
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
             }
         }
 
-        public void OnSoundEffectsSliderChanged()
+        public void OnMusicSliderChanged(float sliderValue)
         {
             if (inSetupMode == false)
             {
-                SoundEffect.GlobalVolume = soundEffectsControls.VolumeSlider.value;
-                soundEffectsControls.VolumePercentLabel.text = Percent(SoundEffect.GlobalVolume);
+                BackgroundMusic.GlobalVolume = sliderValue;
+                musicControls.VolumePercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnSoundEffectsSliderChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                SoundEffect.GlobalVolume = sliderValue;
+                soundEffectsControls.VolumePercentLabel.text = Percent(sliderValue);
             }
         }
         
@@ -516,36 +534,45 @@ namespace OmiyaGames
             TestSoundEffect.Play();
         }
 
-        public void OnMusicMuteClicked()
+        public void OnMusicMuteToggled(bool mute)
         {
             if (inSetupMode == false)
             {
                 // Toggle mute
-                BackgroundMusic.GlobalMute = !BackgroundMusic.GlobalMute;
-
-                // Change the check box
-                musicControls.CheckBoxMark.isOn = BackgroundMusic.GlobalMute;
+                BackgroundMusic.GlobalMute = mute;
 
                 // disable the slider
-                musicControls.VolumeSlider.interactable = !BackgroundMusic.GlobalMute;
+                musicControls.VolumeSlider.interactable = !mute;
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();
             }
         }
 
-        public void OnSoundEffectsMuteClicked()
+        public void OnSoundEffectsMuteToggled(bool mute)
         {
             if (inSetupMode == false)
             {
                 // Toggle mute
-                SoundEffect.GlobalMute = !SoundEffect.GlobalMute;
-
-                // Change the check box
-                soundEffectsControls.CheckBoxMark.isOn = SoundEffect.GlobalMute;
+                SoundEffect.GlobalMute = mute;
 
                 // disable the slider
-                soundEffectsControls.VolumeSlider.interactable = !SoundEffect.GlobalMute;
+                soundEffectsControls.VolumeSlider.interactable = !mute;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnSplitKeyboardAxisToggled(bool splitAxis)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.SplitKeyboardAxis = splitAxis;
+
+                // Toggle which sliders will be showing up
+                keyboardSensitivity.IsAxisSplit = splitAxis;
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();

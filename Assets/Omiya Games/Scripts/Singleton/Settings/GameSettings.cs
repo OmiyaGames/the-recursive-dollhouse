@@ -82,6 +82,7 @@ namespace OmiyaGames
         public const string LeaderboardUserScopeKey = "Leaderboard User Scope";
         public const string NumberOfTimesAppOpenedKey = "Number of Times App Open";
         public const string TotalPlayTimeKey = "Total Play Time";
+        public const string SplitKeyboardAxisKey = "Split Keyboard Axis";
         #endregion
 
         #region Version 0 Settings Member Variables
@@ -98,6 +99,7 @@ namespace OmiyaGames
         DateTime lastTimeOpen;
         TimeSpan lastPlayTime = TimeSpan.Zero;
         int numberOfTimesAppOpened = 0;
+        bool splitKeyboardAxis = false;
         #endregion
 
         public static UserScope DefaultLeaderboardUserScope
@@ -289,6 +291,22 @@ namespace OmiyaGames
                 return lastPlayTime.Add(DateTime.UtcNow - lastTimeOpen);
             }
         }
+
+        public bool SplitKeyboardAxis
+        {
+            get
+            {
+                return splitKeyboardAxis;
+            }
+            set
+            {
+                if (splitKeyboardAxis != value)
+                {
+                    splitKeyboardAxis = value;
+                    Settings.SetBool(SplitKeyboardAxisKey, splitKeyboardAxis);
+                }
+            }
+        }
         #endregion
 
         #region Singleton Overrides
@@ -472,6 +490,9 @@ namespace OmiyaGames
                 RetrieveHighScores(tempString);
             }
 
+            // Grab Keyboard Sensitivity information
+            splitKeyboardAxis = Settings.GetBool(SplitKeyboardAxisKey, false);
+
             // Grab how long we've played this game
             lastTimeOpen = DateTime.UtcNow;
             lastPlayTime = Settings.GetTimeSpan(TotalPlayTimeKey, TimeSpan.Zero);
@@ -504,6 +525,9 @@ namespace OmiyaGames
 
             // Set the play time
             Settings.SetTimeSpan(TotalPlayTimeKey, TotalPlayTime);
+
+            // Set Keyboard Sensitivity information
+            Settings.SetBool(SplitKeyboardAxisKey, splitKeyboardAxis);
         }
 
         void RevertVersion0SettingsClearedSettings()
@@ -521,6 +545,9 @@ namespace OmiyaGames
 
             // Set the language
             Settings.SetString(LanguageKey, language);
+
+            // Set Keyboard Sensitivity information
+            Settings.SetBool(SplitKeyboardAxisKey, splitKeyboardAxis);
         }
 
         void RetrieveHighScores(string highScoresString)
