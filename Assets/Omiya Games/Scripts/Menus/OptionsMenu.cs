@@ -241,11 +241,35 @@ namespace OmiyaGames
             {
                 splitAxisToggle.IsInverted = splitSensitivity;
 
-                overallSensitivity.Update(xSensitivity);
+                OverallSensitivity.Update(xSensitivity);
                 xAxisSensitivity.Update(xSensitivity);
                 yAxisSensitivity.Update(ySensitivity);
                 
                 UpdateAxisSensitivityControls();
+            }
+
+            public SensitivityControls OverallSensitivity
+            {
+                get
+                {
+                    return overallSensitivity;
+                }
+            }
+
+            public SensitivityControls XAxisSensitivity
+            {
+                get
+                {
+                    return xAxisSensitivity;
+                }
+            }
+
+            public SensitivityControls YAxisSensitivity
+            {
+                get
+                {
+                    return yAxisSensitivity;
+                }
             }
 
             public bool IsAxisSplit
@@ -254,50 +278,11 @@ namespace OmiyaGames
                 {
                     return splitAxisToggle.IsInverted;
                 }
-                set
-                {
-                    splitAxisToggle.IsInverted = value;
-                    UpdateAxisSensitivityControls();
-                }
-            }
-
-            public float XAxisSensitivity
-            {
-                get
-                {
-                    if(splitAxisToggle.IsInverted == true)
-                    {
-                        return overallSensitivity.SensitivitySlider.value;
-                    }
-                    else
-                    {
-                        return xAxisSensitivity.SensitivitySlider.value;
-                    }
-                }
-                set
-                {
-                    overallSensitivity.Update(value);
-                    xAxisSensitivity.Update(value);
-                }
-            }
-
-            public float YAxisSensitivity
-            {
-                get
-                {
-                    if(splitAxisToggle.IsInverted == true)
-                    {
-                        return overallSensitivity.SensitivitySlider.value;
-                    }
-                    else
-                    {
-                        return yAxisSensitivity.SensitivitySlider.value;
-                    }
-                }
-                set
-                {
-                    yAxisSensitivity.Update(value);
-                }
+                // set
+                // {
+                //     splitAxisToggle.IsInverted = value;
+                //     UpdateAxisSensitivityControls();
+                // }
             }
 
             public bool IsActive
@@ -313,7 +298,7 @@ namespace OmiyaGames
                 }
             }
             
-            void UpdateAxisSensitivityControls()
+            public void UpdateAxisSensitivityControls()
             {
                 if(splitAxisToggle.IsActive == false)
                 {
@@ -511,6 +496,7 @@ namespace OmiyaGames
             }
         }
 
+        #region Music Group
         public void OnMusicSliderChanged(float sliderValue)
         {
             if (inSetupMode == false)
@@ -518,20 +504,6 @@ namespace OmiyaGames
                 BackgroundMusic.GlobalVolume = sliderValue;
                 musicControls.VolumePercentLabel.text = Percent(sliderValue);
             }
-        }
-
-        public void OnSoundEffectsSliderChanged(float sliderValue)
-        {
-            if (inSetupMode == false)
-            {
-                SoundEffect.GlobalVolume = sliderValue;
-                soundEffectsControls.VolumePercentLabel.text = Percent(sliderValue);
-            }
-        }
-        
-        public void OnSoundEffectsSliderPointerUp()
-        {
-            TestSoundEffect.Play();
         }
 
         public void OnMusicMuteToggled(bool mute)
@@ -548,6 +520,22 @@ namespace OmiyaGames
                 Manager.ButtonClick.Play();
             }
         }
+        #endregion
+
+        #region Sound Effects Group
+        public void OnSoundEffectsSliderChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                SoundEffect.GlobalVolume = sliderValue;
+                soundEffectsControls.VolumePercentLabel.text = Percent(sliderValue);
+            }
+        }
+        
+        public void OnSoundEffectsSliderPointerUp()
+        {
+            TestSoundEffect.Play();
+        }
 
         public void OnSoundEffectsMuteToggled(bool mute)
         {
@@ -563,7 +551,9 @@ namespace OmiyaGames
                 Manager.ButtonClick.Play();
             }
         }
+        #endregion
 
+        #region Keyboard Sensitivity
         public void OnSplitKeyboardAxisToggled(bool splitAxis)
         {
             if (inSetupMode == false)
@@ -572,12 +562,117 @@ namespace OmiyaGames
                 settings.SplitKeyboardAxis = splitAxis;
 
                 // Toggle which sliders will be showing up
-                keyboardSensitivity.IsAxisSplit = splitAxis;
+                keyboardSensitivity.UpdateAxisSensitivityControls();
+                if(splitAxis == true)
+                {
+                    keyboardSensitivity.XAxisSensitivity.SensitivitySlider.value = keyboardSensitivity.OverallSensitivity.SensitivitySlider.value;
+                    keyboardSensitivity.YAxisSensitivity.SensitivitySlider.value = keyboardSensitivity.OverallSensitivity.SensitivitySlider.value;
+                }
+                else
+                {
+                    keyboardSensitivity.OverallSensitivity.SensitivitySlider.value = keyboardSensitivity.XAxisSensitivity.SensitivitySlider.value;
+                }
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();
             }
         }
+
+        public void OnKeyboardOverallSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                keyboardSensitivity.OverallSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnKeyboardXAxisSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                keyboardSensitivity.XAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnKeyboardYAxisSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                keyboardSensitivity.YAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+        #endregion
+
+        #region Mouse Sensitivity
+        public void OnSplitMouseAxisToggled(bool splitAxis)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                // FIXME: Setup settings
+                //settings.SplitMouseAxis = splitAxis;
+
+                // Toggle which sliders will be showing up
+                mouseSensitivity.UpdateAxisSensitivityControls();
+                if(splitAxis == true)
+                {
+                    mouseSensitivity.XAxisSensitivity.SensitivitySlider.value = mouseSensitivity.OverallSensitivity.SensitivitySlider.value;
+                    mouseSensitivity.YAxisSensitivity.SensitivitySlider.value = mouseSensitivity.OverallSensitivity.SensitivitySlider.value;
+                }
+                else
+                {
+                    mouseSensitivity.OverallSensitivity.SensitivitySlider.value = mouseSensitivity.XAxisSensitivity.SensitivitySlider.value;
+                }
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnMouseOverallSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                mouseSensitivity.OverallSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnMouseXAxisSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                mouseSensitivity.XAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnMouseYAxisSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // FIXME: Setup settings
+                //SoundEffect.GlobalVolume = sliderValue;
+
+                mouseSensitivity.YAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+        #endregion
 
         public void OnResetSavedData()
         {

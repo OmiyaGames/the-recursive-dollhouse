@@ -1429,7 +1429,7 @@ RectTransform:
   m_GameObject: {fileID: 101020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999434, y: 0.99999434, z: 0.99999434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224334735597940728}
   m_RootOrder: 28
@@ -4674,8 +4674,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnKeyboardYAxisSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5035,7 +5035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: Options Sensitivity
+  translationKey: Options Mouse Sensitivity
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
@@ -5224,7 +5224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: Options Keyboard Sensitivity
+  translationKey: Options Keyboard Overall Sensitivity
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
@@ -5254,7 +5254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: Options Scroll Wheel Invert
+  translationKey: Options Scroll Wheel
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
@@ -5461,8 +5461,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnKeyboardXAxisSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6911,8 +6911,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114191983028184290}
   m_HandleRect: {fileID: 224785614681860694}
   m_Direction: 2
-  m_Value: 0.76654834
-  m_Size: 0.1559719
+  m_Value: 0.095878154
+  m_Size: 0.15597188
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7716,7 +7716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: Options Sensitivity
+  translationKey: Options Keyboard Sensitivity
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
@@ -8179,8 +8179,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnMouseYAxisSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8317,12 +8317,12 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 185124}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 11481778}
+        m_MethodName: OnSplitMouseAxisToggled
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8487,8 +8487,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnMouseXAxisSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8827,8 +8827,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnKeyboardOverallSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9417,8 +9417,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11481778}
-        m_MethodName: OnMusicSliderChanged
-        m_Mode: 1
+        m_MethodName: OnMouseOverallSensitivityChanged
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9467,7 +9467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationKey: Options Mouse Sensitivity
+  translationKey: Options Mouse Overall Sensitivity
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
@@ -11155,7 +11155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 420.68}
+  m_AnchoredPosition: {x: 0, y: 1629.2275}
   m_SizeDelta: {x: 0, y: 2135}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224336976978868754
@@ -11202,7 +11202,7 @@ RectTransform:
   m_GameObject: {fileID: 1640256206208804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999434, y: 0.99999434, z: 0.99999434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224448296455488636}
   m_Father: {fileID: 224334735597940728}
@@ -11458,7 +11458,7 @@ RectTransform:
   m_GameObject: {fileID: 1394735493026518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999434, y: 0.99999434, z: 0.99999434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22447292}
   m_Father: {fileID: 224334735597940728}
@@ -11575,7 +11575,7 @@ RectTransform:
   m_GameObject: {fileID: 1813149357479388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999434, y: 0.99999434, z: 0.99999434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224364733862418148}
   m_Father: {fileID: 224334735597940728}
@@ -11651,7 +11651,7 @@ RectTransform:
   m_GameObject: {fileID: 1161323960402884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224424261970881358}
   - {fileID: 224193232843600920}
@@ -11911,7 +11911,7 @@ RectTransform:
   m_GameObject: {fileID: 1932422042815782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224218270463541750}
   - {fileID: 224424960378100886}
@@ -12462,8 +12462,8 @@ RectTransform:
   m_Father: {fileID: 224394666043881142}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.64698833}
-  m_AnchorMax: {x: 1, y: 0.8029602}
+  m_AnchorMin: {x: 0, y: 0.080923855}
+  m_AnchorMax: {x: 1, y: 0.23689574}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12989,7 +12989,7 @@ RectTransform:
   m_GameObject: {fileID: 1914841639796872}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999434, y: 0.99999434, z: 0.99999434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224412929670967022}
   m_Father: {fileID: 224334735597940728}
