@@ -410,32 +410,41 @@ namespace OmiyaGames
                 {
                     splitAxisToggle.IsActive = value;
                     UpdateAxisSensitivityControls();
-                    foreach(GameObject parent in labelsAndDividers)
-                    {
-                        parent.SetActive(value);
-                    }
                 }
             }
             
             public void UpdateAxisSensitivityControls()
             {
-                if(splitAxisToggle.IsActive == false)
+                if (splitAxisToggle.IsActive == false)
                 {
                     xAxisSensitivity.IsActive = false;
                     yAxisSensitivity.IsActive = false;
                     overallSensitivity.IsActive = false;
-                }
-                else if(splitAxisToggle.IsInverted == true)
-                {
-                    xAxisSensitivity.IsActive = true;
-                    yAxisSensitivity.IsActive = true;
-                    overallSensitivity.IsActive = false;
+
+                    foreach (GameObject control in labelsAndDividers)
+                    {
+                        control.SetActive(false);
+                    }
                 }
                 else
                 {
-                    overallSensitivity.IsActive = true;
-                    xAxisSensitivity.IsActive = false;
-                    yAxisSensitivity.IsActive = false;
+                    if (splitAxisToggle.IsInverted == true)
+                    {
+                        xAxisSensitivity.IsActive = true;
+                        yAxisSensitivity.IsActive = true;
+                        overallSensitivity.IsActive = false;
+                    }
+                    else
+                    {
+                        overallSensitivity.IsActive = true;
+                        xAxisSensitivity.IsActive = false;
+                        yAxisSensitivity.IsActive = false;
+                    }
+
+                    foreach (GameObject control in labelsAndDividers)
+                    {
+                        control.SetActive(true);
+                    }
                 }
             }
         }

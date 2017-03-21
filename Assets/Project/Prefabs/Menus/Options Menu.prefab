@@ -1095,15 +1095,17 @@ MonoBehaviour:
   - {fileID: 1306307534527474}
   musicControls:
     controlParents:
-    - {fileID: 1438186143389322}
     - {fileID: 1605291632744774}
+    - {fileID: 1438186143389322}
+    - {fileID: 1914841639796872}
     volumeSlider: {fileID: 114864834980424156}
     volumePercentLabel: {fileID: 114818049505819740}
     checkBoxMark: {fileID: 114269036580188532}
   soundEffectsControls:
     controlParents:
-    - {fileID: 147142}
     - {fileID: 125608}
+    - {fileID: 147142}
+    - {fileID: 1596623530878322}
     volumeSlider: {fileID: 11486606}
     volumePercentLabel: {fileID: 11440432}
     checkBoxMark: {fileID: 114656956422929644}
@@ -1113,7 +1115,9 @@ MonoBehaviour:
   motionBlursControls:
     controlParent: {fileID: 1228160580147632}
     toggle: {fileID: 114720770127959520}
-  specialEffectsParents: []
+  specialEffectsParents:
+  - {fileID: 1519761171827562}
+  - {fileID: 1813149357479388}
   keyboardSensitivity:
     splitAxisToggle:
       controlParent: {fileID: 1555714648396652}
@@ -1130,14 +1134,18 @@ MonoBehaviour:
       controlParent: {fileID: 1932422042815782}
       slider: {fileID: 114052276421015328}
       percentLabel: {fileID: 114622298660817426}
-    labelsAndDividers: []
+    labelsAndDividers:
+    - {fileID: 1956599956554024}
+    - {fileID: 1743565019084894}
   keyboardXInvert:
     controlParent: {fileID: 1029459689677982}
     toggle: {fileID: 114946863185896770}
   keyboardYInvert:
     controlParent: {fileID: 1271603146035688}
     toggle: {fileID: 114348459863647106}
-  invertKeyboardLabelsAndDividers: []
+  invertKeyboardLabelsAndDividers:
+  - {fileID: 1355357729405652}
+  - {fileID: 1883433674908598}
   mouseSensitivity:
     splitAxisToggle:
       controlParent: {fileID: 1025122572671000}
@@ -1154,14 +1162,18 @@ MonoBehaviour:
       controlParent: {fileID: 1357262313786712}
       slider: {fileID: 114748655349449020}
       percentLabel: {fileID: 114781118898087382}
-    labelsAndDividers: []
+    labelsAndDividers:
+    - {fileID: 1407350234757054}
+    - {fileID: 1640256206208804}
   mouseXInvert:
     controlParent: {fileID: 1972918532110582}
     toggle: {fileID: 114443189676477868}
   mouseYInvert:
     controlParent: {fileID: 1508546473941422}
     toggle: {fileID: 114100191039851532}
-  invertMouseLabelsAndDividers: []
+  invertMouseLabelsAndDividers:
+  - {fileID: 1428840197911950}
+  - {fileID: 1394735493026518}
   scrollWheelSensitivity:
     controlParent: {fileID: 1287714049122706}
     slider: {fileID: 114024349156161442}
@@ -1169,7 +1181,9 @@ MonoBehaviour:
   scrollWheelInvert:
     controlParent: {fileID: 1204113317952916}
     toggle: {fileID: 114672860636268230}
-  scrollWheelLabelsAndDividers: []
+  scrollWheelLabelsAndDividers:
+  - {fileID: 101020}
+  - {fileID: 1024832039209156}
   resetAllDataParent: {fileID: 150074}
 --- !u!114 &11486606
 MonoBehaviour:
