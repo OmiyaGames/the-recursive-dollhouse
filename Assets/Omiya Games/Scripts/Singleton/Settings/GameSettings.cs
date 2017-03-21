@@ -329,7 +329,7 @@ namespace OmiyaGames
             }
         }
 
-        public bool SplitKeyboardAxis
+        public bool IsKeyboardAxisSensitivitySplit
         {
             get
             {
@@ -409,7 +409,7 @@ namespace OmiyaGames
             }
         }
 
-        public bool SplitMouseAxis
+        public bool IsMouseAxisSensitivitySplit
         {
             get
             {
