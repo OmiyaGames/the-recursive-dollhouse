@@ -1076,7 +1076,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89338b44c2ae7a04489ea7432daa6554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allFlags:
+  defaultFlags:
+    enableLanguageControls: 1
+    enableMusicControls: 1
+    enableSoundEffectControls: 1
+    enableMotionBlursToggle: 1
+    enableFlashingEffectsToggle: 1
+    enableBloomToggle: 1
+    enableKeyboardSensitivityControls: 1
+    enableKeyboardInvertedControls: 1
+    enableMouseSensitivityControls: 1
+    enableMouseInvertedControls: 1
+    enableScrollWheelSensitivityControls: 1
+    enableScrollWheelInvertedControls: 1
+    enableResetDataButton: 1
+  webglFlags:
     enableLanguageControls: 1
     enableMusicControls: 1
     enableSoundEffectControls: 1
