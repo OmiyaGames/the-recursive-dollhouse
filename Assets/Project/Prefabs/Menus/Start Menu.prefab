@@ -769,7 +769,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11419476}
-        m_MethodName: OnStartClicked
+        m_MethodName: OnLevelSelectClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
