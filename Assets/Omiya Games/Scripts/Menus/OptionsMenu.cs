@@ -359,6 +359,14 @@ namespace OmiyaGames
         [SerializeField]
         GameObject audioDividers;
 
+        [Header("Special Effects Controls")]
+        [SerializeField]
+        ToggleControls flashesControls;
+        [SerializeField]
+        ToggleControls motionBlursControls;
+        [SerializeField]
+        GameObject[] specialEffectsParents;
+
         [Header("Mouse Sensitivity")]
         [SerializeField]
         CompoundSensitivityControls keyboardSensitivity;
@@ -553,6 +561,32 @@ namespace OmiyaGames
         }
         #endregion
 
+        #region Special Effects Group
+        public void OnEnableFlashesToggled(bool enable)
+        {
+            if (inSetupMode == false)
+            {
+                // Toggle mute
+                settings.IsFlashesEnabled = enable;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnEnableMotionBlursToggled(bool enable)
+        {
+            if (inSetupMode == false)
+            {
+                // Toggle mute
+                settings.IsMotionBlursEnabled = enable;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+        #endregion
+
         #region Keyboard Sensitivity
         public void OnSplitKeyboardAxisToggled(bool splitAxis)
         {
@@ -582,10 +616,9 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
-                //SoundEffect.GlobalVolume = sliderValue;
-
+                // Setup settings
+                settings.KeyboardXAxisSensitivity = sliderValue;
+                settings.KeyboardYAxisSensitivity = sliderValue;
                 keyboardSensitivity.OverallSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
             }
         }
@@ -594,8 +627,8 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
+                // Setup settings
+                settings.KeyboardXAxisSensitivity = sliderValue;
 
                 keyboardSensitivity.XAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
             }
@@ -605,10 +638,36 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
+                // Setup settings
+                settings.KeyboardYAxisSensitivity = sliderValue;
 
                 keyboardSensitivity.YAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+        #endregion
+
+        #region Keyboard Inverted
+        public void OnInvertKeyboardXAxisToggled(bool invert)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.IsKeyboardXAxisInverted = invert;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnInvertKeyboardYAxisToggled(bool invert)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.IsKeyboardYAxisInverted = invert;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
             }
         }
         #endregion
@@ -619,8 +678,7 @@ namespace OmiyaGames
             if (inSetupMode == false)
             {
                 // Store this settings
-                // FIXME: Setup settings
-                //settings.SplitMouseAxis = splitAxis;
+                settings.SplitMouseAxis = splitAxis;
 
                 // Toggle which sliders will be showing up
                 mouseSensitivity.UpdateAxisSensitivityControls();
@@ -643,9 +701,9 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
-                //SoundEffect.GlobalVolume = sliderValue;
+                // Setup settings
+                settings.MouseXAxisSensitivity = sliderValue;
+                settings.MouseYAxisSensitivity = sliderValue;
 
                 mouseSensitivity.OverallSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
             }
@@ -655,8 +713,8 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
+                // Setup settings
+                settings.MouseXAxisSensitivity = sliderValue;
 
                 mouseSensitivity.XAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
             }
@@ -666,10 +724,62 @@ namespace OmiyaGames
         {
             if (inSetupMode == false)
             {
-                // FIXME: Setup settings
-                //SoundEffect.GlobalVolume = sliderValue;
+                // Setup settings
+                settings.MouseYAxisSensitivity = sliderValue;
 
                 mouseSensitivity.YAxisSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+        #endregion
+
+        #region Mouse Inverted
+        public void OnInvertMouseXAxisToggled(bool invert)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.IsMouseXAxisInverted = invert;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnInvertMouseYAxisToggled(bool invert)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.IsMouseYAxisInverted = invert;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+        #endregion
+
+        #region Scroll Wheel
+        public void OnScrollWheelSensitivityChanged(float sliderValue)
+        {
+            if (inSetupMode == false)
+            {
+                // Setup settings
+                settings.ScrollWheelSensitivity = sliderValue;
+
+                // Update label
+                scrollWheelSensitivity.SensitivityPercentLabel.text = Percent(sliderValue);
+            }
+        }
+
+        public void OnInvertScrollWheelToggled(bool invert)
+        {
+            if (inSetupMode == false)
+            {
+                // Store this settings
+                settings.IsScrollWheelInverted = invert;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
             }
         }
         #endregion
@@ -689,6 +799,7 @@ namespace OmiyaGames
         }
         #endregion
 
+        #region Helper Methods
         static string Percent(float val)
         {
             return val.ToString("0%");
@@ -816,5 +927,6 @@ namespace OmiyaGames
         {
             resetAllDataParent.SetActive(enableResetDataButton);
         }
+        #endregion
     }
 }
