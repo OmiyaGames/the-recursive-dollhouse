@@ -103,6 +103,7 @@ namespace OmiyaGames
 
         public const string IsFlashesEnabledKey = "Is Flashes Enabled";
         public const string IsMotionBlursEnabledKey = "Is Motion Blurs Enabled";
+        public const string IsBloomEnabledKey = "Is Bloom Enabled";
         #endregion
 
         #region Version 0 Settings Member Variables
@@ -137,6 +138,7 @@ namespace OmiyaGames
 
         bool isFlashesEnabled = true;
         bool isMotionBlursEnabled = true;
+        bool isBloomEnabled = true;
         #endregion
 
         public static UserScope DefaultLeaderboardUserScope
@@ -552,6 +554,22 @@ namespace OmiyaGames
                 }
             }
         }
+
+        public bool IsBloomEnabled
+        {
+            get
+            {
+                return isBloomEnabled;
+            }
+            set
+            {
+                if (isBloomEnabled != value)
+                {
+                    isBloomEnabled = value;
+                    Settings.SetBool(IsBloomEnabledKey, isBloomEnabled);
+                }
+            }
+        }
         #endregion
 
         #region Singleton Overrides
@@ -763,6 +781,7 @@ namespace OmiyaGames
             // Get Special Effects information
             isFlashesEnabled = Settings.GetBool(IsFlashesEnabledKey, true);
             isMotionBlursEnabled = Settings.GetBool(IsMotionBlursEnabledKey, true);
+            isBloomEnabled = Settings.GetBool(IsBloomEnabledKey, true);
         }
 
         void SaveVersion0Settings()
@@ -814,6 +833,7 @@ namespace OmiyaGames
             // Set Special Effects information
             Settings.SetBool(IsFlashesEnabledKey, isFlashesEnabled);
             Settings.SetBool(IsMotionBlursEnabledKey, isMotionBlursEnabled);
+            Settings.SetBool(IsBloomEnabledKey, isBloomEnabled);
         }
 
         void RevertVersion0SettingsClearedSettings()
@@ -856,6 +876,7 @@ namespace OmiyaGames
             // Set Special Effects information
             Settings.SetBool(IsFlashesEnabledKey, isFlashesEnabled);
             Settings.SetBool(IsMotionBlursEnabledKey, isMotionBlursEnabled);
+            Settings.SetBool(IsBloomEnabledKey, isBloomEnabled);
         }
 
         void RetrieveHighScores(string highScoresString)

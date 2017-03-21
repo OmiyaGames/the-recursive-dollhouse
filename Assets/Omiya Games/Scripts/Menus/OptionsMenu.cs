@@ -58,6 +58,8 @@ namespace OmiyaGames
             [SerializeField]
             bool enableFlashingEffectsToggle = true;
             [SerializeField]
+            bool enableBloomToggle = true;
+            [SerializeField]
             bool enableKeyboardSensitivityControls = true;
             [SerializeField]
             bool enableKeyboardInvertedControls = true;
@@ -109,6 +111,14 @@ namespace OmiyaGames
                 get
                 {
                     return enableFlashingEffectsToggle;
+                }
+            }
+
+            public bool EnableBloomToggle
+            {
+                get
+                {
+                    return enableBloomToggle;
                 }
             }
 
@@ -469,9 +479,11 @@ namespace OmiyaGames
 
         [Header("Special Effects Controls")]
         [SerializeField]
+        ToggleControls motionBlursControls;
+        [SerializeField]
         ToggleControls flashesControls;
         [SerializeField]
-        ToggleControls motionBlursControls;
+        ToggleControls bloomControls;
         [SerializeField]
         GameObject[] specialEffectsParents;
 
@@ -703,6 +715,18 @@ namespace OmiyaGames
             {
                 // Toggle mute
                 settings.IsMotionBlursEnabled = enable;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnEnableBloomToggled(bool enable)
+        {
+            if (inSetupMode == false)
+            {
+                // Toggle mute
+                settings.IsBloomEnabled = enable;
 
                 // Indicate button is clicked
                 Manager.ButtonClick.Play();
@@ -979,6 +1003,10 @@ namespace OmiyaGames
             // Update Flashing controls
             flashesControls.IsInverted = settings.IsFlashesEnabled;
             flashesControls.IsActive = allFlags.EnableFlashingEffectsToggle;
+
+            // Update Bloom controls
+            bloomControls.IsInverted = settings.IsBloomEnabled;
+            bloomControls.IsActive = allFlags.EnableBloomToggle;
 
             // Update visiblilty
             bool specialEffectsEnabled = allFlags.EnableMotionBlursToggle && allFlags.EnableFlashingEffectsToggle;
