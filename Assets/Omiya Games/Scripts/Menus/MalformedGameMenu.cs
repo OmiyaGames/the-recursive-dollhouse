@@ -159,27 +159,30 @@ namespace OmiyaGames
             switch(reason)
             {
                 case Reason.CannotConfirmDomain:
+                    // Update translation key
                     reasonMessage.TranslationKey = cannotConfirmDomainMessageTranslationKey;
                     break;
                 case Reason.IsIncorrectDomain:
                     if (webChecker != null)
                     {
-                        // FIXME: setup translation key, with proper population of fields
-                        //reasonMessage.TranslationKey
-                        //builder.AppendFormat(domainDoesNotMatchMessageTranslationKey, webChecker.RetrievedHostName);
+                        // Setup translation key, with proper population of fields
+                        reasonMessage.SetTranslationKey(domainDoesNotMatchMessageTranslationKey, webChecker.RetrievedHostName);
                     }
                     else
                     {
+                        // Update translation key
                         reasonMessage.TranslationKey = gameIsNotGenuineMessageTranslationKey;
                     }
                     break;
                 case Reason.JustTesting:
+                    // Overwrite the text: it's a test
                     StringBuilder builder = new StringBuilder();
                     builder.Append("This menu is just a test. ");
                     Utility.BuildTestMessage(builder, webChecker);
-                    reasonMessage.Label.text = builder.ToString();
+                    reasonMessage.CurrentText = builder.ToString();
                     break;
                 default:
+                    // Update translation key
                     reasonMessage.TranslationKey = gameIsNotGenuineMessageTranslationKey;
                     break;
             }

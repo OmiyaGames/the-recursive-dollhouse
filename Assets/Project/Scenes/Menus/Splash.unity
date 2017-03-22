@@ -172,7 +172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22438358, guid: 939ce299a63589746b18e212fd5161ab, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.59813654
+      value: 0.64923805
       objectReference: {fileID: 0}
     - target: {fileID: 22438358, guid: 939ce299a63589746b18e212fd5161ab, type: 2}
       propertyPath: m_AnchorMax.x
@@ -390,19 +390,6 @@ Prefab:
     - target: {fileID: 22484774, guid: ef3342d2ec1b83649a8869a8a19debe2, type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11494156, guid: ef3342d2ec1b83649a8869a8a19debe2, type: 2}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c,
-        type: 3}
-    - target: {fileID: 136396, guid: ef3342d2ec1b83649a8869a8a19debe2, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22456122, guid: ef3342d2ec1b83649a8869a8a19debe2, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -485.89618
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ef3342d2ec1b83649a8869a8a19debe2, type: 2}

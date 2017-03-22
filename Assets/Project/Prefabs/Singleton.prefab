@@ -814,10 +814,10 @@ MonoBehaviour:
     header: "\u65E5\u672C\u8A9E"
   fontMap:
   - header: English (USA)
-    defaultFont: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     otherFonts: []
   - header: Pig Latin (USA)
-    defaultFont: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     otherFonts: []
   - header: "\u65E5\u672C\u8A9E"
     defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}

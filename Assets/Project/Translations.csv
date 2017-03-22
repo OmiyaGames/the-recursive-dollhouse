@@ -1,5 +1,6 @@
 Keys,English (USA),日本語,Pig Latin (USA)
 Game Title,The Recursive Dollhouse,マトリョーシカの家,Ethay Ecursiveray Ollhouseday
+Developer Website’s Name,Omiya Games,Omiya Games,Omiya Games
 Loading,Loading…,ロード中,
 Start Button,Start,,
 Options Button,Options,,
@@ -47,7 +48,6 @@ Hack Warning Reasoning Domain Mismatch,"The detected url, ""{0},"" does not matc
 Hack Warning Options Intro,This could potentially mean that this game's quality is compromised. There are a couple of options you can take.,,
 Hack Warning First Option Title,First Option:,,
 Hack Warning First Option Description,"Check our website below for a legitimate copy of this game, as well as news about this project and other games we've created:",,
-Hack Warning First Option Button,Omiya Games,,
 Hack Warning Second Option Title,Second Option:,,
 Hack Warning Second Option Description,"Check out these other sites we regularly post on, and contains a legitimate copy of our games:",,
 Hack Warning Final Option Title,Final Option:,,
