@@ -39,15 +39,15 @@ namespace OmiyaGames
         [SerializeField]
         protected Button defaultButton = null;
         [SerializeField]
-        protected Text completeLabel = null;
+        protected TranslatedText completeLabel = null;
         [SerializeField]
-        protected Text failedLabel = null;
+        protected TranslatedText failedLabel = null;
         [SerializeField]
-        protected Text nextSceneLabel = null;
+        protected TranslatedText nextSceneLabel = null;
         [SerializeField]
-        protected Text restartLabel = null;
+        protected TranslatedText restartLabel = null;
         [SerializeField]
-        protected Text returnToMenuLabel = null;
+        protected TranslatedText returnToMenuLabel = null;
 
         abstract public bool PauseOnShow
         {
@@ -78,23 +78,23 @@ namespace OmiyaGames
             // Setup all labels, if available
             if (completeLabel != null)
             {
-                completeLabel.text = manager.CompletedCurrentSceneText;
+                completeLabel.TranslationKey = manager.CompletedCurrentSceneText;
             }
             if (failedLabel != null)
             {
-                failedLabel.text = manager.FailedCurrentSceneText;
+                failedLabel.TranslationKey = manager.FailedCurrentSceneText;
             }
             if (nextSceneLabel != null)
             {
-                nextSceneLabel.text = manager.NextSceneText;
+                nextSceneLabel.TranslationKey = manager.NextSceneText;
             }
             if (restartLabel != null)
             {
-                restartLabel.text = manager.RestartCurrentSceneText;
+                restartLabel.TranslationKey = manager.RestartCurrentSceneText;
             }
             if (returnToMenuLabel != null)
             {
-                returnToMenuLabel.text = manager.ReturnToMenuText;
+                returnToMenuLabel.TranslationKey = manager.ReturnToMenuText;
             }
         }
 

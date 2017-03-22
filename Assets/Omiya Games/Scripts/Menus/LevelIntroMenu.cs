@@ -41,7 +41,7 @@ namespace OmiyaGames
         [SerializeField]
         Button defaultButton = null;
         [SerializeField]
-        Text levelNameLabel = null;
+        TranslatedText levelNameLabel = null;
 
         [Header("Behavior")]
         [SerializeField]
@@ -79,7 +79,7 @@ namespace OmiyaGames
             // Setup all labels, if available
             if ((levelNameLabel != null) && (Singleton.Get<SceneTransitionManager>().CurrentScene != null))
             {
-                levelNameLabel.text = Singleton.Get<SceneTransitionManager>().CurrentScene.DisplayName;
+                levelNameLabel.TranslationKey = Singleton.Get<SceneTransitionManager>().CurrentScene.DisplayName;
             }
         }
 
