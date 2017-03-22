@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 22249186}
   - component: {fileID: 11439560}
   - component: {fileID: 11499070}
+  - component: {fileID: 114808124829317004}
   m_Layer: 5
   m_Name: Version Label
   m_TagString: Untagged
@@ -375,7 +376,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -426,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2474966da2115084c9e50b42f8b78fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBehavior: 0
+  startBehavior: 2
   levelSelectButton: {fileID: 114150066285064330}
   optionsButton: {fileID: 11440982}
   creditsButton: {fileID: 11441874}
@@ -453,7 +454,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -486,7 +487,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -519,7 +520,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -801,7 +802,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -915,7 +916,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0b07f0a04b430c64a8b48cb97ccfd19c, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
@@ -1485,6 +1486,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   translationKey: Quit Button
+  extraFormatting: 
+  letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
+--- !u!114 &114808124829317004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationKey: 
   extraFormatting: 
   letterFormatting: 0
   fontKey: 
