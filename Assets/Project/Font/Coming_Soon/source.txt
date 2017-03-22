@@ -1,14 +1,14 @@
 Font Name:
-こども丸ゴシック
+Coming Soon
 
 Designer:
-中井 良尚
+Open Window
 
 Download Link:
-http://typingart.net/?p=40
+https://fonts.google.com/specimen/Coming+Soon?selection.family=Coming+Soon
 
 License Name:
-IPAフォントライセンスv1.0
+Apache License, Version 2.0
 
 License Link:
-http://ipafont.ipa.go.jp/ipa_font_license_v1.html
+http://www.apache.org/licenses/LICENSE-2.0

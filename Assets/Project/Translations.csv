@@ -10,6 +10,7 @@ Options Button,Options,,
 Credits Button,Credits,,
 Level Button,Level {0},,
 Next Level Button,Next Level,,
+Skip Credits Button,Press any key to skip,,
 Return To Menu Button,Return to Main Menu,,
 Back Button,Back,,
 Quit Button,Quit,,
@@ -63,3 +64,45 @@ Lock Mouse Instructions,"Click on the button below to start!
 This game will lock your mouse, but you can always recover by holding ESC.",,
 Level Complete Title,Level Complete,,
 Level Failed Title,Level Failed,,
+Credits Created By,Created by Omiya Games,,
+Credits Programming,"Programming:
+	Taro Omiya",,
+Credits Graphics,"Graphics:
+	Taro Omiya",,
+Credits Music,"Music:
+	Petey Pezzulo
+	Graham Lerch",,
+Credits Sound,"Sound:
+	Unity
+	Taro Omiya
+	Petey Pezzulo
+	Graham Lerch",,
+Credits Fonts,"Fonts:
+	""Kodomo Rounded"" by Yoshinaga Nakai
+	Licensed under IPA Font License
+	<size=24>ipafont.ipa.go.jp/ipa_font_license_v1.html</size>","Fonts:
+	「こども丸ゴシック」 by 中井 良尚
+	Licensed under IPA Font License
+	<size=24>ipafont.ipa.go.jp/ipa_font_license_v1.html</size>",
+Credits Special Effects,"Special Effects:
+	Particles by Unity
+	Motion Blurs by Keijiro Takahashi
+	<size=24>github.com/keijiro/KinoMotion</size>","Special Effects:
+	Particles by Unity
+	Motion Blurs by 高橋 圭次郎
+	<size=24>github.com/keijiro/KinoMotion</size>",
+Credits Special Thanks,"Special Thanks:
+	Ludum Dare 37
+	Tech Valley Game Space
+	Tech Valley Center of Gravity",,
+Credits Patreon,"Funded by Patreon
+For more info, see:
+www.patreon.com/OmiyaGames",,
+Credits Patrons,"Thanks to These Patrons:
+	Adam R. Vierra
+	Joshua Jennings
+	XanderHD
+	Tommy Pedersen
+	Jacob Clark
+	David Lin",,
+Credits Final Thanks,Thanks for playing!,,
