@@ -4,24 +4,24 @@ using OmiyaGames;
 
 public class DoorKey : IDoor
 {
-    public const string FirstWrongKeyText = "Wrong Key";
+    public const string FirstWrongKeyText = "Door Wrong Key 1";
     public const string VisibleField = "Visible";
     public readonly RandomList<string> OtherWrongKeyText = new RandomList<string>(new string[] {
-        "Wrong Key",
-        "Incorrect Key",
-        "I Hate That Key",
-        "Correct Key Not Found",
-        "Nooo! Bad Key!",
-        "Key No Good!"
+        "Door Wrong Key 1",
+        "Door Wrong Key 2",
+        "Door Wrong Key 3",
+        "Door Wrong Key 4",
+        "Door Wrong Key 5",
+        "Door Wrong Key 6"
     });
 
     [Header("Required Components")]
     [SerializeField]
     Animator labelAnimation;
     [SerializeField]
-    Text codeLabel;
+    TranslatedText codeLabel;
     [SerializeField]
-    Text errorLabel;
+    TranslatedText errorLabel;
     [SerializeField]
     ItemHolder keyHolder;
     [SerializeField]
@@ -73,8 +73,8 @@ public class DoorKey : IDoor
     protected override void Start()
     {
         // Setup
-        codeLabel.text = associatedCode.CodeString;
-        codeLabel.color = associatedCode.CodeColor(codeLabel);
+        codeLabel.CurrentText = associatedCode.CodeString;
+        codeLabel.Label.color = associatedCode.CodeColor(codeLabel.Label);
 
         keyHolder.gameObject.SetActive(true);
         errorLabel.gameObject.SetActive(false);
@@ -130,12 +130,12 @@ public class DoorKey : IDoor
                 errorLabel.gameObject.SetActive(true);
                 if (firstTimeTryingKey == true)
                 {
-                    errorLabel.text = FirstWrongKeyText;
+                    errorLabel.TranslationKey = FirstWrongKeyText;
                     firstTimeTryingKey = false;
                 }
                 else
                 {
-                    errorLabel.text = OtherWrongKeyText.RandomElement;
+                    errorLabel.TranslationKey = OtherWrongKeyText.RandomElement;
                 }
 
                 // Play sound effect

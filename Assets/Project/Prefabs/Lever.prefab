@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 224000013138542326}
   - component: {fileID: 222000014211992142}
   - component: {fileID: 114000013934501740}
+  - component: {fileID: 114810145514909080}
   m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
@@ -228,6 +229,7 @@ GameObject:
   - component: {fileID: 224000012926747102}
   - component: {fileID: 222000011511449118}
   - component: {fileID: 114000010412848206}
+  - component: {fileID: 114105168023953722}
   m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
@@ -711,14 +713,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 67d0442f696d3bf4f9dedc7bdfc2181d, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
@@ -729,7 +731,7 @@ MonoBehaviour:
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.6
   m_Text: Click to Turn Off
 --- !u!114 &114000010814592682
 MonoBehaviour:
@@ -744,7 +746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -858,7 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -906,7 +908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -939,7 +941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -966,14 +968,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 67d0442f696d3bf4f9dedc7bdfc2181d, type: 3}
+    m_Font: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
@@ -981,11 +983,27 @@ MonoBehaviour:
     m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.6
   m_Text: Click to Turn On
+--- !u!114 &114105168023953722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013668940336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationKey: Lever Turn Off
+  extraFormatting: 
+  letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
 --- !u!114 &114114131147021560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -998,6 +1016,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   translationKey: 
+  extraFormatting: 
+  letterFormatting: 0
+  fontKey: 
+  changeFontOnStyle: 0
+--- !u!114 &114810145514909080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012930152254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73014547bf21944f9980bde6069290ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationKey: Lever Turn On
   extraFormatting: 
   letterFormatting: 0
   fontKey: 

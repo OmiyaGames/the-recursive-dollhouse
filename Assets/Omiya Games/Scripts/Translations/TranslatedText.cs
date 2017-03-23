@@ -71,7 +71,7 @@ namespace OmiyaGames
         {
             get
             {
-                return (string.IsNullOrEmpty(TranslationKey) == false) && (Parser.ContainsKey(TranslationKey) == true);
+                return (string.IsNullOrEmpty(TranslationKey) == false) && (Parser != null) && (Parser.ContainsKey(TranslationKey) == true);
             }
         }
 

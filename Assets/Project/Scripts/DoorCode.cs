@@ -15,18 +15,18 @@ public class DoorCode : IDoor
         Complete
     }
 
-    public const string EnterCodeText = "Enter Code:";
-    public const string RightCodeText = "Success!";
-    public const string FirstWrongCodeText = "Wrong Code";
+    public const string EnterCodeText = "Door Code";
+    public const string RightCodeText = "Door Success";
+    public const string FirstWrongCodeText = "Door Wrong Code 1";
     public const string StateField = "State";
     public readonly RandomList<string> OtherWrongCodeText = new RandomList<string>(new string[] {
-        "Wrong Code",
-        "Incorrect Code",
-        "Hacker Detected",
-        "Access Denied",
-        "Try Again",
-        "Non-matching Crednetials",
-        "Don't Give Up!"
+        "Door Wrong Code 1",
+        "Door Wrong Code 2",
+        "Door Wrong Code 3",
+        "Door Wrong Code 4",
+        "Door Wrong Code 5",
+        "Door Wrong Code 6",
+        "Door Wrong Code 7"
     });
 
     [Header("Required Components")]
@@ -37,9 +37,9 @@ public class DoorCode : IDoor
     [SerializeField]
     Canvas setupCanvas;
     [SerializeField]
-    Text codeLabel;
+    TranslatedText codeLabel2;
     [SerializeField]
-    Text enterLabel;
+    TranslatedText errorLabel2;
     [SerializeField]
     Button[] allNumberButtons;
 
@@ -144,11 +144,11 @@ public class DoorCode : IDoor
             }
 
             // Enable the code label
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
 
             // Update enter label
             CodeBuilder.Append(key % 10);
-            enterLabel.text = CodeBuilder.ToString();
+            errorLabel2.CurrentText = CodeBuilder.ToString();
 
             // Check the length of input
             if (CodeBuilder.Length >= PrintedCode.NumberOfDigitsInCode)
@@ -157,7 +157,7 @@ public class DoorCode : IDoor
                 CodeBuilder.Length = 0;
 
                 // Check if the code is correct
-                if (enterLabel.text == associatedCode.CodeString)
+                if (errorLabel2.CurrentText == associatedCode.CodeString)
                 {
                     StartCoroutine(PlaySuccessAnimation());
                 }
@@ -187,8 +187,8 @@ public class DoorCode : IDoor
     protected override void Start()
     {
         // Setup
-        codeLabel.text = EnterCodeText;
-        codeLabel.color = associatedCode.CodeColor(codeLabel);
+        codeLabel2.TranslationKey = EnterCodeText;
+        codeLabel2.Label.color = associatedCode.CodeColor(codeLabel2.Label);
         foreach (Button button in allNumberButtons)
         {
             button.interactable = false;
@@ -308,9 +308,9 @@ public class DoorCode : IDoor
         CodeBuilder.Length = 0;
 
         // Update labels
-        codeLabel.enabled = true;
-        codeLabel.text = EnterCodeText;
-        enterLabel.text = null;
+        codeLabel2.Label.enabled = true;
+        codeLabel2.TranslationKey = EnterCodeText;
+        errorLabel2.CurrentText = null;
     }
 
     IEnumerator PlayFailAnimation()
@@ -319,32 +319,32 @@ public class DoorCode : IDoor
         failedSound.Play();
 
         // Update label
-        enterLabel.enabled = true;
+        errorLabel2.Label.enabled = true;
         if (firstTimeTryingCode == true)
         {
             // Grab first time text
-            enterLabel.text = FirstWrongCodeText;
+            errorLabel2.TranslationKey = FirstWrongCodeText;
             firstTimeTryingCode = false;
         }
         else
         {
-            enterLabel.text = OtherWrongCodeText.RandomElement;
+            errorLabel2.TranslationKey = OtherWrongCodeText.RandomElement;
         }
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            enterLabel.enabled = false;
+            errorLabel2.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 
         // Update labels
-        codeLabel.enabled = true;
-        codeLabel.text = EnterCodeText;
-        enterLabel.text = null;
+        codeLabel2.Label.enabled = true;
+        codeLabel2.TranslationKey = EnterCodeText;
+        errorLabel2.CurrentText = null;
 
         // Empty code
         failAnimation = null;
@@ -357,16 +357,16 @@ public class DoorCode : IDoor
         successSound.Play();
 
         // Update label
-        enterLabel.enabled = true;
-        enterLabel.text = RightCodeText;
+        errorLabel2.Label.enabled = true;
+        errorLabel2.TranslationKey = RightCodeText;
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            enterLabel.enabled = false;
+            errorLabel2.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 
