@@ -261,6 +261,11 @@ Prefab:
       propertyPath: m_Name
       value: Hint Canvas (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Esc Pause Label
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
   m_IsPrefabParent: 0
@@ -3174,6 +3179,11 @@ Prefab:
       propertyPath: m_Name
       value: Hint Canvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Arrow Keys Label
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
   m_IsPrefabParent: 0
@@ -4780,7 +4790,9 @@ Prefab:
     - target: {fileID: 114000014185345736, guid: 6f6dab4cf558a874bb875ed920261e7d,
         type: 2}
       propertyPath: m_Text
-      value: '2: The Details'
+      value: '[2]
+
+        The Details'
       objectReference: {fileID: 0}
     - target: {fileID: 1000010354920722, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_IsActive
@@ -4790,6 +4802,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Details Title Label
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
@@ -6169,6 +6186,11 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: End Title Label
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
   m_IsPrefabParent: 0
@@ -6429,7 +6451,9 @@ Prefab:
     - target: {fileID: 114000014185345736, guid: 6f6dab4cf558a874bb875ed920261e7d,
         type: 2}
       propertyPath: m_Text
-      value: '1: The Opening'
+      value: '[1]
+
+        The Opening'
       objectReference: {fileID: 0}
     - target: {fileID: 1000010354920722, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_IsActive
@@ -6439,6 +6463,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Opening Title Label
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
@@ -8237,6 +8266,11 @@ Prefab:
       propertyPath: m_Name
       value: Hint Canvas (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Shift Run Label
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
   m_IsPrefabParent: 0
@@ -9841,6 +9875,11 @@ Prefab:
     - target: {fileID: 1000010354920722, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Move Mouse Label
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
@@ -14461,7 +14500,7 @@ Prefab:
     - target: {fileID: 114000014185345736, guid: 6f6dab4cf558a874bb875ed920261e7d,
         type: 2}
       propertyPath: m_Text
-      value: Press Space to Jump
+      value: Press Space or Right-Click to Jump
       objectReference: {fileID: 0}
     - target: {fileID: 1000010354920722, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_IsActive
@@ -14470,6 +14509,11 @@ Prefab:
     - target: {fileID: 1000011504017148, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_Name
       value: Hint Canvas (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Space Jump Label
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
@@ -15546,7 +15590,9 @@ Prefab:
     - target: {fileID: 114000014185345736, guid: 6f6dab4cf558a874bb875ed920261e7d,
         type: 2}
       propertyPath: m_Text
-      value: '3: The Finale'
+      value: '[3]
+
+        The Finale'
       objectReference: {fileID: 0}
     - target: {fileID: 1000010354920722, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}
       propertyPath: m_IsActive
@@ -15556,6 +15602,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516133249306990, guid: 6f6dab4cf558a874bb875ed920261e7d,
+        type: 2}
+      propertyPath: translationKey
+      value: Finale Title Label
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f6dab4cf558a874bb875ed920261e7d, type: 2}

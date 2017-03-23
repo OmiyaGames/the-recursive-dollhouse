@@ -134,3 +134,15 @@ Door Wrong Code 4,Access Denied,,
 Door Wrong Code 5,Try Again,,
 Door Wrong Code 6,Non-matching Credentials,,
 Door Wrong Code 7,Don't Give Up!,,
+Move Mouse Label,Move Mouse to Look Around,,
+Arrow Keys Label,Use Arrow Keys or WASD to Move,,
+Shift Run Label,Hold Shift to Run,,
+Esc Pause Label,Tap ESC to Pause,,
+Space Jump Label,Press Space or Right-Click to Jump,,
+Opening Title Label,"[1]
+The Opening",,
+Details Title Label,"[2]
+The Details",,
+Finale Title Label,"[3]
+The Finale",,
+End Title Label,The End!,,
