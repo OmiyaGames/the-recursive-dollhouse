@@ -77,9 +77,10 @@ namespace OmiyaGames
         protected virtual void Start()
         {
             // Setup all labels, if available
-            if ((levelNameLabel != null) && (Singleton.Get<SceneTransitionManager>().CurrentScene != null))
+            SceneInfo currentScene = Singleton.Get<SceneTransitionManager>().CurrentScene;
+            if ((levelNameLabel != null) && (currentScene != null))
             {
-                levelNameLabel.TranslationKey = Singleton.Get<SceneTransitionManager>().CurrentScene.DisplayName;
+                levelNameLabel.TranslationKey = currentScene.DisplayName.TranslationKey;
             }
         }
 

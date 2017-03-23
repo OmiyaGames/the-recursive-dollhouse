@@ -1,17 +1,24 @@
 Keys,English (USA),日本語,Pig Latin (USA)
 Game Title,The Recursive Dollhouse,マトリョーシカの家,Ethay Ecursiveray Ollhouseday
 Developer Website’s Name,Omiya Games,Omiya Games,Omiya Games
+Credits,Credits,,
+Main Menu,Main Menu,,
+Splash,Splash,,
+From The Beginning,From The Beginning,,
 Loading,Loading…,ロード中,
 Start Button,Start,,
 Click To Start Button,Click here to begin,,
+Level Complete Title,{0} Complete,,
+Level Failed Title,{0} Failed,,
 Resume Button,Resume,,
-Restart Button,Restart,,
+Restart Button,Restart {0},,
 Options Button,Options,,
 Credits Button,Credits,,
 Level Button,Level {0},,
 Next Level Button,Next Level,,
 Skip Credits Button,Press any key to skip,,
-Return To Menu Button,Return to Main Menu,,
+Return To Menu Button,Return to {0},,
+Proceed Button,Proceed to {0},,
 Back Button,Back,,
 Quit Button,Quit,,
 Paused Title,Paused,,
@@ -62,8 +69,6 @@ Hack Warning Final Option Description,"Click on the button below to continue thi
 Hack Warning Final Option Button,Continue,,
 Lock Mouse Instructions,"Click on the button below to start!
 This game will lock your mouse, but you can always recover by holding ESC.",,
-Level Complete Title,Level Complete,,
-Level Failed Title,Level Failed,,
 Credits Created By,Created by Omiya Games,,
 Credits Programming,"Programming:
 	Taro Omiya",,

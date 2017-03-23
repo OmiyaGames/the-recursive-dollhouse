@@ -405,12 +405,12 @@ namespace OmiyaGames
             if (loadLevelAsynchronously == true)
             {
                 // Load asynchronously
-                SceneManager.LoadSceneAsync(sceneToLoad.SceneName);
+                SceneManager.LoadSceneAsync(sceneToLoad.SceneFileName);
             }
             else
             {
                 // Load synchronously
-                SceneManager.LoadScene(sceneToLoad.SceneName);
+                SceneManager.LoadScene(sceneToLoad.SceneFileName);
             }
 
             // Indicate this level is already in progress of loading

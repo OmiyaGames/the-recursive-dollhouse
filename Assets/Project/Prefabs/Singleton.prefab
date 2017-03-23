@@ -810,18 +810,7 @@ MonoBehaviour:
   languageMap:
   - language: 10
     header: English (USA)
-  - language: 22
-    header: "\u65E5\u672C\u8A9E"
-  fontMap:
-  - header: English (USA)
-    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
-    otherFonts: []
-  - header: Pig Latin (USA)
-    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
-    otherFonts: []
-  - header: "\u65E5\u672C\u8A9E"
-    defaultFont: {fileID: 12800000, guid: 27b4c7f5e857bd5469c2f29016575778, type: 3}
-    otherFonts: []
+  fontMap: []
 --- !u!114 &11428526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -935,11 +924,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseInput: Pause
   delaySelectingDefaultUiBy: 0.5
-  returnToTextTemplate: Return to {0}
-  restartTextTemplate: Restart {0}
-  completeTextTemplate: '{0} Complete'
-  failedTextTemplate: '{0} Failed'
-  nextTextTemplate: Proceed to {0}
+  returnToTextTemplateTranslationKey: Return To Menu Button
+  restartTextTemplateTranslationKey: Restart Button
+  completeTextTemplateTranslationKey: Level Complete Title
+  failedTextTemplateTranslationKey: Level Failed Title
+  nextTextTemplateTranslationKey: Proceed Button
   buttonClickSound: {fileID: 11410914}
 --- !u!114 &11484574
 MonoBehaviour:

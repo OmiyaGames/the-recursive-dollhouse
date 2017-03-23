@@ -72,36 +72,23 @@ namespace OmiyaGames
 
         protected virtual void Start()
         {
-            // Update the labels on each button
-            MenuManager manager = Singleton.Get<MenuManager>();
-
-            // Setup all labels, if available
-            if (completeLabel != null)
-            {
-                completeLabel.TranslationKey = manager.CompletedCurrentSceneText;
-            }
-            if (failedLabel != null)
-            {
-                failedLabel.TranslationKey = manager.FailedCurrentSceneText;
-            }
-            if (nextSceneLabel != null)
-            {
-                nextSceneLabel.TranslationKey = manager.NextSceneText;
-            }
-            if (restartLabel != null)
-            {
-                restartLabel.TranslationKey = manager.RestartCurrentSceneText;
-            }
-            if (returnToMenuLabel != null)
-            {
-                returnToMenuLabel.TranslationKey = manager.ReturnToMenuText;
-            }
+            // Do nothing!
         }
 
         public override void Show(System.Action<IMenu> stateChanged)
         {
             // Call base function
             base.Show(stateChanged);
+
+            // Update the labels on each button
+            MenuManager manager = Singleton.Get<MenuManager>();
+
+            // Setup all labels, if available
+            manager.SetLabelTextToCompletedCurrentScene(completeLabel);
+            manager.SetLabelTextToFailedCurrentScene(failedLabel);
+            manager.SetLabelTextToNextScene(nextSceneLabel);
+            manager.SetLabelTextToRestartCurrentScene(restartLabel);
+            manager.SetLabelTextToReturnToMenu(returnToMenuLabel);
 
             // Check if we should stop time
             if (PauseOnShow == true)
