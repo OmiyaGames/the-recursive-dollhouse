@@ -16,10 +16,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010249317334}
-  - 114: {fileID: 114000014231659434}
+  - component: {fileID: 4000010249317334}
+  - component: {fileID: 114000014231659434}
   m_Layer: 0
   m_Name: Mood Setter
   m_TagString: Untagged
@@ -32,10 +32,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010659086594}
-  - 108: {fileID: 108000010336351242}
+  - component: {fileID: 4000010659086594}
+  - component: {fileID: 108000010336351242}
+  - component: {fileID: 114285184393436092}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -52,11 +53,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010659086594}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000010659086594
 Transform:
   m_ObjectHideFlags: 1
@@ -66,10 +67,10 @@ Transform:
   m_LocalRotation: {x: 0.40821797, y: -0.23456973, z: 0.10938168, w: 0.87542605}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010249317334}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &108000010336351242
 Light:
   m_ObjectHideFlags: 1
@@ -115,3 +116,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53f58e3781ee3841ae7452c424ac5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114285184393436092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012260624334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185f3001fcbe19e4d81a647931ca5b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angularDirection: {x: 0, y: 0.1, z: 0}
+  relativeTo: 0
