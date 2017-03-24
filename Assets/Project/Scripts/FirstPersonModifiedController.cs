@@ -218,8 +218,15 @@ public class FirstPersonModifiedController : FirstPersonController
         {
             jumpOutEffect.Play();
         }
-        m_BlurEffect.enabled = true;
-        m_ZoomEffect.Play();
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if ((settings == null) || (settings.IsMotionBlursEnabled == true))
+        {
+            m_BlurEffect.enabled = true;
+        }
+        if ((settings == null) || (settings.IsFlashesEnabled == true))
+        {
+            m_ZoomEffect.Play();
+        }
     }
 
     public override void StopSlowdown()
