@@ -118,11 +118,45 @@ public class FirstPersonModifiedController : FirstPersonController
     protected override void Start()
     {
         base.Start();
-        if(Singleton.Instance.IsWebplayer == true)
+        m_MouseLook.XRotationAxis = GetXRotationAxis;
+        m_MouseLook.YRotationAxis = GetYRotationAxis;
+        if (Singleton.Instance.IsWebplayer == true)
         {
             Singleton.Get<MenuManager>().Show<LevelIntroMenu>(StartMovement);
             AllowMovement = false;
         }
+    }
+
+    float GetXRotationAxis(float input, float customSensitivity)
+    {
+        float returnFloat = input * customSensitivity;
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if(settings != null)
+        {
+            returnFloat *= AdjustSensitivityBySetting(settings.MouseXAxisSensitivity, settings.IsMouseXAxisInverted);
+        }
+        return returnFloat;
+    }
+
+    float GetYRotationAxis(float input, float customSensitivity)
+    {
+        float returnFloat = input * customSensitivity;
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            returnFloat *= AdjustSensitivityBySetting(settings.MouseYAxisSensitivity, settings.IsMouseYAxisInverted);
+        }
+        return returnFloat;
+    }
+
+    private static float AdjustSensitivityBySetting(float settingsSensitivity, bool settingsInverted)
+    {
+        float returnFloat = settingsSensitivity / GameSettings.DefaultSensitivity;
+        if (settingsInverted == true)
+        {
+            returnFloat *= -1f;
+        }
+        return returnFloat;
     }
 
     public override void UpdateMouseLock()
