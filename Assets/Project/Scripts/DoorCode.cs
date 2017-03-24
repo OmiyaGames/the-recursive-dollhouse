@@ -53,6 +53,8 @@ public class DoorCode : IDoor
 
     [Header("Sound Effects")]
     [SerializeField]
+    SoundEffect enterCodeSound;
+    [SerializeField]
     SoundEffect buttonSound;
     [SerializeField]
     SoundEffect failedSound;
@@ -214,6 +216,7 @@ public class DoorCode : IDoor
     {
         if (CurrentState != KeypadState.Complete)
         {
+            failedSound.Play();
             ResetGaze();
         }
     }
@@ -268,6 +271,7 @@ public class DoorCode : IDoor
         {
             // Indicate we allow typing
             CurrentState = KeypadState.Enabled;
+            enterCodeSound.Play();
         }
         return Gazer.SoundEffectType.None;
     }
