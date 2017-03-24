@@ -24,6 +24,7 @@ public abstract class TierObject : MonoBehaviour
         }
     }
 
+    public abstract void SetTheme(MoodTheme theme);
     protected abstract void OnThisTierChanged(ResizingTier obj);
 
     public int ThisTier

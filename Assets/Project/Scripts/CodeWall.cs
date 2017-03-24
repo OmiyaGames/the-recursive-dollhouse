@@ -13,4 +13,9 @@ public class CodeWall : TierObject
         }
         labelCache.OnTierChanged();
     }
+
+    public override void SetTheme(MoodTheme theme)
+    {
+        // Do nothing.
+    }
 }

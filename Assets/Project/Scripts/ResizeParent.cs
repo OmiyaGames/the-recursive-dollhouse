@@ -40,10 +40,6 @@ public class ResizeParent : MonoBehaviour
     [SerializeField]
     float slowdownDuration = 0.5f;
 
-    [Header("Music")]
-    [SerializeField]
-    AudioClip[] allMusic;
-
     Vector3 shrinkScaleVector;
     Vector3 growScaleVector;
     Vector3 targetScale;
@@ -74,18 +70,6 @@ public class ResizeParent : MonoBehaviour
     public readonly HashSet<ItemHolder> AllItemHoldersWithParticles = new HashSet<ItemHolder>();
 
     #region Properties
-    AudioClip RandomMusic
-    {
-        get
-        {
-            if(randomMusic == null)
-            {
-                randomMusic = new RandomList<AudioClip>(allMusic);
-            }
-            return randomMusic.RandomElement;
-        }
-    }
-
     public float SnapDistance
     {
         get
@@ -258,9 +242,6 @@ public class ResizeParent : MonoBehaviour
 
     void RunResize(Vector3 centerTo)
     {
-        // Change Music
-        Singleton.Get<BackgroundMusic>().CurrentMusic = RandomMusic;
-
         // Position the parent
         transform.position = centerTo;
 

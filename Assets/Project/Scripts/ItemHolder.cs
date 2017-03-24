@@ -43,6 +43,7 @@ public class ItemHolder : IGazed
 
     bool interactive = false;
 
+#region Properties
     public Type ThisType
     {
         get
@@ -115,6 +116,7 @@ public class ItemHolder : IGazed
             }
         }
     }
+#endregion
 
     // Use this for initialization
     void Start()
@@ -150,6 +152,12 @@ public class ItemHolder : IGazed
             rotationCache.z = 0;
             labelsAnimation.transform.rotation = Quaternion.Euler(rotationCache);
         }
+    }
+
+    public override void SetTheme(MoodTheme theme)
+    {
+        // FIXME: update all the material textures!
+        //throw new System.NotImplementedException();
     }
 
     public override void OnGazeEnter(Gazer gazer)

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MoodTheme : MonoBehaviour
 {
@@ -7,6 +6,8 @@ public class MoodTheme : MonoBehaviour
     private Color lightColor = Color.white;
     [SerializeField]
     private float lightIntensity = 1;
+    [SerializeField]
+    private AudioClip backgroundMusic = null;
     //[SerializeField]
     //private Color houseColor = Color.white;
     //[SerializeField]
@@ -25,6 +26,14 @@ public class MoodTheme : MonoBehaviour
         get
         {
             return lightIntensity;
+        }
+    }
+
+    public AudioClip BackgroundMusic
+    {
+        get
+        {
+            return backgroundMusic;
         }
     }
 

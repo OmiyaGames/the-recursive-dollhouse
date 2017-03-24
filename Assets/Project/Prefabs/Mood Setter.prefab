@@ -178,7 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sunlight: {fileID: 108000010336351242}
   changeSpeed: 10
-  snapDistance: 0.001
 --- !u!114 &114183098660835810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightColor: {r: 0.361862, g: 0.3788248, b: 0.71323526, a: 1}
   lightIntensity: 0.25
+  backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
 --- !u!114 &114285184393436092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,3 +218,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   lightIntensity: 1
+  backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}

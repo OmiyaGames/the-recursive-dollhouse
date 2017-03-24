@@ -31,6 +31,12 @@ namespace Toggler
         bool interactive = false;
         Vector3 rotationCache;
 
+        public override void SetTheme(MoodTheme theme)
+        {
+            // FIXME: update all the material textures!
+            //throw new System.NotImplementedException();
+        }
+
         protected virtual void Start()
         {
             LeverGroup.OnBeforeStateChanged += OnStateChanged;

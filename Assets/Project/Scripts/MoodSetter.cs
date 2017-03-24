@@ -38,6 +38,7 @@ public class MoodSetter : MonoBehaviour
         {
             if (currentTheme != value)
             {
+                // Figure out how to animation the theme
                 if (currentTheme == null)
                 {
                     SnapToTheme(value);
@@ -46,7 +47,12 @@ public class MoodSetter : MonoBehaviour
                 {
                     animateTheme = true;
                 }
+
+                // Setup variables
                 currentTheme = value;
+
+                // Change Music
+                Singleton.Get<BackgroundMusic>().CurrentMusic = currentTheme.BackgroundMusic;
             }
         }
     }
@@ -58,8 +64,6 @@ public class MoodSetter : MonoBehaviour
         randomTheme = new RandomList<MoodTheme>(allThemes);
     }
 
-    // Update is called once per frame
-    Vector3 testColorDiff = Vector3.zero;
     void Update()
     {
         if(animateTheme == true)
@@ -88,6 +92,6 @@ public class MoodSetter : MonoBehaviour
     {
         sunlight.color = theme.LightColor;
         sunlight.intensity = theme.LightIntensity;
-        animateTheme = true;
+        animateTheme = false;
     }
 }

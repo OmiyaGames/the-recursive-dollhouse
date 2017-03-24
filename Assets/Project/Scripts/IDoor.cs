@@ -58,6 +58,12 @@ public abstract class IDoor : IGazed
         }
     }
 
+    public override void SetTheme(MoodTheme theme)
+    {
+        // FIXME: update all the material textures!
+        //throw new System.NotImplementedException();
+    }
+
     protected virtual void Start()
     {
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;

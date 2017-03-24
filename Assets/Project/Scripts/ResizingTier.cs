@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class ResizingTier : MonoBehaviour, IDelayedSetup
 {
+    public event System.Action<ResizingTier> OnCurrentTierChanged;
+
     [SerializeField]
     int startingTier = 0;
 
-    readonly HashSet<DollHouse> allHouses = new HashSet<DollHouse>();
-    public event System.Action<ResizingTier> OnCurrentTierChanged;
+    MoodTheme assignedTheme = null;
 
     public int CurrentTier
     {
@@ -39,14 +40,14 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
     // Use this for initialization
     void Awake()
     {
+        // Adjust to theme
+        assignedTheme = MoodSetter.Instance.RandomTheme;
+
         TierObject[] allObjects = GetComponentsInChildren<TierObject>();
         foreach (TierObject tier in allObjects)
         {
             tier.ParentTier = this;
-            if(tier is DollHouse)
-            {
-                allHouses.Add((DollHouse)tier);
-            }
+            tier.SetTheme(assignedTheme);
         }
     }
 
@@ -83,10 +84,7 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
 
     public void ApplyTheme()
     {
-        foreach (DollHouse house in allHouses)
-        {
-            MoodSetter.Instance.CurrentTheme = house.AssignedTheme;
-        }
+        MoodSetter.Instance.CurrentTheme = assignedTheme;
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)

@@ -40,6 +40,11 @@ public class InteractionTrigger : IGazed
     }
     #endregion
 
+    public override void SetTheme(MoodTheme theme)
+    {
+        // Do nothing
+    }
+
     public override void OnGazeEnter(Gazer gazer)
     {
         isGazed = true;

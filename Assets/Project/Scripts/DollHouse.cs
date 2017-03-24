@@ -29,7 +29,6 @@ public class DollHouse : TierObject
     Renderer houseRenderer;
 
     Vector3 offsetOnShrinkVector = Vector3.zero;
-    MoodTheme assignedTheme;
 
     public bool IsItemHolderEnabled
     {
@@ -50,18 +49,6 @@ public class DollHouse : TierObject
         }
     }
 
-    public MoodTheme AssignedTheme
-    {
-        get
-        {
-            return assignedTheme;
-        }
-        private set
-        {
-            assignedTheme = value;
-        }
-    }
-
     // Use this for initialization
     void Start()
     {
@@ -69,14 +56,6 @@ public class DollHouse : TierObject
         {
             itemHolder.IsActive = enableItemHolder;
         }
-
-        // Adjust to theme
-        AssignedTheme = MoodSetter.Instance.RandomTheme;
-        //if((assignedTheme != null) && (houseRenderer != null))
-        //{
-        //    houseRenderer.material.color = assignedTheme.HouseColor;
-        //    houseRenderer.material.mainTexture = assignedTheme.HouseTexture;
-        //}
 
         // Setup vector
         offsetOnShrinkVector.z = offsetOnShrink;
@@ -106,10 +85,10 @@ public class DollHouse : TierObject
         {
             // Update stack
             ResizeParent.Instance.TierHistory.Add(ParentTier);
+            ParentTier.ApplyTheme();
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
-            MoodSetter.Instance.CurrentTheme = AssignedTheme;
 
             // Check if we should play the credits...
             if (lastHouse == true)
@@ -128,12 +107,10 @@ public class DollHouse : TierObject
             if (ResizeParent.Instance.LatestTier == ParentTier)
             {
                 ResizeParent.Instance.TierHistory.RemoveAt(ResizeParent.Instance.TierHistory.Count - 1);
-            }
-
-            // Find the house one level up in the stack
-            if(ResizeParent.Instance.LatestTier != null)
-            {
-                ResizeParent.Instance.LatestTier.ApplyTheme();
+                if (ResizeParent.Instance.LatestTier != null)
+                {
+                    ResizeParent.Instance.LatestTier.ApplyTheme();
+                }
             }
         }
     }
@@ -154,10 +131,6 @@ public class DollHouse : TierObject
         if ((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier))
         {
             ceiling.enabled = true;
-            if ((obj.TierHistory.Count >= 1) && (obj.TierHistory[obj.TierHistory.Count - 1] == ParentTier))
-            {
-                MoodSetter.Instance.CurrentTheme = AssignedTheme;
-            }
         }
     }
 
@@ -187,5 +160,11 @@ public class DollHouse : TierObject
     protected override void OnThisTierChanged(ResizingTier obj)
     {
         Instance_OnAfterResize(ResizeParent.Instance);
+    }
+
+    public override void SetTheme(MoodTheme theme)
+    {
+        // FIXME: update all the material textures!
+        //throw new System.NotImplementedException();
     }
 }

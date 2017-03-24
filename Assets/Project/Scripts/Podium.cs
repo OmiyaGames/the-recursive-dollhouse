@@ -47,6 +47,13 @@ public class Podium : TierObject, IDelayedSetup
     }
 #endif
 
+    public override void SetTheme(MoodTheme theme)
+    {
+        // FIXME: update all the material textures!
+        //throw new System.NotImplementedException();
+    }
+
+
     public void ExtraSetup(ResizeParent obj)
     {
         // Do embedded setup
