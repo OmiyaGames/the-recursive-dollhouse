@@ -80,7 +80,6 @@ namespace OmiyaGames
             }
             set
             {
-                print("Setting Cursor Lock: " + value);
                 Cursor.lockState = value;
                 Cursor.visible = (value != CursorLockMode.Locked);
             }
