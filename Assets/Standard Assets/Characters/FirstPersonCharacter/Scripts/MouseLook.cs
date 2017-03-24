@@ -12,7 +12,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [Serializable]
     public class MouseLook
     {
-        public delegate float GetRotationAxis(float input, float customSensitivity);
+        public class RotationAxisEventArgs : EventArgs
+        {
+            public float Sensitivity
+            {
+                get;
+                set;
+            }
+        }
+
+        public delegate void OnGetRotationAxis(MouseLook sender, RotationAxisEventArgs args);
+        public event OnGetRotationAxis OnGetXRotationAxis;
+        public event OnGetRotationAxis OnGetYRotationAxis;
 
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
@@ -26,17 +37,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
-
-        public GetRotationAxis XRotationAxis
-        {
-            private get;
-            set;
-        }
-        public GetRotationAxis YRotationAxis
-        {
-            private get;
-            set;
-        }
+        private readonly RotationAxisEventArgs m_finalXSensitivity = new RotationAxisEventArgs();
+        private readonly RotationAxisEventArgs m_finalYSensitivity = new RotationAxisEventArgs();
 
         public void Init(Transform character, Transform camera)
         {
@@ -47,20 +49,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void LookRotation(Transform character, Transform camera, IMouseLockChanger controller)
         {
-            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            if (XRotationAxis != null)
+            m_finalYSensitivity.Sensitivity = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            if (OnGetXRotationAxis != null)
             {
-                yRot = XRotationAxis(CrossPlatformInputManager.GetAxis("Mouse X"), XSensitivity);
+                OnGetXRotationAxis(this, m_finalYSensitivity);
             }
 
-            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
-            if (YRotationAxis != null)
+            m_finalXSensitivity.Sensitivity = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            if (OnGetYRotationAxis != null)
             {
-                xRot = YRotationAxis(CrossPlatformInputManager.GetAxis("Mouse Y"), YSensitivity);
+                OnGetYRotationAxis(this, m_finalXSensitivity);
             }
 
-            m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
-            m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
+            m_CharacterTargetRot *= Quaternion.Euler (0f, m_finalYSensitivity.Sensitivity, 0f);
+            m_CameraTargetRot *= Quaternion.Euler (-m_finalXSensitivity.Sensitivity, 0f, 0f);
 
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);

@@ -118,8 +118,8 @@ public class FirstPersonModifiedController : FirstPersonController
     protected override void Start()
     {
         base.Start();
-        m_MouseLook.XRotationAxis = GetXRotationAxis;
-        m_MouseLook.YRotationAxis = GetYRotationAxis;
+        m_MouseLook.OnGetXRotationAxis += GetXRotationAxis;
+        m_MouseLook.OnGetYRotationAxis += GetYRotationAxis;
         if (Singleton.Instance.IsWebplayer == true)
         {
             Singleton.Get<MenuManager>().Show<LevelIntroMenu>(StartMovement);
@@ -127,26 +127,22 @@ public class FirstPersonModifiedController : FirstPersonController
         }
     }
 
-    float GetXRotationAxis(float input, float customSensitivity)
+    void GetXRotationAxis(MouseLook sender, MouseLook.RotationAxisEventArgs args)
     {
-        float returnFloat = input * customSensitivity;
         GameSettings settings = Singleton.Get<GameSettings>();
         if(settings != null)
         {
-            returnFloat *= AdjustSensitivityBySetting(settings.MouseXAxisSensitivity, settings.IsMouseXAxisInverted);
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.MouseXAxisSensitivity, settings.IsMouseXAxisInverted);
         }
-        return returnFloat;
     }
 
-    float GetYRotationAxis(float input, float customSensitivity)
+    void GetYRotationAxis(MouseLook sender, MouseLook.RotationAxisEventArgs args)
     {
-        float returnFloat = input * customSensitivity;
         GameSettings settings = Singleton.Get<GameSettings>();
         if (settings != null)
         {
-            returnFloat *= AdjustSensitivityBySetting(settings.MouseYAxisSensitivity, settings.IsMouseYAxisInverted);
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.MouseYAxisSensitivity, settings.IsMouseYAxisInverted);
         }
-        return returnFloat;
     }
 
     private static float AdjustSensitivityBySetting(float settingsSensitivity, bool settingsInverted)
