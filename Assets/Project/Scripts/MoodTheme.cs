@@ -4,11 +4,43 @@ using System.Collections;
 public class MoodTheme : MonoBehaviour
 {
     [SerializeField]
-    public Color lightColor = Color.white;
+    private Color lightColor = Color.white;
     [SerializeField]
-    public float lightIntensity = 1;
-    [SerializeField]
-    public Color houseColor = Color.white;
-    [SerializeField]
-    public Texture houseTexture;
+    private float lightIntensity = 1;
+    //[SerializeField]
+    //private Color houseColor = Color.white;
+    //[SerializeField]
+    //private Texture houseTexture;
+
+    public Color LightColor
+    {
+        get
+        {
+            return lightColor;
+        }
+    }
+
+    public float LightIntensity
+    {
+        get
+        {
+            return lightIntensity;
+        }
+    }
+
+    //public Color HouseColor
+    //{
+    //    get
+    //    {
+    //        return houseColor;
+    //    }
+    //}
+
+    //public Texture HouseTexture
+    //{
+    //    get
+    //    {
+    //        return houseTexture;
+    //    }
+    //}
 }

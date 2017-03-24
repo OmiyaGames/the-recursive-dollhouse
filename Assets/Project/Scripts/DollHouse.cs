@@ -60,11 +60,11 @@ public class DollHouse : TierObject
 
         // Adjust to theme
         assignedTheme = MoodSetter.Instance.RandomTheme;
-        if((assignedTheme != null) && (houseRenderer != null))
-        {
-            houseRenderer.material.color = assignedTheme.houseColor;
-            houseRenderer.material.mainTexture = assignedTheme.houseTexture;
-        }
+        //if((assignedTheme != null) && (houseRenderer != null))
+        //{
+        //    houseRenderer.material.color = assignedTheme.HouseColor;
+        //    houseRenderer.material.mainTexture = assignedTheme.HouseTexture;
+        //}
 
         // Setup vector
         offsetOnShrinkVector.z = offsetOnShrink;
@@ -116,6 +116,15 @@ public class DollHouse : TierObject
             if (ResizeParent.Instance.LatestTier == ParentTier)
             {
                 ResizeParent.Instance.TierHistory.RemoveAt(ResizeParent.Instance.TierHistory.Count - 1);
+            }
+
+            // Find the house one level up in the stack
+            if(ResizeParent.Instance.TierHistory.Count > 0)
+            {
+                foreach(DollHouse house in ResizeParent.Instance.TierHistory[ResizeParent.Instance.TierHistory.Count - 1].AllDollhouses)
+                {
+                    MoodSetter.Instance.CurrentTheme = house.assignedTheme;
+                }
             }
         }
     }

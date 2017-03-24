@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class ResizingTier : MonoBehaviour, IDelayedSetup
 {
     [SerializeField]
     int startingTier = 0;
 
+    readonly HashSet<DollHouse> allHouses = new HashSet<DollHouse>();
     public event System.Action<ResizingTier> OnCurrentTierChanged;
 
     public int CurrentTier
@@ -41,6 +43,10 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
         foreach (TierObject tier in allObjects)
         {
             tier.ParentTier = this;
+            if(tier is DollHouse)
+            {
+                allHouses.Add((DollHouse)tier);
+            }
         }
     }
 
@@ -58,6 +64,14 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
         // Bind to event
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += ExtraSetup;
+    }
+
+    public HashSet<DollHouse> AllDollhouses
+    {
+        get
+        {
+            return allHouses;
+        }
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)

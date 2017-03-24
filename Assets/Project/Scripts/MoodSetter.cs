@@ -66,10 +66,10 @@ public class MoodSetter : MonoBehaviour
         if(animateTheme == true)
         {
             // If not, smooth damp
-            sunlight.color = Color.Lerp(sunlight.color, CurrentTheme.lightColor, (changeSpeed * Time.deltaTime));
-            testColorDiff.x = sunlight.color.r - CurrentTheme.lightColor.r;
-            testColorDiff.y = sunlight.color.g - CurrentTheme.lightColor.g;
-            testColorDiff.z = sunlight.color.b - CurrentTheme.lightColor.b;
+            sunlight.color = Color.Lerp(sunlight.color, CurrentTheme.LightColor, (changeSpeed * Time.deltaTime));
+            testColorDiff.x = sunlight.color.r - CurrentTheme.LightColor.r;
+            testColorDiff.y = sunlight.color.g - CurrentTheme.LightColor.g;
+            testColorDiff.z = sunlight.color.b - CurrentTheme.LightColor.b;
 
             // Check if we met the target scale yet
             if (testColorDiff.sqrMagnitude < (snapDistance* snapDistance))
@@ -81,8 +81,8 @@ public class MoodSetter : MonoBehaviour
 
     void SnapToTheme(MoodTheme theme)
     {
-        sunlight.color = theme.lightColor;
-        sunlight.intensity = theme.lightIntensity;
+        sunlight.color = theme.LightColor;
+        sunlight.intensity = theme.LightIntensity;
         animateTheme = true;
     }
 }
