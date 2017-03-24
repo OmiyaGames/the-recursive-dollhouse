@@ -54,6 +54,10 @@ namespace OmiyaGames
             [SerializeField]
             bool enableSoundEffectControls = true;
             [SerializeField]
+            bool enableSmoothCameraToggle = true;
+            [SerializeField]
+            bool enableBobbingCameraToggle = true;
+            [SerializeField]
             bool enableMotionBlursToggle = true;
             [SerializeField]
             bool enableFlashingEffectsToggle = true;
@@ -175,6 +179,22 @@ namespace OmiyaGames
                 get
                 {
                     return enableResetDataButton;
+                }
+            }
+
+            public bool EnableSmoothCameraToggle
+            {
+                get
+                {
+                    return enableSmoothCameraToggle;
+                }
+            }
+
+            public bool EnableBobbingCameraToggle
+            {
+                get
+                {
+                    return enableBobbingCameraToggle;
                 }
             }
         }
@@ -481,6 +501,10 @@ namespace OmiyaGames
 
         [Header("Special Effects Controls")]
         [SerializeField]
+        ToggleControls smoothCameraControls;
+        [SerializeField]
+        ToggleControls bobbingCameraControls;
+        [SerializeField]
         ToggleControls motionBlursControls;
         [SerializeField]
         ToggleControls flashesControls;
@@ -708,9 +732,33 @@ namespace OmiyaGames
                 Manager.ButtonClick.Play();
             }
         }
-#endregion
+        #endregion
 
-#region Special Effects Group
+        #region Special Effects Group
+        public void OnEnableSmoothCameraToggled(bool enable)
+        {
+            if (inSetupMode == false)
+            {
+                // Toggle mute
+                settings.IsSmoothCameraEnabled = enable;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
+        public void OnEnableBobbingCameraToggled(bool enable)
+        {
+            if (inSetupMode == false)
+            {
+                // Toggle mute
+                settings.IsBobbingCameraEnabled = enable;
+
+                // Indicate button is clicked
+                Manager.ButtonClick.Play();
+            }
+        }
+
         public void OnEnableFlashesToggled(bool enable)
         {
             if (inSetupMode == false)

@@ -101,6 +101,8 @@ namespace OmiyaGames
         public const string ScrollWheelSensitivityKey = "Scroll Wheel Sensitivity";
         public const string IsScrollWheelInvertedKey = "Scroll Wheel is Inverted";
 
+        public const string IsSmoothCameraEnabledKey = "Is Smooth Camera Enabled";
+        public const string IsBobbingCameraEnabledKey = "Is Bobbing Camera Enabled";
         public const string IsFlashesEnabledKey = "Is Flashes Enabled";
         public const string IsMotionBlursEnabledKey = "Is Motion Blurs Enabled";
         public const string IsBloomEnabledKey = "Is Bloom Enabled";
@@ -136,6 +138,8 @@ namespace OmiyaGames
         float scrollWheelSensitivity = DefaultSensitivity;
         bool isScrollWheelInverted = false;
 
+        bool isSmoothCameraEnabled = true;
+        bool isBobbingCameraEnabled = true;
         bool isFlashesEnabled = true;
         bool isMotionBlursEnabled = true;
         bool isBloomEnabled = true;
@@ -570,6 +574,38 @@ namespace OmiyaGames
                 }
             }
         }
+
+        public bool IsSmoothCameraEnabled
+        {
+            get
+            {
+                return isSmoothCameraEnabled;
+            }
+            set
+            {
+                if (isSmoothCameraEnabled != value)
+                {
+                    isSmoothCameraEnabled = value;
+                    Settings.SetBool(IsSmoothCameraEnabledKey, isSmoothCameraEnabled);
+                }
+            }
+        }
+
+        public bool IsBobbingCameraEnabled
+        {
+            get
+            {
+                return isBobbingCameraEnabled;
+            }
+            set
+            {
+                if (isBobbingCameraEnabled != value)
+                {
+                    isBobbingCameraEnabled = value;
+                    Settings.SetBool(IsBobbingCameraEnabledKey, isBobbingCameraEnabled);
+                }
+            }
+        }
         #endregion
 
         #region Singleton Overrides
@@ -779,6 +815,8 @@ namespace OmiyaGames
             isScrollWheelInverted = Settings.GetBool(IsScrollWheelInvertedKey, false);
 
             // Get Special Effects information
+            isSmoothCameraEnabled = Settings.GetBool(IsSmoothCameraEnabledKey, true);
+            isBobbingCameraEnabled = Settings.GetBool(IsBobbingCameraEnabledKey, true);
             isFlashesEnabled = Settings.GetBool(IsFlashesEnabledKey, true);
             isMotionBlursEnabled = Settings.GetBool(IsMotionBlursEnabledKey, true);
             isBloomEnabled = Settings.GetBool(IsBloomEnabledKey, true);
@@ -831,6 +869,8 @@ namespace OmiyaGames
             Settings.SetBool(IsScrollWheelInvertedKey, isScrollWheelInverted);
 
             // Set Special Effects information
+            Settings.SetBool(IsSmoothCameraEnabledKey, isSmoothCameraEnabled);
+            Settings.SetBool(IsBobbingCameraEnabledKey, isBobbingCameraEnabled);
             Settings.SetBool(IsFlashesEnabledKey, isFlashesEnabled);
             Settings.SetBool(IsMotionBlursEnabledKey, isMotionBlursEnabled);
             Settings.SetBool(IsBloomEnabledKey, isBloomEnabled);
@@ -874,6 +914,8 @@ namespace OmiyaGames
             Settings.SetBool(IsScrollWheelInvertedKey, isScrollWheelInverted);
 
             // Set Special Effects information
+            Settings.SetBool(IsSmoothCameraEnabledKey, isSmoothCameraEnabled);
+            Settings.SetBool(IsBobbingCameraEnabledKey, isBobbingCameraEnabled);
             Settings.SetBool(IsFlashesEnabledKey, isFlashesEnabled);
             Settings.SetBool(IsMotionBlursEnabledKey, isMotionBlursEnabled);
             Settings.SetBool(IsBloomEnabledKey, isBloomEnabled);
