@@ -4,9 +4,38 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+    public interface IMouseLockChanger
+    {
+        void UpdateMouseLock();
+    }
+
     [Serializable]
     public class MouseLook
     {
+        public class RotationAxisEventArgs : EventArgs
+        {
+            public float Sensitivity
+            {
+                get;
+                set;
+            }
+        }
+        public class SmoothEventArgs : EventArgs
+        {
+            public bool Smooth
+            {
+                get;
+                set;
+            }
+        }
+
+        public delegate void OnGetRotationAxis(MouseLook sender, RotationAxisEventArgs args);
+        public event OnGetRotationAxis OnGetXRotationAxis;
+        public event OnGetRotationAxis OnGetYRotationAxis;
+
+        public delegate void OnGetSmooth(MouseLook sender, SmoothEventArgs args);
+        public event OnGetSmooth OnGetIsSmooth;
+
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
         public bool clampVerticalRotation = true;
@@ -16,10 +45,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float smoothTime = 5f;
         public bool lockCursor = true;
 
-
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
+        private readonly RotationAxisEventArgs m_finalXSensitivity = new RotationAxisEventArgs();
+        private readonly RotationAxisEventArgs m_finalYSensitivity = new RotationAxisEventArgs();
+        private readonly SmoothEventArgs m_finalSmooth = new SmoothEventArgs();
 
         public void Init(Transform character, Transform camera)
         {
@@ -28,18 +59,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character, Transform camera, IMouseLockChanger controller)
         {
-            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            m_finalYSensitivity.Sensitivity = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            if (OnGetXRotationAxis != null)
+            {
+                OnGetXRotationAxis(this, m_finalYSensitivity);
+            }
 
-            m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
-            m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
+            m_finalXSensitivity.Sensitivity = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            if (OnGetYRotationAxis != null)
+            {
+                OnGetYRotationAxis(this, m_finalXSensitivity);
+            }
+
+            m_CharacterTargetRot *= Quaternion.Euler (0f, m_finalYSensitivity.Sensitivity, 0f);
+            m_CameraTargetRot *= Quaternion.Euler (-m_finalXSensitivity.Sensitivity, 0f, 0f);
 
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);
 
-            if(smooth)
+            m_finalSmooth.Smooth = smooth;
+            if(OnGetIsSmooth != null)
+            {
+                OnGetIsSmooth(this, m_finalSmooth);
+            }
+            if(m_finalSmooth.Smooth == true)
             {
                 character.localRotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
                     smoothTime * Time.deltaTime);
@@ -52,7 +97,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 camera.localRotation = m_CameraTargetRot;
             }
 
-            UpdateCursorLock();
+            controller.UpdateMouseLock();
         }
 
         public void SetCursorLock(bool value)

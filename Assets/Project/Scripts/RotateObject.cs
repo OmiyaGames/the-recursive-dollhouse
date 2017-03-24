@@ -33,10 +33,12 @@ public class RotateObject : MonoBehaviour
 {
     [SerializeField]
     Vector3 angularDirection = Vector3.one;
+    [SerializeField]
+    Space relativeTo = Space.Self;
 
     // Update is called once per frame
     void Update ()
     {
-        transform.Rotate(angularDirection * Time.deltaTime);
+        transform.Rotate(angularDirection * Time.deltaTime, relativeTo);
     }
 }

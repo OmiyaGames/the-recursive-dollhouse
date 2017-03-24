@@ -38,7 +38,7 @@ namespace OmiyaGames
         [SerializeField]
         Button button;
         [SerializeField]
-        Text label;
+        TranslatedText label;
 
         string redirectTo;
 
@@ -50,15 +50,11 @@ namespace OmiyaGames
             }
         }
 
-        public string DisplayedText
+        public TranslatedText LabelComponent
         {
             get
             {
-                return label.text;
-            }
-            set
-            {
-                label.text = value;
+                return label;
             }
         }
 
@@ -76,6 +72,7 @@ namespace OmiyaGames
 
         public void OnClick()
         {
+            Singleton.Get<MenuManager>().ButtonClick.Play();
             Application.OpenURL(RedirectTo);
         }
     }

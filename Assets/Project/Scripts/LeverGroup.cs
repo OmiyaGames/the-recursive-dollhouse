@@ -1,36 +1,38 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-
-namespace Toggler
+﻿namespace Toggler
 {
-    public class LeverGroup : MonoBehaviour
+    public class LeverGroup
     {
-        readonly List<Lever> allLevers = new List<Lever>();
+        public static System.Action<LeverGroup, bool, bool> OnBeforeStateChanged;
+        static LeverGroup group = null;
 
         bool state = false;
 
-        public bool IsOn
+        static LeverGroup Instance
         {
             get
             {
-                return state;
-            }
-            internal set
-            {
-                if (state != value)
+                if(group == null)
                 {
-                    state = value;
-                    foreach (Lever lever in allLevers)
-                    {
-                        lever.IsOnDirect = state;
-                    }
+                    group = new LeverGroup();
                 }
+                return group;
             }
         }
 
-        internal void AddToGroup(Lever lever)
+        public static bool IsOn
         {
-            allLevers.Add(lever);
+            get
+            {
+                return Instance.state;
+            }
+            internal set
+            {
+                if (OnBeforeStateChanged != null)
+                {
+                    OnBeforeStateChanged(Instance, Instance.state, value);
+                }
+                Instance.state = value;
+            }
         }
     }
 }

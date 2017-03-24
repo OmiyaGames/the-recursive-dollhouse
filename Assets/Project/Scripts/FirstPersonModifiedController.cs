@@ -28,6 +28,7 @@ public class FirstPersonModifiedController : FirstPersonController
 
     PauseMenu pauseCache = null;
     bool allowMovement = true;
+    Rigidbody cachedRigidbody = null;
 
     public Gazer PlayerGazer
     {
@@ -62,11 +63,18 @@ public class FirstPersonModifiedController : FirstPersonController
         }
     }
 
-    public bool IsGrounded
+    public override bool IsGrounded
     {
         get
         {
-            return m_CharacterController.isGrounded;
+            if (AllowMovement == true)
+            {
+                return m_CharacterController.isGrounded;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
@@ -114,11 +122,92 @@ public class FirstPersonModifiedController : FirstPersonController
             base.GetJump(ref jump);
         }
     }
-    protected override void UpdateMouseLock()
+
+    protected override void Start()
+    {
+        base.Start();
+        m_MouseLook.OnGetIsSmooth += GetSmooth;
+        m_MouseLook.OnGetXRotationAxis += GetXRotationAxis;
+        m_MouseLook.OnGetYRotationAxis += GetYRotationAxis;
+        OnGetHeadBobEnabled += GetHeadBob;
+        OnGetXMovementAxis += GetXMovementAxis;
+        OnGetYMovementAxis += GetYMovementAxis;
+        if (Singleton.Instance.IsWebplayer == true)
+        {
+            Singleton.Get<MenuManager>().Show<LevelIntroMenu>(StartMovement);
+            AllowMovement = false;
+        }
+    }
+
+    void GetSmooth(MouseLook sender, MouseLook.SmoothEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Smooth = settings.IsSmoothCameraEnabled;
+        }
+    }
+
+    void GetXRotationAxis(MouseLook sender, MouseLook.RotationAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if(settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.MouseXAxisSensitivity, settings.IsMouseXAxisInverted);
+        }
+    }
+
+    void GetYRotationAxis(MouseLook sender, MouseLook.RotationAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.MouseYAxisSensitivity, settings.IsMouseYAxisInverted);
+        }
+    }
+
+    void GetHeadBob(FirstPersonController sender, HeadBobEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Enable = settings.IsBobbingCameraEnabled;
+        }
+    }
+
+    void GetXMovementAxis(FirstPersonController sender, MovementAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.KeyboardXAxisSensitivity, settings.IsKeyboardXAxisInverted);
+        }
+    }
+
+    void GetYMovementAxis(FirstPersonController sender, MovementAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.KeyboardYAxisSensitivity, settings.IsKeyboardYAxisInverted);
+        }
+    }
+
+    private static float AdjustSensitivityBySetting(float settingsSensitivity, bool settingsInverted)
+    {
+        float returnFloat = settingsSensitivity / GameSettings.DefaultSensitivity;
+        if (settingsInverted == true)
+        {
+            returnFloat *= -1f;
+        }
+        return returnFloat;
+    }
+
+    public override void UpdateMouseLock()
     {
         if (AllowMovement == true)
         {
-            Singleton.Get<SceneTransitionManager>().RevertCursorLockMode();
+            Singleton.Get<SceneTransitionManager>().RevertCursorLockMode(false);
         }
         else
         {
@@ -137,8 +226,15 @@ public class FirstPersonModifiedController : FirstPersonController
         {
             jumpOutEffect.Play();
         }
-        m_BlurEffect.enabled = true;
-        m_ZoomEffect.Play();
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if ((settings == null) || (settings.IsMotionBlursEnabled == true))
+        {
+            m_BlurEffect.enabled = true;
+        }
+        if ((settings == null) || (settings.IsFlashesEnabled == true))
+        {
+            m_ZoomEffect.Play();
+        }
     }
 
     public override void StopSlowdown()
@@ -146,5 +242,13 @@ public class FirstPersonModifiedController : FirstPersonController
         base.StopSlowdown();
         m_BlurEffect.enabled = false;
         m_ZoomEffect.Stop();
+    }
+
+    void StartMovement(IMenu menu)
+    {
+        if(menu.CurrentState == IMenu.State.Hidden)
+        {
+            AllowMovement = true;
+        }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using OmiyaGames;
-using System;
-using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 
 namespace Toggler
 {
-    [RequireComponent(typeof(CodeLabel))]
     public class Lever : IGazed
     {
         public enum LabelState
@@ -18,7 +15,6 @@ namespace Toggler
 
         public const string StateField = "Visible";
         public const string LabelField = "State";
-        public event Action<Lever> OnStateChanged;
 
         [Header("Required Components")]
         [SerializeField]
@@ -32,91 +28,14 @@ namespace Toggler
         [SerializeField]
         InteractionTrigger trigger;
 
-        [Header("Optional Components")]
-        [SerializeField]
-        LeverGroup associatedGroup;
-
-        bool state = false;
         bool interactive = false;
         Vector3 rotationCache;
-        CodeLabel labelCache = null;
-
-        public bool IsOn
-        {
-            get
-            {
-                if (associatedGroup == null)
-                {
-                    return state;
-                }
-                else
-                {
-                    return associatedGroup.IsOn;
-                }
-            }
-            private set
-            {
-                if(associatedGroup == null)
-                {
-                    IsOnDirect = value;
-                }
-                else
-                {
-                    associatedGroup.IsOn = value;
-                }
-            }
-        }
-
-        public CodeLabel AssociatedCode
-        {
-            get
-            {
-                if (labelCache == null)
-                {
-                    labelCache = GetComponent<CodeLabel>();
-                }
-                return labelCache;
-            }
-        }
-
-        internal bool IsOnDirect
-        {
-            set
-            {
-                if (state != value)
-                {
-                    state = value;
-
-                    // Play sound effect
-                    if (state == true)
-                    {
-                        trueStateSoundEffect.Play();
-                    }
-                    else
-                    {
-                        falseStateSoundEffect.Play();
-                    }
-
-                    // Play animation
-                    switchAnimation.SetBool(StateField, state);
-
-                    // Run event
-                    if (OnStateChanged != null)
-                    {
-                        OnStateChanged(this);
-                    }
-                }
-            }
-        }
 
         protected virtual void Start()
         {
-            if(associatedGroup != null)
-            {
-                associatedGroup.AddToGroup(this);
-            }
-            ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
-            ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
+            LeverGroup.OnBeforeStateChanged += OnStateChanged;
+            ResizeParent.Instance.OnBeforeResize += OnBeforeResize;
+            ResizeParent.Instance.OnAfterResize += OnAfterResize;
             UpdateAnimation();
         }
 
@@ -144,7 +63,7 @@ namespace Toggler
             interactive = true;
             if (labelsAnimation != null)
             {
-                if (IsOn == false)
+                if (LeverGroup.IsOn == false)
                 {
                     labelsAnimation.SetInteger(LabelField, (int)LabelState.SwitchOn);
                 }
@@ -169,7 +88,7 @@ namespace Toggler
             if (interactive == true)
             {
                 // Toggle state
-                IsOn = !IsOn;
+                LeverGroup.IsOn = !LeverGroup.IsOn;
 
                 // Run gaze exit
                 OnGazeExit(gazer);
@@ -184,11 +103,30 @@ namespace Toggler
                 trigger.IsEnabled = false;
                 OnGazeExit(null);
             }
-            AssociatedCode.OnTierChanged();
+            //AssociatedCode.OnTierChanged();
             UpdateAnimation();
         }
 
-        protected virtual void Instance_OnBeforeResize(ResizeParent obj)
+        void OnStateChanged(LeverGroup source, bool before, bool after)
+        {
+            if (before != after)
+            {
+                // Play sound effect
+                if (after == true)
+                {
+                    trueStateSoundEffect.Play();
+                }
+                else
+                {
+                    falseStateSoundEffect.Play();
+                }
+
+                // Play animation
+                switchAnimation.SetBool(StateField, after);
+            }
+        }
+
+        protected virtual void OnBeforeResize(ResizeParent obj)
         {
             if ((trigger != null) && (gameObject.activeInHierarchy == true))
             {
@@ -198,7 +136,7 @@ namespace Toggler
             UpdateAnimation();
         }
 
-        protected virtual void Instance_OnAfterResize(ResizeParent obj)
+        protected virtual void OnAfterResize(ResizeParent obj)
         {
             if ((trigger != null) && (gameObject.activeInHierarchy == true))
             {
@@ -211,7 +149,7 @@ namespace Toggler
         {
             if (switchAnimation.gameObject.activeInHierarchy == true)
             {
-                switchAnimation.SetBool(StateField, IsOn);
+                switchAnimation.SetBool(StateField, LeverGroup.IsOn);
             }
         }
     }

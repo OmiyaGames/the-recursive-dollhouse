@@ -1,14 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Toggler;
 
 public class DoorLever : IDoor
 {
     [Header("Switch Stuff")]
-    [SerializeField]
-    Lever associatedLever;
-    [SerializeField]
-    Text codeLabel;
     [SerializeField]
     bool isOnDoor = true;
 
@@ -29,41 +24,15 @@ public class DoorLever : IDoor
 
     protected override void Start()
     {
-        // Setup
-        if(associatedCode == null)
-        {
-            associatedCode = associatedLever.AssociatedCode;
-        }
-        codeLabel.text = associatedCode.CodeString;
-        codeLabel.color = associatedCode.CodeColor(codeLabel);
-
-        associatedLever.OnStateChanged += AssociatedLever_OnStateChanged;
-        AssociatedLever_OnStateChanged(associatedLever);
-
+        LeverGroup.OnBeforeStateChanged += OnStateChanged;
         base.Start();
     }
 
-#if UNITY_EDITOR
-    void OnDrawGizmos()
+    void OnStateChanged(LeverGroup source, bool before, bool after)
     {
-        if (associatedLever != null)
+        if (before != after)
         {
-            if(isOnDoor == true)
-            {
-                Gizmos.color = Color.white;
-            }
-            else
-            {
-                Gizmos.color = Color.grey;
-            }
-            Gizmos.DrawLine(transform.position, associatedLever.transform.position);
-            Gizmos.DrawWireSphere(transform.position, 0.5f);
+            IsOpen = (after == isOnDoor);
         }
-    }
-#endif
-
-    private void AssociatedLever_OnStateChanged(Lever obj)
-    {
-        IsOpen = (associatedLever.IsOn == isOnDoor);
     }
 }

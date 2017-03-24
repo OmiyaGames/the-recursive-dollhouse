@@ -7,8 +7,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : MonoBehaviour, IMouseLockChanger
     {
+        public class MovementAxisEventArgs : System.EventArgs
+        {
+            public float Sensitivity
+            {
+                get;
+                set;
+            }
+        }
+
+        public class HeadBobEventArgs : System.EventArgs
+        {
+            public bool Enable
+            {
+                get;
+                set;
+            }
+        }
+
         public static FirstPersonController Instance
         {
             get;
@@ -26,6 +44,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return Instance.m_Camera;
             }
         }
+
+        public delegate void OnGetMovementAxis(FirstPersonController sender, MovementAxisEventArgs args);
+        public event OnGetMovementAxis OnGetXMovementAxis;
+        public event OnGetMovementAxis OnGetYMovementAxis;
+
+        public delegate void OnGetHeadBob(FirstPersonController sender, HeadBobEventArgs args);
+        public event OnGetHeadBob OnGetHeadBobEnabled;
 
         [SerializeField]
         protected bool m_IsWalking;
@@ -64,6 +89,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         protected AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField]
         protected AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField]
+        protected float hitForceMultiplier = 0.1f;
 
         protected Camera m_Camera;
         protected bool m_Spring;
@@ -80,6 +107,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         protected bool m_Jumping;
         protected AudioSource m_AudioSource;
         protected bool m_Slowdown = false;
+        private readonly MovementAxisEventArgs m_XMovementArgs = new MovementAxisEventArgs();
+        private readonly MovementAxisEventArgs m_YMovementArgs = new MovementAxisEventArgs();
+        private readonly HeadBobEventArgs m_HeadBobArgs = new HeadBobEventArgs();
 
         public virtual void StartSlowdown(bool diveIn)
         {
@@ -102,7 +132,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
         // Use this for initialization
-        protected void Start()
+        protected virtual void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_OriginalCameraPosition = InstanceCamera.transform.localPosition;
@@ -116,6 +146,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //m_ZoomEffect.Stop();
         }
 
+        public virtual bool IsGrounded
+        {
+            get
+            {
+                return m_CharacterController.isGrounded;
+            }
+        }
 
         // Update is called once per frame
         protected void Update()
@@ -125,19 +162,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // the jump state needs to read here to make sure it is not missed
             GetJump(ref m_Jump);
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+            if (!m_PreviouslyGrounded && IsGrounded)
             {
                 StartCoroutine(m_JumpBob.DoBobCycle());
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
             }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+            if (!IsGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
             }
 
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            m_PreviouslyGrounded = IsGrounded;
         }
 
 
@@ -162,11 +199,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-            m_MoveDir.x = desiredMove.x * speed;
-            m_MoveDir.z = desiredMove.z * speed;
+            m_XMovementArgs.Sensitivity = desiredMove.x * speed;
+            m_YMovementArgs.Sensitivity = desiredMove.z * speed;
+            if (OnGetXMovementAxis != null)
+            {
+                OnGetXMovementAxis(this, m_XMovementArgs);
+            }
+            if (OnGetYMovementAxis != null)
+            {
+                OnGetYMovementAxis(this, m_YMovementArgs);
+            }
+            m_MoveDir.x = m_XMovementArgs.Sensitivity;
+            m_MoveDir.z = m_YMovementArgs.Sensitivity;
 
 
-            if (m_CharacterController.isGrounded)
+            if (IsGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
@@ -196,7 +243,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
         }
 
-        protected virtual void UpdateMouseLock()
+        public virtual void UpdateMouseLock()
         {
             m_MouseLook.UpdateCursorLock();
         }
@@ -236,7 +283,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         protected virtual void PlayFootStepAudio()
         {
-            if ((!m_CharacterController.isGrounded) || (m_Slowdown == true))
+            if ((!IsGrounded) || (m_Slowdown == true))
             {
                 return;
             }
@@ -254,11 +301,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
-            if (!m_UseHeadBob)
+            m_HeadBobArgs.Enable = m_UseHeadBob;
+            if(OnGetHeadBobEnabled != null)
+            {
+                OnGetHeadBobEnabled(this, m_HeadBobArgs);
+            }
+            if (m_HeadBobArgs.Enable == false)
             {
                 return;
             }
-            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
+            if (m_CharacterController.velocity.magnitude > 0 && IsGrounded)
             {
                 InstanceCamera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
@@ -310,7 +362,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         protected virtual void RotateView()
         {
-            m_MouseLook.LookRotation(transform, InstanceCamera.transform);
+            m_MouseLook.LookRotation(transform, InstanceCamera.transform, this);
         }
 
 
@@ -327,7 +379,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
+            body.AddForceAtPosition(m_CharacterController.velocity * hitForceMultiplier, hit.point, ForceMode.Impulse);
         }
     }
 }

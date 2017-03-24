@@ -15,18 +15,18 @@ public class DoorCode : IDoor
         Complete
     }
 
-    public const string EnterCodeText = "Enter Code:";
-    public const string RightCodeText = "Success!";
-    public const string FirstWrongCodeText = "Wrong Code";
+    public const string EnterCodeText = "Door Code";
+    public const string RightCodeText = "Door Success";
+    public const string FirstWrongCodeText = "Door Wrong Code 1";
     public const string StateField = "State";
     public readonly RandomList<string> OtherWrongCodeText = new RandomList<string>(new string[] {
-        "Wrong Code",
-        "Incorrect Code",
-        "Hacker Detected",
-        "Access Denied",
-        "Try Again",
-        "Non-matching Crednetials",
-        "Don't Give Up!"
+        "Door Wrong Code 1",
+        "Door Wrong Code 2",
+        "Door Wrong Code 3",
+        "Door Wrong Code 4",
+        "Door Wrong Code 5",
+        "Door Wrong Code 6",
+        "Door Wrong Code 7"
     });
 
     [Header("Required Components")]
@@ -37,9 +37,9 @@ public class DoorCode : IDoor
     [SerializeField]
     Canvas setupCanvas;
     [SerializeField]
-    Text codeLabel;
+    TranslatedText codeLabel2;
     [SerializeField]
-    Text enterLabel;
+    TranslatedText errorLabel2;
     [SerializeField]
     Button[] allNumberButtons;
 
@@ -59,13 +59,30 @@ public class DoorCode : IDoor
     [SerializeField]
     SoundEffect successSound;
 
-    static bool firstTimeTryingCode = true;
+    [Header("Camera Position")]
+    [SerializeField]
+    Transform fpsControllerPosition;
+    [SerializeField]
+    Transform fpsControllerCameraAngle;
+    [SerializeField]
+    float maxCameraMovement = 10f;
+    [SerializeField]
+    float smoothCameraMovement = 0.5f;
+    [SerializeField]
+    float maxCameraRotation = 1f;
+    [SerializeField]
+    float smoothCameraRotation = 0.05f;
 
+    static bool firstTimeTryingCode = true;
+    static string[] allNumberKeyCodes = null;
+
+    bool isAnimatingPlayer = false;
     KeypadState state = KeypadState.Disabled;
     IEnumerator failAnimation = null;
     WaitForSeconds blinkOnDurationEnum, blinkOffDurationEnum;
+    Vector3 playerPositionVelocity = Vector3.zero, playerRotationVelocity = Vector3.zero, cameraRotationVelocity = Vector3.zero;
+
     readonly StringBuilder CodeBuilder = new StringBuilder();
-    static string[] allNumberKeyCodes = null;
 
     static string[] AllNumberKeyCodes
     {
@@ -97,12 +114,15 @@ public class DoorCode : IDoor
                 keypadAnimation.SetInteger(StateField, (int)state);
 
                 // Setup movement
-                ((FirstPersonModifiedController)FirstPersonController.Instance).AllowMovement = (state != KeypadState.Enabled);
+                Player.AllowMovement = (state != KeypadState.Enabled);
 
                 // Setup Ready Trigger
                 switch (state)
                 {
                     case KeypadState.Enabled:
+                        isAnimatingPlayer = true;
+                        readyTrigger.IsEnabled = false;
+                        break;
                     case KeypadState.Complete:
                         readyTrigger.IsEnabled = false;
                         break;
@@ -116,6 +136,22 @@ public class DoorCode : IDoor
                     button.interactable = (state == KeypadState.Enabled);
                 }
             }
+        }
+    }
+
+    private FirstPersonModifiedController Player
+    {
+        get
+        {
+            return ((FirstPersonModifiedController)FirstPersonController.Instance);
+        }
+    }
+
+    private Camera PlayerCamera
+    {
+        get
+        {
+            return FirstPersonController.InstanceCamera;
         }
     }
 
@@ -144,11 +180,11 @@ public class DoorCode : IDoor
             }
 
             // Enable the code label
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
 
             // Update enter label
             CodeBuilder.Append(key % 10);
-            enterLabel.text = CodeBuilder.ToString();
+            errorLabel2.CurrentText = CodeBuilder.ToString();
 
             // Check the length of input
             if (CodeBuilder.Length >= PrintedCode.NumberOfDigitsInCode)
@@ -157,7 +193,7 @@ public class DoorCode : IDoor
                 CodeBuilder.Length = 0;
 
                 // Check if the code is correct
-                if (enterLabel.text == associatedCode.CodeString)
+                if (errorLabel2.CurrentText == associatedCode.CodeString)
                 {
                     StartCoroutine(PlaySuccessAnimation());
                 }
@@ -187,8 +223,8 @@ public class DoorCode : IDoor
     protected override void Start()
     {
         // Setup
-        codeLabel.text = EnterCodeText;
-        codeLabel.color = associatedCode.CodeColor(codeLabel);
+        codeLabel2.TranslationKey = EnterCodeText;
+        codeLabel2.Label.color = associatedCode.CodeColor(codeLabel2.Label);
         foreach (Button button in allNumberButtons)
         {
             button.interactable = false;
@@ -275,18 +311,78 @@ public class DoorCode : IDoor
         // Check if the keypad is active
         if (CurrentState == KeypadState.Enabled)
         {
-            // Go through all the accepted inputs on the keyboard
-            for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
+            // Prevent entering via keyboard if on WebGL.  Sorry, this just makes mouse locking easier.
+            if(Singleton.Instance.IsWebplayer == false)
             {
-                // Check if this key is down
-                if (Input.GetKeyDown(AllNumberKeyCodes[index]) == true)
+                // Go through all the accepted inputs on the keyboard
+                for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
                 {
-                    // Enter this key
-                    OnKeyPressed(index);
-                    break;
+                    // Check if this key is down
+                    if (Input.GetKeyDown(AllNumberKeyCodes[index]) == true)
+                    {
+                        // Enter this key
+                        OnKeyPressed(index);
+                        break;
+                    }
                 }
             }
+
+            if(isAnimatingPlayer == true)
+            {
+                // Check if we're close enough
+                if (Approximately(Player.transform.position, fpsControllerPosition.position) &&
+                    Approximately(Player.transform.rotation, fpsControllerPosition.rotation) &&
+                    Approximately(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation))
+                {
+                    // Snap to the proper location
+                    Player.transform.position = fpsControllerPosition.position;
+                    Player.transform.rotation = fpsControllerPosition.rotation;
+                    PlayerCamera.transform.localRotation = fpsControllerCameraAngle.localRotation;
+
+                    // Remove velocity
+                    playerPositionVelocity = Vector3.zero;
+                    playerRotationVelocity = Vector3.zero;
+                    cameraRotationVelocity = Vector3.zero;
+
+                    // Indicate we don't want to animate anymore
+                    isAnimatingPlayer = false;
+                }
+                else
+                {
+                    // Animate the player movement
+                    Player.transform.position = Vector3.SmoothDamp(Player.transform.position, fpsControllerPosition.position, ref playerPositionVelocity, smoothCameraMovement, maxCameraMovement);
+                    Player.transform.rotation = SmoothDamp(Player.transform.rotation, fpsControllerPosition.rotation, ref playerRotationVelocity, smoothCameraRotation, maxCameraRotation);
+                    PlayerCamera.transform.localRotation = SmoothDamp(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation, ref cameraRotationVelocity, smoothCameraRotation, maxCameraRotation);
+                }
+            }
+
+            // Check if the pause key is detected
+            if ((Input.GetButtonDown(Singleton.Get<MenuManager>().PauseInput) == true) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResetGaze();
+            }
         }
+    }
+
+    Quaternion SmoothDamp(Quaternion begin, Quaternion end, ref Vector3 velocity, float smooth, float maxSpeed)
+    {
+        Vector3 beginEular = begin.eulerAngles;
+        Vector3 endEular = end.eulerAngles;
+        return Quaternion.Euler(
+            Mathf.SmoothDampAngle(beginEular.x, endEular.x, ref velocity.x, smooth, maxSpeed),
+            Mathf.SmoothDampAngle(beginEular.y, endEular.y, ref velocity.y, smooth, maxSpeed),
+            Mathf.SmoothDampAngle(beginEular.z, endEular.z, ref velocity.z, smooth, maxSpeed)
+            );
+    }
+
+    bool Approximately(Vector3 v1, Vector3 v2)
+    {
+        return Mathf.Approximately(v1.x, v2.x) && Mathf.Approximately(v1.y, v2.y) && Mathf.Approximately(v1.z, v2.z);
+    }
+
+    bool Approximately(Quaternion q1, Quaternion q2)
+    {
+        return Mathf.Approximately(q1.x, q2.x) && Mathf.Approximately(q1.y, q2.y) && Mathf.Approximately(q1.z, q2.z) && Mathf.Approximately(q1.w, q2.w);
     }
 
     void ResetGaze()
@@ -298,9 +394,9 @@ public class DoorCode : IDoor
         CodeBuilder.Length = 0;
 
         // Update labels
-        codeLabel.enabled = true;
-        codeLabel.text = EnterCodeText;
-        enterLabel.text = null;
+        codeLabel2.Label.enabled = true;
+        codeLabel2.TranslationKey = EnterCodeText;
+        errorLabel2.CurrentText = null;
     }
 
     IEnumerator PlayFailAnimation()
@@ -309,32 +405,32 @@ public class DoorCode : IDoor
         failedSound.Play();
 
         // Update label
-        enterLabel.enabled = true;
+        errorLabel2.Label.enabled = true;
         if (firstTimeTryingCode == true)
         {
             // Grab first time text
-            enterLabel.text = FirstWrongCodeText;
+            errorLabel2.TranslationKey = FirstWrongCodeText;
             firstTimeTryingCode = false;
         }
         else
         {
-            enterLabel.text = OtherWrongCodeText.RandomElement;
+            errorLabel2.TranslationKey = OtherWrongCodeText.RandomElement;
         }
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            enterLabel.enabled = false;
+            errorLabel2.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 
         // Update labels
-        codeLabel.enabled = true;
-        codeLabel.text = EnterCodeText;
-        enterLabel.text = null;
+        codeLabel2.Label.enabled = true;
+        codeLabel2.TranslationKey = EnterCodeText;
+        errorLabel2.CurrentText = null;
 
         // Empty code
         failAnimation = null;
@@ -347,16 +443,16 @@ public class DoorCode : IDoor
         successSound.Play();
 
         // Update label
-        enterLabel.enabled = true;
-        enterLabel.text = RightCodeText;
+        errorLabel2.Label.enabled = true;
+        errorLabel2.TranslationKey = RightCodeText;
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            enterLabel.enabled = false;
+            errorLabel2.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            enterLabel.enabled = true;
+            errorLabel2.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 
