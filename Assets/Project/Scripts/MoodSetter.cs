@@ -10,8 +10,6 @@ public class MoodSetter : MonoBehaviour
     }
 
     [SerializeField]
-    Vector3 rotateSpeed;
-    [SerializeField]
     Light sunlight;
     [SerializeField]
     float changeSpeed = 10f;
@@ -65,7 +63,6 @@ public class MoodSetter : MonoBehaviour
     Vector3 testColorDiff = Vector3.zero;
     void Update()
     {
-        transform.Rotate(rotateSpeed * Time.deltaTime);
         if(animateTheme == true)
         {
             // If not, smooth damp

@@ -116,6 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53f58e3781ee3841ae7452c424ac5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sunlight: {fileID: 108000010336351242}
+  changeSpeed: 10
+  snapDistance: 0.01
 --- !u!114 &114285184393436092
 MonoBehaviour:
   m_ObjectHideFlags: 1
