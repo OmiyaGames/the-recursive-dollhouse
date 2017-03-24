@@ -59,13 +59,30 @@ public class DoorCode : IDoor
     [SerializeField]
     SoundEffect successSound;
 
-    static bool firstTimeTryingCode = true;
+    [Header("Camera Position")]
+    [SerializeField]
+    Transform fpsControllerPosition;
+    [SerializeField]
+    Transform fpsControllerCameraAngle;
+    [SerializeField]
+    float maxCameraMovement = 10f;
+    [SerializeField]
+    float smoothCameraMovement = 0.5f;
+    [SerializeField]
+    float maxCameraRotation = 1f;
+    [SerializeField]
+    float smoothCameraRotation = 0.05f;
 
+    static bool firstTimeTryingCode = true;
+    static string[] allNumberKeyCodes = null;
+
+    bool isAnimatingPlayer = false;
     KeypadState state = KeypadState.Disabled;
     IEnumerator failAnimation = null;
     WaitForSeconds blinkOnDurationEnum, blinkOffDurationEnum;
+    Vector3 playerPositionVelocity = Vector3.zero, playerRotationVelocity = Vector3.zero, cameraRotationVelocity = Vector3.zero;
+
     readonly StringBuilder CodeBuilder = new StringBuilder();
-    static string[] allNumberKeyCodes = null;
 
     static string[] AllNumberKeyCodes
     {
@@ -97,12 +114,15 @@ public class DoorCode : IDoor
                 keypadAnimation.SetInteger(StateField, (int)state);
 
                 // Setup movement
-                ((FirstPersonModifiedController)FirstPersonController.Instance).AllowMovement = (state != KeypadState.Enabled);
+                Player.AllowMovement = (state != KeypadState.Enabled);
 
                 // Setup Ready Trigger
                 switch (state)
                 {
                     case KeypadState.Enabled:
+                        isAnimatingPlayer = true;
+                        readyTrigger.IsEnabled = false;
+                        break;
                     case KeypadState.Complete:
                         readyTrigger.IsEnabled = false;
                         break;
@@ -116,6 +136,22 @@ public class DoorCode : IDoor
                     button.interactable = (state == KeypadState.Enabled);
                 }
             }
+        }
+    }
+
+    private FirstPersonModifiedController Player
+    {
+        get
+        {
+            return ((FirstPersonModifiedController)FirstPersonController.Instance);
+        }
+    }
+
+    private Camera PlayerCamera
+    {
+        get
+        {
+            return FirstPersonController.InstanceCamera;
         }
     }
 
@@ -291,12 +327,62 @@ public class DoorCode : IDoor
                 }
             }
 
+            if(isAnimatingPlayer == true)
+            {
+                // Check if we're close enough
+                if (Approximately(Player.transform.position, fpsControllerPosition.position) &&
+                    Approximately(Player.transform.rotation, fpsControllerPosition.rotation) &&
+                    Approximately(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation))
+                {
+                    // Snap to the proper location
+                    Player.transform.position = fpsControllerPosition.position;
+                    Player.transform.rotation = fpsControllerPosition.rotation;
+                    PlayerCamera.transform.localRotation = fpsControllerCameraAngle.localRotation;
+
+                    // Remove velocity
+                    playerPositionVelocity = Vector3.zero;
+                    playerRotationVelocity = Vector3.zero;
+                    cameraRotationVelocity = Vector3.zero;
+
+                    // Indicate we don't want to animate anymore
+                    isAnimatingPlayer = false;
+                }
+                else
+                {
+                    // Animate the player movement
+                    Player.transform.position = Vector3.SmoothDamp(Player.transform.position, fpsControllerPosition.position, ref playerPositionVelocity, smoothCameraMovement, maxCameraMovement);
+                    Player.transform.rotation = SmoothDamp(Player.transform.rotation, fpsControllerPosition.rotation, ref playerRotationVelocity, smoothCameraRotation, maxCameraRotation);
+                    PlayerCamera.transform.localRotation = SmoothDamp(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation, ref cameraRotationVelocity, smoothCameraRotation, maxCameraRotation);
+                }
+            }
+
             // Check if the pause key is detected
-            if((Input.GetButtonDown(Singleton.Get<MenuManager>().PauseInput) == true) || Input.GetKeyDown(KeyCode.Escape))
+            if ((Input.GetButtonDown(Singleton.Get<MenuManager>().PauseInput) == true) || Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetGaze();
             }
         }
+    }
+
+    Quaternion SmoothDamp(Quaternion begin, Quaternion end, ref Vector3 velocity, float smooth, float maxSpeed)
+    {
+        Vector3 beginEular = begin.eulerAngles;
+        Vector3 endEular = end.eulerAngles;
+        return Quaternion.Euler(
+            Mathf.SmoothDampAngle(beginEular.x, endEular.x, ref velocity.x, smooth, maxSpeed),
+            Mathf.SmoothDampAngle(beginEular.y, endEular.y, ref velocity.y, smooth, maxSpeed),
+            Mathf.SmoothDampAngle(beginEular.z, endEular.z, ref velocity.z, smooth, maxSpeed)
+            );
+    }
+
+    bool Approximately(Vector3 v1, Vector3 v2)
+    {
+        return Mathf.Approximately(v1.x, v2.x) && Mathf.Approximately(v1.y, v2.y) && Mathf.Approximately(v1.z, v2.z);
+    }
+
+    bool Approximately(Quaternion q1, Quaternion q2)
+    {
+        return Mathf.Approximately(q1.x, q2.x) && Mathf.Approximately(q1.y, q2.y) && Mathf.Approximately(q1.z, q2.z) && Mathf.Approximately(q1.w, q2.w);
     }
 
     void ResetGaze()

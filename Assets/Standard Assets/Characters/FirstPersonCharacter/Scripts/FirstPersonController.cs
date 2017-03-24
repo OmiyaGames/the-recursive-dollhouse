@@ -89,6 +89,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         protected AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField]
         protected AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField]
+        protected float hitForceMultiplier = 0.1f;
 
         protected Camera m_Camera;
         protected bool m_Spring;
@@ -144,6 +146,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             //m_ZoomEffect.Stop();
         }
 
+        public virtual bool IsGrounded
+        {
+            get
+            {
+                return m_CharacterController.isGrounded;
+            }
+        }
 
         // Update is called once per frame
         protected void Update()
@@ -153,19 +162,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // the jump state needs to read here to make sure it is not missed
             GetJump(ref m_Jump);
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
+            if (!m_PreviouslyGrounded && IsGrounded)
             {
                 StartCoroutine(m_JumpBob.DoBobCycle());
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
             }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
+            if (!IsGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
             }
 
-            m_PreviouslyGrounded = m_CharacterController.isGrounded;
+            m_PreviouslyGrounded = IsGrounded;
         }
 
 
@@ -204,7 +213,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.z = m_YMovementArgs.Sensitivity;
 
 
-            if (m_CharacterController.isGrounded)
+            if (IsGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
@@ -274,7 +283,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         protected virtual void PlayFootStepAudio()
         {
-            if ((!m_CharacterController.isGrounded) || (m_Slowdown == true))
+            if ((!IsGrounded) || (m_Slowdown == true))
             {
                 return;
             }
@@ -301,7 +310,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            if (m_CharacterController.velocity.magnitude > 0 && m_CharacterController.isGrounded)
+            if (m_CharacterController.velocity.magnitude > 0 && IsGrounded)
             {
                 InstanceCamera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
@@ -370,7 +379,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
+            body.AddForceAtPosition(m_CharacterController.velocity * hitForceMultiplier, hit.point, ForceMode.Impulse);
         }
     }
 }

@@ -28,6 +28,7 @@ public class FirstPersonModifiedController : FirstPersonController
 
     PauseMenu pauseCache = null;
     bool allowMovement = true;
+    Rigidbody cachedRigidbody = null;
 
     public Gazer PlayerGazer
     {
@@ -62,11 +63,18 @@ public class FirstPersonModifiedController : FirstPersonController
         }
     }
 
-    public bool IsGrounded
+    public override bool IsGrounded
     {
         get
         {
-            return m_CharacterController.isGrounded;
+            if (AllowMovement == true)
+            {
+                return m_CharacterController.isGrounded;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 

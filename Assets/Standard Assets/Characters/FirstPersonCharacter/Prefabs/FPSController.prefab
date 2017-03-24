@@ -49,8 +49,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.84, y: 2.9, z: -6.3}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.26508114, y: 3, z: -4.049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     lockCursor: 1
   m_UseFovKick: 0
   m_FovKick:
-    Camera: {fileID: 0}
+    Camera: {fileID: 2000000}
     originalFov: 0
     FOVIncrease: 3
     TimeToIncrease: 1
@@ -1364,6 +1364,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  hitForceMultiplier: 0.1
   footstepSoundEffect: {fileID: 114000013683951580}
   landSoundEffect: {fileID: 114000014196576850}
   jumpSoundEffect: {fileID: 114000010740773526}
