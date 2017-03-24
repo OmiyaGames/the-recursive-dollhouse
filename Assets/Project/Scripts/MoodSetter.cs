@@ -13,12 +13,11 @@ public class MoodSetter : MonoBehaviour
     Light sunlight;
     [SerializeField]
     float changeSpeed = 10f;
-    [SerializeField]
-    float snapDistance = 0.01f;
 
     MoodTheme[] allThemes;
     RandomList<MoodTheme> randomTheme;
     MoodTheme currentTheme = null;
+    Color newColor = Color.white;
     bool animateTheme = false;
 
     public MoodTheme RandomTheme
@@ -65,14 +64,20 @@ public class MoodSetter : MonoBehaviour
     {
         if(animateTheme == true)
         {
-            // If not, smooth damp
-            sunlight.color = Color.Lerp(sunlight.color, CurrentTheme.LightColor, (changeSpeed * Time.deltaTime));
-            testColorDiff.x = sunlight.color.r - CurrentTheme.LightColor.r;
-            testColorDiff.y = sunlight.color.g - CurrentTheme.LightColor.g;
-            testColorDiff.z = sunlight.color.b - CurrentTheme.LightColor.b;
+            // Smooth damp Color
+            newColor.r = Mathf.SmoothStep(sunlight.color.r, CurrentTheme.LightColor.r, (changeSpeed * Time.deltaTime));
+            newColor.g = Mathf.SmoothStep(sunlight.color.g, CurrentTheme.LightColor.g, (changeSpeed * Time.deltaTime));
+            newColor.b = Mathf.SmoothStep(sunlight.color.b, CurrentTheme.LightColor.b, (changeSpeed * Time.deltaTime));
+            sunlight.color = newColor;
+
+            // Smooth damp Color
+            sunlight.intensity = Mathf.SmoothStep(sunlight.intensity, CurrentTheme.LightIntensity, (changeSpeed * Time.deltaTime));
 
             // Check if we met the target scale yet
-            if (testColorDiff.sqrMagnitude < (snapDistance* snapDistance))
+            if (Mathf.Approximately(newColor.r, CurrentTheme.LightColor.r) &&
+                Mathf.Approximately(newColor.g, CurrentTheme.LightColor.g) &&
+                Mathf.Approximately(newColor.b, CurrentTheme.LightColor.b) &&
+                Mathf.Approximately(sunlight.intensity, CurrentTheme.LightIntensity))
             {
                 SnapToTheme(CurrentTheme);
             }

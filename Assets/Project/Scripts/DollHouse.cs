@@ -50,6 +50,18 @@ public class DollHouse : TierObject
         }
     }
 
+    public MoodTheme AssignedTheme
+    {
+        get
+        {
+            return assignedTheme;
+        }
+        private set
+        {
+            assignedTheme = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -59,7 +71,7 @@ public class DollHouse : TierObject
         }
 
         // Adjust to theme
-        assignedTheme = MoodSetter.Instance.RandomTheme;
+        AssignedTheme = MoodSetter.Instance.RandomTheme;
         //if((assignedTheme != null) && (houseRenderer != null))
         //{
         //    houseRenderer.material.color = assignedTheme.HouseColor;
@@ -97,7 +109,7 @@ public class DollHouse : TierObject
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
-            MoodSetter.Instance.CurrentTheme = assignedTheme;
+            MoodSetter.Instance.CurrentTheme = AssignedTheme;
 
             // Check if we should play the credits...
             if (lastHouse == true)
@@ -119,12 +131,9 @@ public class DollHouse : TierObject
             }
 
             // Find the house one level up in the stack
-            if(ResizeParent.Instance.TierHistory.Count > 0)
+            if(ResizeParent.Instance.LatestTier != null)
             {
-                foreach(DollHouse house in ResizeParent.Instance.TierHistory[ResizeParent.Instance.TierHistory.Count - 1].AllDollhouses)
-                {
-                    MoodSetter.Instance.CurrentTheme = house.assignedTheme;
-                }
+                ResizeParent.Instance.LatestTier.ApplyTheme();
             }
         }
     }
@@ -147,7 +156,7 @@ public class DollHouse : TierObject
             ceiling.enabled = true;
             if ((obj.TierHistory.Count >= 1) && (obj.TierHistory[obj.TierHistory.Count - 1] == ParentTier))
             {
-                MoodSetter.Instance.CurrentTheme = assignedTheme;
+                MoodSetter.Instance.CurrentTheme = AssignedTheme;
             }
         }
     }

@@ -59,6 +59,7 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
         if (startingTier == 0)
         {
             ResizeParent.Instance.TierHistory.Add(this);
+            ApplyTheme();
         }
 
         // Bind to event
@@ -66,11 +67,25 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
         ResizeParent.Instance.OnAfterResize += ExtraSetup;
     }
 
-    public HashSet<DollHouse> AllDollhouses
+    public void ExtraSetup(ResizeParent obj)
     {
-        get
+        if (IsActive(obj) == true)
         {
-            return allHouses;
+            // Un-embed
+            gameObject.SetActive(true);
+            transform.SetParent(null, true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void ApplyTheme()
+    {
+        foreach (DollHouse house in allHouses)
+        {
+            MoodSetter.Instance.CurrentTheme = house.AssignedTheme;
         }
     }
 
@@ -93,20 +108,6 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
             // Leave this object visible
             gameObject.SetActive(true);
             transform.SetParent(obj.transform, true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-    public void ExtraSetup(ResizeParent obj)
-    {
-        if (IsActive(obj) == true)
-        {
-            // Un-embed
-            gameObject.SetActive(true);
-            transform.SetParent(null, true);
         }
         else
         {
