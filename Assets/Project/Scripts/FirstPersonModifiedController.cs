@@ -118,12 +118,25 @@ public class FirstPersonModifiedController : FirstPersonController
     protected override void Start()
     {
         base.Start();
+        m_MouseLook.OnGetIsSmooth += GetSmooth;
         m_MouseLook.OnGetXRotationAxis += GetXRotationAxis;
         m_MouseLook.OnGetYRotationAxis += GetYRotationAxis;
+        OnGetHeadBobEnabled += GetHeadBob;
+        OnGetXMovementAxis += GetXMovementAxis;
+        OnGetYMovementAxis += GetYMovementAxis;
         if (Singleton.Instance.IsWebplayer == true)
         {
             Singleton.Get<MenuManager>().Show<LevelIntroMenu>(StartMovement);
             AllowMovement = false;
+        }
+    }
+
+    void GetSmooth(MouseLook sender, MouseLook.SmoothEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Smooth = settings.IsSmoothCameraEnabled;
         }
     }
 
@@ -142,6 +155,33 @@ public class FirstPersonModifiedController : FirstPersonController
         if (settings != null)
         {
             args.Sensitivity *= AdjustSensitivityBySetting(settings.MouseYAxisSensitivity, settings.IsMouseYAxisInverted);
+        }
+    }
+
+    void GetHeadBob(FirstPersonController sender, HeadBobEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Enable = settings.IsBobbingCameraEnabled;
+        }
+    }
+
+    void GetXMovementAxis(FirstPersonController sender, MovementAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.KeyboardXAxisSensitivity, settings.IsKeyboardXAxisInverted);
+        }
+    }
+
+    void GetYMovementAxis(FirstPersonController sender, MovementAxisEventArgs args)
+    {
+        GameSettings settings = Singleton.Get<GameSettings>();
+        if (settings != null)
+        {
+            args.Sensitivity *= AdjustSensitivityBySetting(settings.KeyboardYAxisSensitivity, settings.IsKeyboardYAxisInverted);
         }
     }
 

@@ -20,10 +20,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 set;
             }
         }
+        public class SmoothEventArgs : EventArgs
+        {
+            public bool Smooth
+            {
+                get;
+                set;
+            }
+        }
 
         public delegate void OnGetRotationAxis(MouseLook sender, RotationAxisEventArgs args);
         public event OnGetRotationAxis OnGetXRotationAxis;
         public event OnGetRotationAxis OnGetYRotationAxis;
+
+        public delegate void OnGetSmooth(MouseLook sender, SmoothEventArgs args);
+        public event OnGetSmooth OnGetIsSmooth;
 
         public float XSensitivity = 2f;
         public float YSensitivity = 2f;
@@ -39,6 +50,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_cursorIsLocked = true;
         private readonly RotationAxisEventArgs m_finalXSensitivity = new RotationAxisEventArgs();
         private readonly RotationAxisEventArgs m_finalYSensitivity = new RotationAxisEventArgs();
+        private readonly SmoothEventArgs m_finalSmooth = new SmoothEventArgs();
 
         public void Init(Transform character, Transform camera)
         {
@@ -67,7 +79,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);
 
-            if(smooth)
+            m_finalSmooth.Smooth = smooth;
+            if(OnGetIsSmooth != null)
+            {
+                OnGetIsSmooth(this, m_finalSmooth);
+            }
+            if(m_finalSmooth.Smooth == true)
             {
                 character.localRotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
                     smoothTime * Time.deltaTime);
