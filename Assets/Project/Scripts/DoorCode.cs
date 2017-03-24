@@ -331,39 +331,42 @@ public class DoorCode : IDoor
                 }
             }
 
-            if(isAnimatingPlayer == true)
-            {
-                // Check if we're close enough
-                if (Approximately(Player.transform.position, fpsControllerPosition.position) &&
-                    Approximately(Player.transform.rotation, fpsControllerPosition.rotation) &&
-                    Approximately(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation))
-                {
-                    // Snap to the proper location
-                    Player.transform.position = fpsControllerPosition.position;
-                    Player.transform.rotation = fpsControllerPosition.rotation;
-                    PlayerCamera.transform.localRotation = fpsControllerCameraAngle.localRotation;
-
-                    // Remove velocity
-                    playerPositionVelocity = Vector3.zero;
-                    playerRotationVelocity = Vector3.zero;
-                    cameraRotationVelocity = Vector3.zero;
-
-                    // Indicate we don't want to animate anymore
-                    isAnimatingPlayer = false;
-                }
-                else
-                {
-                    // Animate the player movement
-                    Player.transform.position = Vector3.SmoothDamp(Player.transform.position, fpsControllerPosition.position, ref playerPositionVelocity, smoothCameraMovement, maxCameraMovement);
-                    Player.transform.rotation = SmoothDamp(Player.transform.rotation, fpsControllerPosition.rotation, ref playerRotationVelocity, smoothCameraRotation, maxCameraRotation);
-                    PlayerCamera.transform.localRotation = SmoothDamp(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation, ref cameraRotationVelocity, smoothCameraRotation, maxCameraRotation);
-                }
-            }
-
             // Check if the pause key is detected
             if ((Input.GetButtonDown(Singleton.Get<MenuManager>().PauseInput) == true) || Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetGaze();
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if ((CurrentState == KeypadState.Enabled) && (isAnimatingPlayer == true))
+        {
+            // Check if we're close enough
+            if (Approximately(Player.transform.position, fpsControllerPosition.position) &&
+                Approximately(Player.transform.rotation, fpsControllerPosition.rotation) &&
+                Approximately(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation))
+            {
+                // Snap to the proper location
+                Player.transform.position = fpsControllerPosition.position;
+                Player.transform.rotation = fpsControllerPosition.rotation;
+                PlayerCamera.transform.localRotation = fpsControllerCameraAngle.localRotation;
+
+                // Remove velocity
+                playerPositionVelocity = Vector3.zero;
+                playerRotationVelocity = Vector3.zero;
+                cameraRotationVelocity = Vector3.zero;
+
+                // Indicate we don't want to animate anymore
+                isAnimatingPlayer = false;
+            }
+            else
+            {
+                // Animate the player movement
+                Player.transform.position = Vector3.SmoothDamp(Player.transform.position, fpsControllerPosition.position, ref playerPositionVelocity, smoothCameraMovement, maxCameraMovement);
+                Player.transform.rotation = SmoothDamp(Player.transform.rotation, fpsControllerPosition.rotation, ref playerRotationVelocity, smoothCameraRotation, maxCameraRotation);
+                PlayerCamera.transform.localRotation = SmoothDamp(PlayerCamera.transform.localRotation, fpsControllerCameraAngle.localRotation, ref cameraRotationVelocity, smoothCameraRotation, maxCameraRotation);
             }
         }
     }
