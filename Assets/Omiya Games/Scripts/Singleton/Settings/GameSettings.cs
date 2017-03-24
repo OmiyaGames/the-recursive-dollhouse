@@ -815,8 +815,8 @@ namespace OmiyaGames
             isScrollWheelInverted = Settings.GetBool(IsScrollWheelInvertedKey, false);
 
             // Get Special Effects information
-            isSmoothCameraEnabled = Settings.GetBool(IsSmoothCameraEnabledKey, true);
-            isBobbingCameraEnabled = Settings.GetBool(IsBobbingCameraEnabledKey, true);
+            isSmoothCameraEnabled = Settings.GetBool(IsSmoothCameraEnabledKey, false);
+            isBobbingCameraEnabled = Settings.GetBool(IsBobbingCameraEnabledKey, false);
             isFlashesEnabled = Settings.GetBool(IsFlashesEnabledKey, true);
             isMotionBlursEnabled = Settings.GetBool(IsMotionBlursEnabledKey, true);
             isBloomEnabled = Settings.GetBool(IsBloomEnabledKey, true);

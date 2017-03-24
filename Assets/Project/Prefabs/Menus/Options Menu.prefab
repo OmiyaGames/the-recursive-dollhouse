@@ -1083,7 +1083,7 @@ MonoBehaviour:
     enableMusicControls: 1
     enableSoundEffectControls: 1
     enableSmoothCameraToggle: 1
-    enableBobbingCameraToggle: 1
+    enableBobbingCameraToggle: 0
     enableMotionBlursToggle: 1
     enableFlashingEffectsToggle: 1
     enableBloomToggle: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
     enableMusicControls: 1
     enableSoundEffectControls: 1
     enableSmoothCameraToggle: 1
-    enableBobbingCameraToggle: 1
+    enableBobbingCameraToggle: 0
     enableMotionBlursToggle: 0
     enableFlashingEffectsToggle: 1
     enableBloomToggle: 0

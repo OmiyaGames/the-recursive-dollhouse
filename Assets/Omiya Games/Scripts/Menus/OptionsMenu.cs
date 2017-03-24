@@ -1059,6 +1059,14 @@ namespace OmiyaGames
         void SetupSpecialEffectsControls()
         {
             // Update Motion Blurs controls
+            smoothCameraControls.IsInverted = settings.IsSmoothCameraEnabled;
+            smoothCameraControls.IsActive = AllFlags.EnableSmoothCameraToggle;
+            
+            // Update Motion Blurs controls
+            bobbingCameraControls.IsInverted = settings.IsBobbingCameraEnabled;
+            bobbingCameraControls.IsActive = AllFlags.EnableBobbingCameraToggle;
+
+            // Update Motion Blurs controls
             motionBlursControls.IsInverted = settings.IsMotionBlursEnabled;
             motionBlursControls.IsActive = AllFlags.EnableMotionBlursToggle;
 
