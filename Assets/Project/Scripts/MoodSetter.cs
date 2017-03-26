@@ -12,6 +12,8 @@ public class MoodSetter : MonoBehaviour
     [SerializeField]
     Light sunlight;
     [SerializeField]
+    Material skyboxMaterial;
+    [SerializeField]
     float changeSpeed = 10f;
 
     MoodTheme[] allThemes;
@@ -92,6 +94,7 @@ public class MoodSetter : MonoBehaviour
     {
         sunlight.color = theme.LightColor;
         sunlight.intensity = theme.LightIntensity;
+        RenderSettings.fogColor = theme.FogColor;
         animateTheme = false;
     }
 }

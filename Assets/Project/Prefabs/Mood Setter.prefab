@@ -44,22 +44,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1423714748715938
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4553226954978660}
-  - component: {fileID: 114183098660835810}
-  m_Layer: 0
-  m_Name: Default Theme (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1901128452958196
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +54,23 @@ GameObject:
   - component: {fileID: 4038341382636370}
   - component: {fileID: 114711087669397742}
   m_Layer: 0
-  m_Name: Default Theme
+  m_Name: Pattern (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1986942927767618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4349062983582980}
+  - component: {fileID: 114280962393654906}
+  m_Layer: 0
+  m_Name: Pattern (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,8 +87,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000010659086594}
+  - {fileID: 4349062983582980}
   - {fileID: 4038341382636370}
-  - {fileID: 4553226954978660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -111,25 +111,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901128452958196}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4000010249317334}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4553226954978660
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1423714748715938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010249317334}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4349062983582980
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986942927767618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4000010249317334}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &108000010336351242
 Light:
@@ -140,8 +140,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.5514706, g: 0.5455979, b: 0.46631703, a: 1}
+  m_Intensity: 0.66
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -162,7 +162,7 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0.66
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &114000014231659434
@@ -177,21 +177,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sunlight: {fileID: 108000010336351242}
+  skyboxMaterial: {fileID: 2100000, guid: 8c85c3d6b31c099408de7c623b8c4148, type: 2}
   changeSpeed: 10
---- !u!114 &114183098660835810
+--- !u!114 &114280962393654906
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1423714748715938}
+  m_GameObject: {fileID: 1986942927767618}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac56c603197bc2742825ae8f60f36b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightColor: {r: 0.361862, g: 0.3788248, b: 0.71323526, a: 1}
-  lightIntensity: 0.25
-  backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
+  innerWall: {fileID: 2100000, guid: 1c6ceb61978be2d4d8c2100a82827c5d, type: 2}
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 1.45
+  lightBounceIntensity: 1
+  fogColor: {r: 0.78431374, g: 0.87058824, b: 0.9254902, a: 1}
+  backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
+  directionLight: {fileID: 108000010336351242}
 --- !u!114 &114285184393436092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,6 +221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac56c603197bc2742825ae8f60f36b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  lightIntensity: 1
+  innerWall: {fileID: 2100000, guid: 9fe7bc1341c74a646a014f995ebacb5e, type: 2}
+  lightColor: {r: 0.5514706, g: 0.5455979, b: 0.46631703, a: 1}
+  lightIntensity: 0.66
+  lightBounceIntensity: 0.66
+  fogColor: {r: 0.78431374, g: 0.87058824, b: 0.9254902, a: 1}
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
+  directionLight: {fileID: 108000010336351242}
