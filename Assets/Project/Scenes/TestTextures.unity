@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
   m_Fog: 1
-  m_FogColor: {r: 0.875, g: 0.6433824, b: 0.2959559, a: 1}
+  m_FogColor: {r: 0.17489563, g: 0.1256488, b: 0.20588237, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.005
   m_LinearFogStart: 0
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.8
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1499871250}
-  m_IndirectSpecularColor: {r: 0.4372415, g: 0.5573124, b: 0.67113936, a: 0.8}
+  m_IndirectSpecularColor: {r: 0.09225073, g: 0.119710915, b: 0.14523742, a: 0.8}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2337,17 +2337,17 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
+      objectReference: {fileID: 2100000, guid: 265eb47afc0a1774c9162bce294607da, type: 2}
     - target: {fileID: 23000012759461300, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
+      objectReference: {fileID: 2100000, guid: 265eb47afc0a1774c9162bce294607da, type: 2}
     - target: {fileID: 23000012759461300, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
+      objectReference: {fileID: 2100000, guid: 265eb47afc0a1774c9162bce294607da, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
   m_IsPrefabParent: 0
@@ -2771,6 +2771,46 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114711087669397742, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114871094063758368, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114081737018479410, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114526697981637698, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114606259315781800, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114015233381225396, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114592725948571156, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114840734577594936, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114635682514969950, guid: d35807c7bd267b346876814b83fcf751,
         type: 2}
       propertyPath: houseMesh
       value: 
