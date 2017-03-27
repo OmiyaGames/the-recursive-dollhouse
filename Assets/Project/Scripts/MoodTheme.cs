@@ -31,7 +31,7 @@ public class MoodTheme : MonoBehaviour
     private MeshRenderer houseMesh = null;
 #endif
 
-    public Material InnerWall
+    public Material WallMaterial
     {
         get
         {

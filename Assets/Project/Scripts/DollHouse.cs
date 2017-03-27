@@ -164,7 +164,22 @@ public class DollHouse : TierObject
 
     public override void SetTheme(MoodTheme theme)
     {
-        // FIXME: update all the material textures!
-        //throw new System.NotImplementedException();
+        // Update all the material textures!
+        if (houseRenderer.sharedMaterials.Length > 0)
+        {
+            Material[] newTheme = new Material[houseRenderer.sharedMaterials.Length];
+
+            // First set the floor material
+            int index = newTheme.Length - 1;
+            newTheme[index] = MoodSetter.Instance.RandomFloorMaterial;
+
+            // Next, set the wall material
+            --index;
+            for (; index >= 0; --index)
+            {
+                newTheme[index] = theme.WallMaterial;
+            }
+            houseRenderer.sharedMaterials = newTheme;
+        }
     }
 }

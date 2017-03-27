@@ -12,22 +12,51 @@ public class MoodSetter : MonoBehaviour
     [SerializeField]
     Light sunlight;
     [SerializeField]
-    Material skyboxMaterial;
+    Material[] floorMaterials;
     [SerializeField]
     float changeSpeed = 10f;
 
-    MoodTheme[] allThemes;
-    RandomList<MoodTheme> randomTheme;
+    MoodTheme[] allThemes = null;
+    RandomList<MoodTheme> randomTheme = null;
+    RandomList<Material> randomFloorMaterial = null;
     MoodTheme currentTheme = null;
     Color newColor = Color.white;
     float newFloat = 0;
     bool animateTheme = false;
 
+    public MoodTheme[] AllThemes
+    {
+        get
+        {
+            if(allThemes == null)
+            {
+                allThemes = GetComponentsInChildren<MoodTheme>();
+            }
+            return allThemes;
+        }
+    }
+
     public MoodTheme RandomTheme
     {
         get
         {
+            if(randomTheme == null)
+            {
+                randomTheme = new RandomList<MoodTheme>(AllThemes);
+            }
             return randomTheme.RandomElement;
+        }
+    }
+
+    public Material RandomFloorMaterial
+    {
+        get
+        {
+            if (randomFloorMaterial == null)
+            {
+                randomFloorMaterial = new RandomList<Material>(floorMaterials);
+            }
+            return randomFloorMaterial.RandomElement;
         }
     }
 
@@ -63,8 +92,6 @@ public class MoodSetter : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        allThemes = GetComponentsInChildren<MoodTheme>();
-        randomTheme = new RandomList<MoodTheme>(allThemes);
     }
 
     void Update()

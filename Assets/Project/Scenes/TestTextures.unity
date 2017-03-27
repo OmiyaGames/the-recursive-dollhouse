@@ -2775,87 +2775,12 @@ Prefab:
       propertyPath: houseMesh
       value: 
       objectReference: {fileID: 1335152939}
-    - target: {fileID: 114871094063758368, guid: d35807c7bd267b346876814b83fcf751,
+    - target: {fileID: 114280962393654906, guid: d35807c7bd267b346876814b83fcf751,
         type: 2}
       propertyPath: houseMesh
       value: 
       objectReference: {fileID: 1335152939}
-    - target: {fileID: 114081737018479410, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114526697981637698, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114606259315781800, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114015233381225396, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114592725948571156, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114840734577594936, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114635682514969950, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114851809595584310, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114504525222094120, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114212158730340440, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114701951442838136, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114174972265728526, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114961220977201056, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114379319182013290, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114075811422073024, guid: d35807c7bd267b346876814b83fcf751,
-        type: 2}
-      propertyPath: houseMesh
-      value: 
-      objectReference: {fileID: 1335152939}
-    - target: {fileID: 114631130307048516, guid: d35807c7bd267b346876814b83fcf751,
+    - target: {fileID: 114518017944795742, guid: d35807c7bd267b346876814b83fcf751,
         type: 2}
       propertyPath: houseMesh
       value: 
@@ -2880,12 +2805,87 @@ Prefab:
       propertyPath: houseMesh
       value: 
       objectReference: {fileID: 1335152939}
-    - target: {fileID: 114518017944795742, guid: d35807c7bd267b346876814b83fcf751,
+    - target: {fileID: 114631130307048516, guid: d35807c7bd267b346876814b83fcf751,
         type: 2}
       propertyPath: houseMesh
       value: 
       objectReference: {fileID: 1335152939}
-    - target: {fileID: 114280962393654906, guid: d35807c7bd267b346876814b83fcf751,
+    - target: {fileID: 114379319182013290, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114075811422073024, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114701951442838136, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114174972265728526, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114961220977201056, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114212158730340440, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114504525222094120, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114851809595584310, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114840734577594936, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114635682514969950, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114592725948571156, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114606259315781800, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114015233381225396, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114081737018479410, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114526697981637698, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114871094063758368, guid: d35807c7bd267b346876814b83fcf751,
         type: 2}
       propertyPath: houseMesh
       value: 
