@@ -36,8 +36,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 0.8
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4372415, g: 0.5573124, b: 0.67113936, a: 0.8}
+  m_Sun: {fileID: 2108326146}
+  m_IndirectSpecularColor: {r: 0.37764895, g: 0.48194522, b: 0.5806356, a: 0.8}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -11078,6 +11078,7 @@ MonoBehaviour:
   closeParticles: {fileID: 0}
   openSound: {fileID: 1325769774}
   closeSound: {fileID: 677256362}
+  allDoorRenderers: []
   isOnDoor: 1
 --- !u!1 &1405365598
 GameObject:
@@ -15931,6 +15932,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d35807c7bd267b346876814b83fcf751, type: 2}
   m_IsPrefabParent: 0
+--- !u!108 &2108326146 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108000010336351242, guid: d35807c7bd267b346876814b83fcf751,
+    type: 2}
+  m_PrefabInternal: {fileID: 2108326145}
 --- !u!1001 &2113171091
 Prefab:
   m_ObjectHideFlags: 0
