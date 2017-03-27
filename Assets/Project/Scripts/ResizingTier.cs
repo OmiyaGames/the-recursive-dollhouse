@@ -10,6 +10,7 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
 
     MoodTheme assignedTheme = null;
     AudioClip assignedMusic = null;
+    TierObject[] allObjects = null;
 
     public int CurrentTier
     {
@@ -38,22 +39,35 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
         }
     }
 
-    // Use this for initialization
+    public TierObject[] AllObjects
+    {
+        get
+        {
+            if(allObjects == null)
+            {
+                allObjects = GetComponentsInChildren<TierObject>();
+            }
+            return allObjects;
+        }
+    }
+
     void Awake()
     {
-        // Adjust to theme
-        assignedTheme = MoodSetter.Instance.RandomTheme;
-
-        TierObject[] allObjects = GetComponentsInChildren<TierObject>();
-        foreach (TierObject tier in allObjects)
+        foreach (TierObject tier in AllObjects)
         {
             tier.ParentTier = this;
-            tier.SetTheme(assignedTheme);
         }
     }
 
     void Start()
     {
+        // Adjust to theme
+        assignedTheme = MoodSetter.Instance.RandomTheme;
+        foreach (TierObject tier in AllObjects)
+        {
+            tier.SetTheme(assignedTheme);
+        }
+
         // Need to add this tier into all the lists
         ResizeParent.Instance.AllTiers.Add(this);
 

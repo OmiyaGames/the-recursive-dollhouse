@@ -434,7 +434,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011906732292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -877,7 +877,7 @@ MonoBehaviour:
   lightIntensity: 0.75
   lightBounceIntensity: 0.75
   fogColor: {r: 0.504109, g: 0.9264706, b: 0.9089935, a: 1}
-  skyboxExposure: 1
+  skyboxExposure: 1.5
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -897,7 +897,7 @@ MonoBehaviour:
   lightIntensity: 1.2
   lightBounceIntensity: 1.2
   fogColor: {r: 0.93333334, g: 0.7912914, b: 0.5372549, a: 1}
-  skyboxExposure: 1.2
+  skyboxExposure: 1.7
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -917,7 +917,7 @@ MonoBehaviour:
   lightIntensity: 1.25
   lightBounceIntensity: 1.25
   fogColor: {r: 0.7205882, g: 0.9306288, b: 1, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.30103803, g: 0.565936, b: 0.7058823, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -957,7 +957,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.9764706, g: 0.9529412, b: 0.7607843, a: 1}
-  skyboxExposure: 3
+  skyboxExposure: 3.5
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -977,7 +977,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.78431374, g: 0.87058824, b: 0.9254902, a: 1}
-  skyboxExposure: 2.5
+  skyboxExposure: 3
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1017,7 +1017,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.6764706, g: 0.64716893, b: 0.40787196, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   lightIntensity: 0.7
   lightBounceIntensity: 0.7
   fogColor: {r: 0.73745674, g: 0.7747225, b: 0.9117647, a: 1}
-  skyboxExposure: 0.5
+  skyboxExposure: 1
   backgroundMusic: {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1070,7 +1070,7 @@ MonoBehaviour:
   lightIntensity: 0.7
   lightBounceIntensity: 0.7
   fogColor: {r: 0.7025843, g: 0.8455882, b: 0.55958045, a: 1}
-  skyboxExposure: 1.5
+  skyboxExposure: 2
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   lightIntensity: 0.66
   lightBounceIntensity: 0.66
   fogColor: {r: 0.41911763, g: 0.4031486, b: 0.24345803, a: 1}
-  skyboxExposure: 0.62
+  skyboxExposure: 1.12
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1110,7 +1110,7 @@ MonoBehaviour:
   lightIntensity: 1.1
   lightBounceIntensity: 1.1
   fogColor: {r: 0.75, g: 0.40680397, b: 0.32536763, a: 1}
-  skyboxExposure: 2.5
+  skyboxExposure: 3
   backgroundMusic: {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.75, g: 0.40680397, b: 0.32536763, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   lightIntensity: 0.8
   lightBounceIntensity: 0.8
   fogColor: {r: 0.5307959, g: 0.64705884, b: 0.19031142, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   lightIntensity: 1.2
   lightBounceIntensity: 1.2
   fogColor: {r: 0.78431374, g: 0.87058824, b: 0.9254902, a: 1}
-  skyboxExposure: 3
+  skyboxExposure: 3.5
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1190,7 +1190,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.628505, g: 0.4821583, b: 0.7205882, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   lightIntensity: 1.25
   lightBounceIntensity: 1.25
   fogColor: {r: 0.875, g: 0.6433824, b: 0.2959559, a: 1}
-  skyboxExposure: 2
+  skyboxExposure: 2.5
   backgroundMusic: {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   lightIntensity: 1.3
   lightBounceIntensity: 1
   fogColor: {r: 0.9117647, g: 0.98539555, b: 1, a: 1}
-  skyboxExposure: 4
+  skyboxExposure: 4.5
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   lightIntensity: 0.2
   lightBounceIntensity: 0.2
   fogColor: {r: 0.17489563, g: 0.1256488, b: 0.20588237, a: 1}
-  skyboxExposure: 0.1
+  skyboxExposure: 0.6
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1270,7 +1270,7 @@ MonoBehaviour:
   lightIntensity: 1.45
   lightBounceIntensity: 1.45
   fogColor: {r: 1, g: 1, b: 1, a: 1}
-  skyboxExposure: 5
+  skyboxExposure: 5.5
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   lightIntensity: 1.5
   lightBounceIntensity: 1.5
   fogColor: {r: 0.30103803, g: 0.565936, b: 0.7058823, a: 1}
-  skyboxExposure: 2.5
+  skyboxExposure: 3
   backgroundMusic: {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   lightIntensity: 0.8
   lightBounceIntensity: 0.8
   fogColor: {r: 0.75, g: 0.59771806, b: 0.32536763, a: 1}
-  skyboxExposure: 1.75
+  skyboxExposure: 2.25
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1330,7 +1330,7 @@ MonoBehaviour:
   lightIntensity: 1
   lightBounceIntensity: 1
   fogColor: {r: 0.9764706, g: 0.9529412, b: 0.7607843, a: 1}
-  skyboxExposure: 3
+  skyboxExposure: 3.5
   backgroundMusic: {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   lightIntensity: 1.2
   lightBounceIntensity: 1.2
   fogColor: {r: 0.78431374, g: 0.87058824, b: 0.9254902, a: 1}
-  skyboxExposure: 3
+  skyboxExposure: 3.5
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108000010336351242}
   houseMesh: {fileID: 0}

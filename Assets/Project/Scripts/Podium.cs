@@ -12,6 +12,8 @@ public class Podium : TierObject, IDelayedSetup
     Transform itemPlacement;
     [SerializeField]
     MeshRenderer tableRenderer;
+    [SerializeField]
+    bool rotateItemRandomly = true;
 
     readonly HashSet<ResizingTier> parentItems = new HashSet<ResizingTier>();
 
@@ -31,7 +33,10 @@ public class Podium : TierObject, IDelayedSetup
         }
 
         // Rotate the item placement (for variety's sake)
-        itemPlacement.Rotate(0f, Random.Range(0f, 360f), 0f);
+        if(rotateItemRandomly == true)
+        {
+            itemPlacement.Rotate(0f, Random.Range(0f, 360f), 0f);
+        }
 
         // Bind to events
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;

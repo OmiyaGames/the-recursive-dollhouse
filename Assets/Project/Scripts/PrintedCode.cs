@@ -6,6 +6,12 @@ public abstract class PrintedCode : MonoBehaviour
     public const int NumberOfDigitsInCode = 4;
     static readonly int MaxCode = (int)Mathf.Pow(10, NumberOfDigitsInCode);
 
+    public enum TierComparison
+    {
+        CurrentTier,
+        ParentTier
+    }
+
     [System.Serializable]
     public struct CanvasScale
     {
@@ -21,6 +27,8 @@ public abstract class PrintedCode : MonoBehaviour
     protected CanvasScale fuzzyScale;
     [SerializeField]
     protected Text[] allLabels;
+    [SerializeField]
+    protected TierComparison giveLabelsClarityOn = TierComparison.CurrentTier;
 
     int code = -1;
     string cachedCode = null;
@@ -101,17 +109,65 @@ public abstract class PrintedCode : MonoBehaviour
         {
             foreach (RectTransform canvas in canvases)
             {
-                if (obj.CurrentTier > ThisTier)
+                if (IsLabelVisible(obj) == true)
                 {
-                    canvas.sizeDelta = visibleScale.dimensions;
-                    canvas.localScale = visibleScale.localScale;
+                    MakeLabelClear(canvas);
                 }
                 else
                 {
-                    canvas.sizeDelta = fuzzyScale.dimensions;
-                    canvas.localScale = fuzzyScale.localScale;
+                    MakeLabelFuzzy(canvas);
                 }
             }
         }
     }
+
+    private bool IsLabelVisible(ResizeParent obj)
+    {
+        bool returnFlag = false;
+        switch(giveLabelsClarityOn)
+        {
+            case TierComparison.ParentTier:
+                returnFlag = (obj.CurrentTier > ThisTier + 1);
+                break;
+            default:
+                returnFlag = (obj.CurrentTier > ThisTier);
+                break;
+        }
+        return returnFlag;
+    }
+
+    void MakeLabelFuzzy(RectTransform canvas)
+    {
+        canvas.sizeDelta = fuzzyScale.dimensions;
+        canvas.localScale = fuzzyScale.localScale;
+    }
+
+    void MakeLabelClear(RectTransform canvas)
+    {
+        canvas.sizeDelta = visibleScale.dimensions;
+        canvas.localScale = visibleScale.localScale;
+    }
+
+#if UNITY_EDITOR
+
+    [ContextMenu("Peview Fuzzy Label")]
+    public void MakeLabelFuzzy()
+    {
+        foreach (RectTransform canvas in canvases)
+        {
+            canvas.sizeDelta = fuzzyScale.dimensions;
+            canvas.localScale = fuzzyScale.localScale;
+        }
+    }
+
+    [ContextMenu("Peview Clear Label")]
+    public void MakeLabelClear()
+    {
+        foreach (RectTransform canvas in canvases)
+        {
+            canvas.sizeDelta = visibleScale.dimensions;
+            canvas.localScale = visibleScale.localScale;
+        }
+    }
+#endif
 }
