@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using OmiyaGames;
 
 public class ResizingTier : MonoBehaviour, IDelayedSetup
 {
@@ -9,6 +9,7 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
     int startingTier = 0;
 
     MoodTheme assignedTheme = null;
+    AudioClip assignedMusic = null;
 
     public int CurrentTier
     {
@@ -84,7 +85,15 @@ public class ResizingTier : MonoBehaviour, IDelayedSetup
 
     public void ApplyTheme()
     {
+        // Change lighting
         MoodSetter.Instance.CurrentTheme = assignedTheme;
+
+        // Change Music
+        if(assignedMusic == null)
+        {
+            assignedMusic = MoodSetter.Instance.RandomMusic;
+        }
+        Singleton.Get<BackgroundMusic>().ChangeCurrentMusic(assignedMusic, true);
     }
 
     private void Instance_OnBeforeResize(ResizeParent obj)

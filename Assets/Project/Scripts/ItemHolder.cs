@@ -30,6 +30,8 @@ public class ItemHolder : IGazed
     Transform placement;
     [SerializeField]
     SoundEffect placeSoundEffect;
+    [SerializeField]
+    MeshRenderer tableRenderer;
 
     [Header("Optional Components")]
     [SerializeField]
@@ -156,8 +158,10 @@ public class ItemHolder : IGazed
 
     public override void SetTheme(MoodTheme theme)
     {
-        // FIXME: update all the material textures!
-        //throw new System.NotImplementedException();
+        if(tableRenderer != null)
+        {
+            tableRenderer.sharedMaterial = theme.WallMaterial;
+        }
     }
 
     public override void OnGazeEnter(Gazer gazer)

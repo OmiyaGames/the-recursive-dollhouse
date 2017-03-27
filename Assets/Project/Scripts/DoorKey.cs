@@ -23,6 +23,8 @@ public class DoorKey : IDoor
     [SerializeField]
     TranslatedText errorLabel;
     [SerializeField]
+    Graphic[] otherUiElements;
+    [SerializeField]
     ItemHolder keyHolder;
     [SerializeField]
     InteractionTrigger trigger;
@@ -98,6 +100,10 @@ public class DoorKey : IDoor
         keyHolder.gameObject.SetActive(false);
         codeLabel.gameObject.SetActive(false);
         errorLabel.gameObject.SetActive(false);
+        foreach(Graphic graphic in otherUiElements)
+        {
+            graphic.gameObject.SetActive(false);
+        }
     }
 
     public override void OnGazeExit(Gazer gazer)

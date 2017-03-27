@@ -17,6 +17,8 @@ public abstract class IDoor : IGazed
     protected SoundEffect openSound;
     [SerializeField]
     protected SoundEffect closeSound;
+    [SerializeField]
+    protected MeshRenderer[] allDoorRenderers;
 
     bool isOpen = false;
 
@@ -60,8 +62,10 @@ public abstract class IDoor : IGazed
 
     public override void SetTheme(MoodTheme theme)
     {
-        // FIXME: update all the material textures!
-        //throw new System.NotImplementedException();
+        foreach(MeshRenderer renderer in allDoorRenderers)
+        {
+            renderer.sharedMaterial = theme.WallMaterial;
+        }
     }
 
     protected virtual void Start()

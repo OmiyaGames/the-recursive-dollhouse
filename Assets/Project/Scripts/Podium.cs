@@ -10,6 +10,8 @@ public class Podium : TierObject, IDelayedSetup
     [Header("Required Components")]
     [SerializeField]
     Transform itemPlacement;
+    [SerializeField]
+    MeshRenderer tableRenderer;
 
     readonly HashSet<ResizingTier> parentItems = new HashSet<ResizingTier>();
 
@@ -49,8 +51,7 @@ public class Podium : TierObject, IDelayedSetup
 
     public override void SetTheme(MoodTheme theme)
     {
-        // FIXME: update all the material textures!
-        //throw new System.NotImplementedException();
+        tableRenderer.sharedMaterial = theme.WallMaterial;
     }
 
 

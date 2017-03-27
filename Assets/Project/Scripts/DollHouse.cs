@@ -179,6 +179,8 @@ public class DollHouse : TierObject
             {
                 newTheme[index] = theme.WallMaterial;
             }
+
+            // Update material
             houseRenderer.sharedMaterials = newTheme;
         }
     }

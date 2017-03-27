@@ -900,6 +900,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1234785066430842
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224169103887632572}
+  - component: {fileID: 222079280069303772}
+  - component: {fileID: 114000088867102524}
+  m_Layer: 0
+  m_Name: Enter Code Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1553493658032428
 GameObject:
   m_ObjectHideFlags: 1
@@ -3229,11 +3246,14 @@ MonoBehaviour:
   closeParticles: {fileID: 0}
   openSound: {fileID: 114000012846854676}
   closeSound: {fileID: 0}
+  allDoorRenderers:
+  - {fileID: 23000013342719106}
+  - {fileID: 23000010885702848}
   keypadAnimation: {fileID: 95000012646137124}
   readyTrigger: {fileID: 114000012287259172}
   setupCanvas: {fileID: 223000012582510764}
-  codeLabel2: {fileID: 114466371570116064}
-  errorLabel2: {fileID: 114572530718054572}
+  codeLabel: {fileID: 114466371570116064}
+  errorLabel: {fileID: 114572530718054572}
   allNumberButtons:
   - {fileID: 114000013383692042}
   - {fileID: 114000011479745790}
@@ -3683,6 +3703,33 @@ MonoBehaviour:
   pitchMutationRange: {x: 0.5, y: 1.5}
   mutateVolume: 0
   volumeMutationRange: {x: 0.5, y: 1}
+--- !u!114 &114000088867102524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234785066430842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 59d18dab705df274ab5ac2f5c8315c07, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114030225460420976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4119,6 +4166,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012346440482}
+--- !u!222 &222079280069303772
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234785066430842}
 --- !u!223 &223000012582510764
 Canvas:
   m_ObjectHideFlags: 1
@@ -4185,7 +4238,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
-  - {fileID: 224000012142076388}
+  - {fileID: 224169103887632572}
   - {fileID: 224000010515331994}
   - {fileID: 224000012444468946}
   m_Father: {fileID: 4000011179617982}
@@ -4436,17 +4489,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014289102272}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 224000010289370090}
+  m_Father: {fileID: 224169103887632572}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.66291356}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000012267694594
 RectTransform:
@@ -4744,4 +4797,23 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 2.5000005, y: 0}
   m_SizeDelta: {x: -14.999999, y: -10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224169103887632572
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234785066430842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224000012142076388}
+  m_Father: {fileID: 224000010289370090}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.66291356}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

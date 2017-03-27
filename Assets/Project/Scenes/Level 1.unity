@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.8
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5302499, g: 0.67503476, b: 0.81263065, a: 0.8}
+  m_IndirectSpecularColor: {r: 0.4372415, g: 0.5573124, b: 0.67113936, a: 0.8}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5623,7 +5623,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 114000010779820306, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
@@ -5634,6 +5634,15 @@ Prefab:
         type: 2}
       propertyPath: enabledSpring
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012692734012, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000011725062702, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
@@ -10575,7 +10584,7 @@ Prefab:
         type: 2}
       propertyPath: associatedGroup
       value: 
-      objectReference: {fileID: 1669419624}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66c548516b6898940bbdab659c57c953, type: 2}
   m_IsPrefabParent: 0
@@ -11613,7 +11622,7 @@ Prefab:
         type: 2}
       propertyPath: associatedGroup
       value: 
-      objectReference: {fileID: 1669419624}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66c548516b6898940bbdab659c57c953, type: 2}
   m_IsPrefabParent: 0
@@ -13045,7 +13054,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1669419626}
   - component: {fileID: 1669419625}
-  - component: {fileID: 1669419624}
   m_Layer: 0
   m_Name: Tier 15 - Grouped Levers 1
   m_TagString: Untagged
@@ -13053,17 +13061,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1669419624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1669419623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065d7bb515cb9294d9b00462ad7875c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1669419625
 MonoBehaviour:
   m_ObjectHideFlags: 0

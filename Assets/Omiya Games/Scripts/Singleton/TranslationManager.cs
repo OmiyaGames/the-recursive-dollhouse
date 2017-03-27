@@ -476,11 +476,17 @@ namespace OmiyaGames
             /* Update any Text labels */
             foreach (TranslatedText label in TranslatedText.AllTranslationScripts)
             {
-                label.UpdateLabel();
+                if (label != null)
+                {
+                    label.UpdateLabel();
+                }
             }
             foreach (TranslatedTextMesh label in TranslatedTextMesh.AllTranslationScripts)
             {
-                label.UpdateLabel();
+                if (label != null)
+                {
+                    label.UpdateLabel();
+                }
             }
         }
 

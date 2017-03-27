@@ -1064,5 +1064,7 @@ MonoBehaviour:
   closeParticles: {fileID: 0}
   openSound: {fileID: 114000011857323632}
   closeSound: {fileID: 114000011559843364}
-  associatedLever: {fileID: 0}
+  allDoorRenderers:
+  - {fileID: 23000011810499604}
+  - {fileID: 23000010586030116}
   isOnDoor: 0

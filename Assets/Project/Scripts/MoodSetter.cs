@@ -14,11 +14,14 @@ public class MoodSetter : MonoBehaviour
     [SerializeField]
     Material[] floorMaterials;
     [SerializeField]
+    AudioClip[] allMusics;
+    [SerializeField]
     float changeSpeed = 10f;
 
     MoodTheme[] allThemes = null;
     RandomList<MoodTheme> randomTheme = null;
     RandomList<Material> randomFloorMaterial = null;
+    RandomList<AudioClip> randomMusic = null;
     MoodTheme currentTheme = null;
     Color newColor = Color.white;
     float newFloat = 0;
@@ -45,6 +48,18 @@ public class MoodSetter : MonoBehaviour
                 randomTheme = new RandomList<MoodTheme>(AllThemes);
             }
             return randomTheme.RandomElement;
+        }
+    }
+
+    public AudioClip RandomMusic
+    {
+        get
+        {
+            if(randomMusic == null)
+            {
+                randomMusic = new RandomList<AudioClip>(allMusics);
+            }
+            return randomMusic.RandomElement;
         }
     }
 
@@ -84,7 +99,7 @@ public class MoodSetter : MonoBehaviour
                 currentTheme = value;
 
                 // Change Music
-                Singleton.Get<BackgroundMusic>().CurrentMusic = currentTheme.BackgroundMusic;
+                //Singleton.Get<BackgroundMusic>().CurrentMusic = currentTheme.BackgroundMusic;
             }
         }
     }

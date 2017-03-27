@@ -37,9 +37,11 @@ public class DoorCode : IDoor
     [SerializeField]
     Canvas setupCanvas;
     [SerializeField]
-    TranslatedText codeLabel2;
+    [UnityEngine.Serialization.FormerlySerializedAs("codeLabel2")]
+    TranslatedText codeLabel;
     [SerializeField]
-    TranslatedText errorLabel2;
+    [UnityEngine.Serialization.FormerlySerializedAs("errorLabel2")]
+    TranslatedText errorLabel;
     [SerializeField]
     Button[] allNumberButtons;
 
@@ -182,11 +184,11 @@ public class DoorCode : IDoor
             }
 
             // Enable the code label
-            errorLabel2.Label.enabled = true;
+            errorLabel.Label.enabled = true;
 
             // Update enter label
             CodeBuilder.Append(key % 10);
-            errorLabel2.CurrentText = CodeBuilder.ToString();
+            errorLabel.CurrentText = CodeBuilder.ToString();
 
             // Check the length of input
             if (CodeBuilder.Length >= PrintedCode.NumberOfDigitsInCode)
@@ -195,7 +197,7 @@ public class DoorCode : IDoor
                 CodeBuilder.Length = 0;
 
                 // Check if the code is correct
-                if (errorLabel2.CurrentText == associatedCode.CodeString)
+                if (errorLabel.CurrentText == associatedCode.CodeString)
                 {
                     StartCoroutine(PlaySuccessAnimation());
                 }
@@ -226,8 +228,8 @@ public class DoorCode : IDoor
     protected override void Start()
     {
         // Setup
-        codeLabel2.TranslationKey = EnterCodeText;
-        codeLabel2.Label.color = associatedCode.CodeColor(codeLabel2.Label);
+        codeLabel.TranslationKey = EnterCodeText;
+        codeLabel.Label.color = associatedCode.CodeColor(codeLabel.Label);
         foreach (Button button in allNumberButtons)
         {
             button.interactable = false;
@@ -401,9 +403,9 @@ public class DoorCode : IDoor
         CodeBuilder.Length = 0;
 
         // Update labels
-        codeLabel2.Label.enabled = true;
-        codeLabel2.TranslationKey = EnterCodeText;
-        errorLabel2.CurrentText = null;
+        codeLabel.Label.enabled = true;
+        codeLabel.TranslationKey = EnterCodeText;
+        errorLabel.CurrentText = null;
     }
 
     IEnumerator PlayFailAnimation()
@@ -412,32 +414,32 @@ public class DoorCode : IDoor
         failedSound.Play();
 
         // Update label
-        errorLabel2.Label.enabled = true;
+        errorLabel.Label.enabled = true;
         if (firstTimeTryingCode == true)
         {
             // Grab first time text
-            errorLabel2.TranslationKey = FirstWrongCodeText;
+            errorLabel.TranslationKey = FirstWrongCodeText;
             firstTimeTryingCode = false;
         }
         else
         {
-            errorLabel2.TranslationKey = OtherWrongCodeText.RandomElement;
+            errorLabel.TranslationKey = OtherWrongCodeText.RandomElement;
         }
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            errorLabel2.Label.enabled = false;
+            errorLabel.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            errorLabel2.Label.enabled = true;
+            errorLabel.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 
         // Update labels
-        codeLabel2.Label.enabled = true;
-        codeLabel2.TranslationKey = EnterCodeText;
-        errorLabel2.CurrentText = null;
+        codeLabel.Label.enabled = true;
+        codeLabel.TranslationKey = EnterCodeText;
+        errorLabel.CurrentText = null;
 
         // Empty code
         failAnimation = null;
@@ -450,16 +452,16 @@ public class DoorCode : IDoor
         successSound.Play();
 
         // Update label
-        errorLabel2.Label.enabled = true;
-        errorLabel2.TranslationKey = RightCodeText;
+        errorLabel.Label.enabled = true;
+        errorLabel.TranslationKey = RightCodeText;
         yield return blinkOnDurationEnum;
 
         // Repeat blink on and off
         for (int index = 0; index < numberOfBlinks; ++index)
         {
-            errorLabel2.Label.enabled = false;
+            errorLabel.Label.enabled = false;
             yield return blinkOffDurationEnum;
-            errorLabel2.Label.enabled = true;
+            errorLabel.Label.enabled = true;
             yield return blinkOnDurationEnum;
         }
 

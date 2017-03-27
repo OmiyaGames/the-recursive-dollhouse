@@ -505,6 +505,7 @@ MonoBehaviour:
   holdingItem: {fileID: 0}
   placement: {fileID: 4000011553490582}
   placeSoundEffect: {fileID: 114000010529392662}
+  tableRenderer: {fileID: 23000012083723624}
   labelsAnimation: {fileID: 95000014184412582}
   trigger: {fileID: 114000012022844004}
   placeKey: {fileID: 198000011687766120}

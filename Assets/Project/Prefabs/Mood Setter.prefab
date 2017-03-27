@@ -855,6 +855,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: aa0c7f1167f183e49b00e867afa174a5, type: 2}
   - {fileID: 2100000, guid: 735c68daa40bb5144b5af3541b5d0d26, type: 2}
   - {fileID: 2100000, guid: f641eca3afe148746857ae6878edd40c, type: 2}
+  allMusics:
+  - {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
+  - {fileID: 8300000, guid: 34bebf4d2a25729458dabbf1654a31dd, type: 3}
+  - {fileID: 8300000, guid: 1116a2df909b936458778f2ab9a5fe3c, type: 3}
+  - {fileID: 8300000, guid: 3ae2ce38419f6b943a411cea2c81b34a, type: 3}
   changeSpeed: 14
 --- !u!114 &114015233381225396
 MonoBehaviour:
