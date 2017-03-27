@@ -87,7 +87,7 @@ Material:
       second: 0
     - first:
         name: _Exposure
-      second: 0.1
+      second: 2.93
     - first:
         name: _GlossMapScale
       second: 1
