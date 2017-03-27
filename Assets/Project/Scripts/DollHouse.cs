@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using OmiyaGames;
 
 public class DollHouse : TierObject
@@ -128,9 +129,27 @@ public class DollHouse : TierObject
 
         // Turn on the ceiling
         ceiling.enabled = false;
-        if ((obj.currentDirection == ResizeParent.ResizeDirection.Shrinking) && (ThisTier == obj.CurrentTier))
+        if (ThisTier == obj.CurrentTier)
         {
+            switch(obj.currentDirection)
+            {
+                case ResizeParent.ResizeDirection.Shrinking:
+                    ceiling.enabled = true;
+                    break;
+                case ResizeParent.ResizeDirection.Growing:
+                    Singleton.Instance.OnUpdate += CheckIfPlayerIsBelowCeiling;
+                    break;
+            }
+        }
+    }
+
+    void CheckIfPlayerIsBelowCeiling(float obj)
+    {
+        if (FirstPersonController.Instance.transform.position.y < ceiling.transform.position.y)
+        {
+            // Turn on the ceiling
             ceiling.enabled = true;
+            Singleton.Instance.OnUpdate -= CheckIfPlayerIsBelowCeiling;
         }
     }
 
