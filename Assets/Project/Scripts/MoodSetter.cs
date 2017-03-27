@@ -150,7 +150,7 @@ public class MoodSetter : MonoBehaviour
         }
     }
 
-    void SnapToTheme(MoodTheme theme)
+    public void SnapToTheme(MoodTheme theme)
     {
         sunlight.color = theme.LightColor;
         sunlight.intensity = theme.LightIntensity;

@@ -164,14 +164,19 @@ public class DollHouse : TierObject
 
     public override void SetTheme(MoodTheme theme)
     {
+        UpdateTheme(houseRenderer, MoodSetter.Instance, theme);
+    }
+
+    public static void UpdateTheme(Renderer model, MoodSetter setter, MoodTheme theme)
+    {
         // Update all the material textures!
-        if (houseRenderer.sharedMaterials.Length > 0)
+        if (model.sharedMaterials.Length > 0)
         {
-            Material[] newTheme = new Material[houseRenderer.sharedMaterials.Length];
+            Material[] newTheme = new Material[model.sharedMaterials.Length];
 
             // First set the floor material
             int index = newTheme.Length - 1;
-            newTheme[index] = MoodSetter.Instance.RandomFloorMaterial;
+            newTheme[index] = setter.RandomFloorMaterial;
 
             // Next, set the wall material
             --index;
@@ -181,7 +186,7 @@ public class DollHouse : TierObject
             }
 
             // Update material
-            houseRenderer.sharedMaterials = newTheme;
+            model.sharedMaterials = newTheme;
         }
     }
 }
