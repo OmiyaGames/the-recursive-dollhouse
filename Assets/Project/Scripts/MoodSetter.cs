@@ -20,6 +20,7 @@ public class MoodSetter : MonoBehaviour
     RandomList<MoodTheme> randomTheme;
     MoodTheme currentTheme = null;
     Color newColor = Color.white;
+    float newFloat = 0;
     bool animateTheme = false;
 
     public MoodTheme RandomTheme
@@ -70,20 +71,37 @@ public class MoodSetter : MonoBehaviour
     {
         if(animateTheme == true)
         {
-            // Smooth damp Color
+            // Smooth damp sunlight color
             newColor.r = Mathf.SmoothStep(sunlight.color.r, CurrentTheme.LightColor.r, (changeSpeed * Time.deltaTime));
             newColor.g = Mathf.SmoothStep(sunlight.color.g, CurrentTheme.LightColor.g, (changeSpeed * Time.deltaTime));
             newColor.b = Mathf.SmoothStep(sunlight.color.b, CurrentTheme.LightColor.b, (changeSpeed * Time.deltaTime));
             sunlight.color = newColor;
 
-            // Smooth damp Color
+            // Smooth damp light intensity
             sunlight.intensity = Mathf.SmoothStep(sunlight.intensity, CurrentTheme.LightIntensity, (changeSpeed * Time.deltaTime));
 
+            // Smooth damp fog color
+            newColor.r = Mathf.SmoothStep(RenderSettings.fogColor.r, CurrentTheme.FogColor.r, (changeSpeed * Time.deltaTime));
+            newColor.g = Mathf.SmoothStep(RenderSettings.fogColor.g, CurrentTheme.FogColor.g, (changeSpeed * Time.deltaTime));
+            newColor.b = Mathf.SmoothStep(RenderSettings.fogColor.b, CurrentTheme.FogColor.b, (changeSpeed * Time.deltaTime));
+            RenderSettings.fogColor = newColor;
+
+            // Smooth damp exposure
+            newFloat = Mathf.SmoothStep(RenderSettings.skybox.GetFloat("_Exposure"), CurrentTheme.SkyboxExposure, (changeSpeed * Time.deltaTime));
+            RenderSettings.skybox.SetFloat("_Exposure", newFloat);
+
             // Check if we met the target scale yet
-            if (Mathf.Approximately(newColor.r, CurrentTheme.LightColor.r) &&
-                Mathf.Approximately(newColor.g, CurrentTheme.LightColor.g) &&
-                Mathf.Approximately(newColor.b, CurrentTheme.LightColor.b) &&
-                Mathf.Approximately(sunlight.intensity, CurrentTheme.LightIntensity))
+            if (Mathf.Approximately(sunlight.color.r, CurrentTheme.LightColor.r) &&
+                Mathf.Approximately(sunlight.color.g, CurrentTheme.LightColor.g) &&
+                Mathf.Approximately(sunlight.color.b, CurrentTheme.LightColor.b) &&
+
+                Mathf.Approximately(sunlight.intensity, CurrentTheme.LightIntensity) &&
+
+                Mathf.Approximately(RenderSettings.fogColor.r, CurrentTheme.FogColor.r) &&
+                Mathf.Approximately(RenderSettings.fogColor.g, CurrentTheme.FogColor.g) &&
+                Mathf.Approximately(RenderSettings.fogColor.b, CurrentTheme.FogColor.b) &&
+
+                Mathf.Approximately(RenderSettings.skybox.GetFloat("_Exposure"), CurrentTheme.SkyboxExposure))
             {
                 SnapToTheme(CurrentTheme);
             }
@@ -95,6 +113,9 @@ public class MoodSetter : MonoBehaviour
         sunlight.color = theme.LightColor;
         sunlight.intensity = theme.LightIntensity;
         RenderSettings.fogColor = theme.FogColor;
+        RenderSettings.skybox.SetFloat("_Exposure", theme.SkyboxExposure);
+
+        DynamicGI.UpdateEnvironment();
         animateTheme = false;
     }
 }

@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
   m_Fog: 1
-  m_FogColor: {r: 0.78341264, g: 0.8697612, b: 0.9264706, a: 1}
+  m_FogColor: {r: 0.875, g: 0.6433824, b: 0.2959559, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.005
   m_LinearFogStart: 0
@@ -36,8 +36,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 0.8
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5302499, g: 0.67503476, b: 0.81263065, a: 0.8}
+  m_Sun: {fileID: 1499871250}
+  m_IndirectSpecularColor: {r: 0.4372415, g: 0.5573124, b: 0.67113936, a: 0.8}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2337,20 +2337,25 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 2aa2f6b2db4e9e64e977ac7152eb76e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
     - target: {fileID: 23000012759461300, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 9fe7bc1341c74a646a014f995ebacb5e, type: 2}
+      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
     - target: {fileID: 23000012759461300, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9fe7bc1341c74a646a014f995ebacb5e, type: 2}
+      objectReference: {fileID: 2100000, guid: 1540d1b393389124a817b877d902fa88, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a4d8fe876e7f6c4a80733688e0e3753, type: 2}
   m_IsPrefabParent: 0
+--- !u!23 &1335152939 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 23000012759461300, guid: 1a4d8fe876e7f6c4a80733688e0e3753,
+    type: 2}
+  m_PrefabInternal: {fileID: 1335152938}
 --- !u!1001 &1352548027
 Prefab:
   m_ObjectHideFlags: 0
@@ -2765,9 +2770,94 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114711087669397742, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114851809595584310, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114504525222094120, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114212158730340440, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114701951442838136, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114174972265728526, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114961220977201056, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114379319182013290, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114075811422073024, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114631130307048516, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114283941396758388, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114569961318436914, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114129177839900996, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114994720048606330, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114518017944795742, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
+    - target: {fileID: 114280962393654906, guid: d35807c7bd267b346876814b83fcf751,
+        type: 2}
+      propertyPath: houseMesh
+      value: 
+      objectReference: {fileID: 1335152939}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d35807c7bd267b346876814b83fcf751, type: 2}
   m_IsPrefabParent: 0
+--- !u!108 &1499871250 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108000010336351242, guid: d35807c7bd267b346876814b83fcf751,
+    type: 2}
+  m_PrefabInternal: {fileID: 1499871249}
 --- !u!114 &1514775156 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012582243840, guid: 1b47db1c89c1eba40bece5564b1ce8f2,

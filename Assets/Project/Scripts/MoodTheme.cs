@@ -16,6 +16,8 @@ public class MoodTheme : MonoBehaviour
     [Header("Skybox")]
     [SerializeField]
     private Color fogColor = Color.white;
+    [SerializeField]
+    private float skyboxExposure = 1f;
 
     [Header("Music")]
     [SerializeField]
@@ -25,6 +27,8 @@ public class MoodTheme : MonoBehaviour
     [Header("Editor-Only")]
     [SerializeField]
     private Light directionLight = null;
+    [SerializeField]
+    private MeshRenderer houseMesh = null;
 #endif
 
     public Material InnerWall
@@ -69,6 +73,14 @@ public class MoodTheme : MonoBehaviour
             return fogColor;
         }
     }
+
+    public float SkyboxExposure
+    {
+        get
+        {
+            return skyboxExposure;
+        }
+    }
     #endregion
 
     public AudioClip BackgroundMusic
@@ -83,10 +95,37 @@ public class MoodTheme : MonoBehaviour
     [ContextMenu("Copy Light Information")]
     private void CopyLight()
     {
-        lightColor = directionLight.color;
-        lightIntensity = directionLight.intensity;
-        lightBounceIntensity = directionLight.bounceIntensity;
+        if (directionLight != null)
+        {
+            lightColor = directionLight.color;
+            lightIntensity = directionLight.intensity;
+            lightBounceIntensity = directionLight.bounceIntensity;
+        }
         fogColor = RenderSettings.fogColor;
+        skyboxExposure = RenderSettings.skybox.GetFloat("_Exposure");
+    }
+
+    [ContextMenu("Set Light Information")]
+    private void SetLight()
+    {
+        if (houseMesh != null)
+        {
+            Material[] materials = new Material[houseMesh.sharedMaterials.Length];
+            for (int index = 0; index < materials.Length; ++index)
+            {
+                materials[index] = innerWall;
+            }
+            houseMesh.sharedMaterials = materials;
+        }
+        if (directionLight != null)
+        {
+            directionLight.color = lightColor;
+            directionLight.intensity = lightIntensity;
+            directionLight.bounceIntensity = lightBounceIntensity;
+        }
+        RenderSettings.fogColor = fogColor;
+        RenderSettings.skybox.SetFloat("_Exposure", skyboxExposure);
+        DynamicGI.UpdateEnvironment();
     }
 #endif
 }
