@@ -1087,7 +1087,7 @@ MonoBehaviour:
     enableMotionBlursToggle: 1
     enableFlashingEffectsToggle: 1
     enableBloomToggle: 0
-    enableKeyboardSensitivityControls: 1
+    enableKeyboardSensitivityControls: 0
     enableKeyboardInvertedControls: 1
     enableMouseSensitivityControls: 1
     enableMouseInvertedControls: 1
@@ -1103,7 +1103,7 @@ MonoBehaviour:
     enableMotionBlursToggle: 0
     enableFlashingEffectsToggle: 1
     enableBloomToggle: 0
-    enableKeyboardSensitivityControls: 1
+    enableKeyboardSensitivityControls: 0
     enableKeyboardInvertedControls: 1
     enableMouseSensitivityControls: 1
     enableMouseInvertedControls: 1

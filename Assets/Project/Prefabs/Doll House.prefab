@@ -622,7 +622,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011470365554}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.5, z: 0}
+  m_LocalPosition: {x: 0, y: 11.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000011152957058}
@@ -974,7 +974,7 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 20, y: 1, z: 20}
-  m_Center: {x: 0, y: 1.4, z: 0}
+  m_Center: {x: 0, y: 2.4, z: 0}
 --- !u!65 &65000011867920620
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1204,6 +1204,7 @@ MonoBehaviour:
   movePlayerSpeed: 1
   bottom: {fileID: 4000011152957058}
   growPoint: {fileID: 4000014277520094}
+  respawnOffest: {x: 3, y: 3, z: 3}
   ceiling: {fileID: 65000011725062702}
   itemHolder: {fileID: 114000012238669612}
   houseRenderer: {fileID: 23000012759461300}
