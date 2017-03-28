@@ -28,6 +28,19 @@ public class FirstPersonModifiedController : FirstPersonController
 
     PauseMenu pauseCache = null;
     bool allowMovement = true;
+    Rigidbody controller;
+
+    public Rigidbody Controller
+    {
+        get
+        {
+            if(controller == null)
+            {
+                controller= GetComponent<Rigidbody>();
+            }
+            return controller;
+        }
+    }
 
     public Gazer PlayerGazer
     {

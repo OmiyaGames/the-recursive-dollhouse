@@ -16,6 +16,8 @@ public class DollHouse : TierObject
     bool lastHouse = false;
     [SerializeField]
     float offsetOnShrink = 1.5f;
+    [SerializeField]
+    float movePlayerSpeed = 5f;
 
     [Header("Required Components")]
     [SerializeField]
@@ -28,6 +30,8 @@ public class DollHouse : TierObject
     ItemHolder itemHolder;
     [SerializeField]
     Renderer houseRenderer;
+    //[SerializeField]
+    //BoxCollider insideRange;
 
     Vector3 offsetOnShrinkVector = Vector3.zero;
 
@@ -63,7 +67,7 @@ public class DollHouse : TierObject
 
         ResizeParent.Instance.OnBeforeResize += Instance_OnBeforeResize;
         ResizeParent.Instance.OnAfterResize += Instance_OnAfterResize;
-
+        Singleton.Instance.OnUpdate += OnEveryFrame;
         Instance_OnAfterResize(ResizeParent.Instance);
 
     }
@@ -82,6 +86,10 @@ public class DollHouse : TierObject
 
     public void OnTrigger(EnterTrigger triggerInfo)
     {
+        // Turn off the ceiling
+        ceiling.enabled = false;
+
+        // Check the action
         if (triggerInfo.Action == EnterTrigger.Change.Grow)
         {
             // Update stack
@@ -90,6 +98,10 @@ public class DollHouse : TierObject
 
             // Run event
             ResizeParent.Instance.Grow(growPoint);
+
+            // Bind to growing events
+            Singleton.Instance.OnUpdate += CheckIfPlayerIsBelowCeiling;
+            Singleton.Instance.OnFixedUpdate += MovePlayerTowardsCenter;
 
             // Check if we should play the credits...
             if (lastHouse == true)
@@ -128,28 +140,59 @@ public class DollHouse : TierObject
         }
 
         // Turn on the ceiling
-        ceiling.enabled = false;
-        if (ThisTier == obj.CurrentTier)
+        if ((ThisTier == obj.CurrentTier) && (obj.currentDirection == ResizeParent.ResizeDirection.Shrinking))
         {
-            switch(obj.currentDirection)
-            {
-                case ResizeParent.ResizeDirection.Shrinking:
-                    ceiling.enabled = true;
-                    break;
-                case ResizeParent.ResizeDirection.Growing:
-                    Singleton.Instance.OnUpdate += CheckIfPlayerIsBelowCeiling;
-                    break;
-            }
+            ceiling.enabled = true;
+        }
+    }
+
+    bool IsPlayerBelowCeiling
+    {
+        get
+        {
+            return (FirstPersonController.Instance.transform.position.y < ceiling.transform.position.y);
         }
     }
 
     void CheckIfPlayerIsBelowCeiling(float obj)
     {
-        if (FirstPersonController.Instance.transform.position.y < ceiling.transform.position.y)
+        if (ResizeParent.Instance.LatestTier != ParentTier)
+        {
+            Singleton.Instance.OnUpdate -= CheckIfPlayerIsBelowCeiling;
+        }
+        else if (IsPlayerBelowCeiling == true)
         {
             // Turn on the ceiling
             ceiling.enabled = true;
             Singleton.Instance.OnUpdate -= CheckIfPlayerIsBelowCeiling;
+        }
+    }
+
+    private void OnEveryFrame(float obj)
+    {
+        // Check if the player is outside of the bounds
+        if ((ResizeParent.Instance.LatestTier == ParentTier) &&
+            (IsPlayerBelowCeiling == true) &&
+            (houseRenderer.bounds.Contains(FirstPersonController.Instance.transform.position) == false))
+        {
+            FirstPersonController.Instance.transform.position = growPoint.position;
+        }
+    }
+
+    Vector3 newPosition;
+    void MovePlayerTowardsCenter(float obj)
+    {
+        if ((ResizeParent.Instance.LatestTier == ParentTier) && (IsPlayerBelowCeiling == false))
+        {
+            newPosition = FirstPersonController.Instance.transform.position;
+            newPosition.x = Mathf.SmoothStep(newPosition.x, growPoint.position.x, (movePlayerSpeed * obj));
+            newPosition.y = Mathf.SmoothStep(newPosition.y, growPoint.position.y, (movePlayerSpeed * obj));
+            newPosition.z = Mathf.SmoothStep(newPosition.z, growPoint.position.z, (movePlayerSpeed * obj));
+            FirstPersonController.Instance.transform.position = newPosition;
+        }
+        else
+        {
+            Singleton.Instance.OnFixedUpdate -= MovePlayerTowardsCenter;
         }
     }
 

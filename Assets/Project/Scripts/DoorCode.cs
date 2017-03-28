@@ -135,7 +135,7 @@ public class DoorCode : IDoor
                         break;
                 }
 
-                foreach(Button button in allNumberButtons)
+                foreach (Button button in allNumberButtons)
                 {
                     button.interactable = (state == KeypadState.Enabled);
                 }
@@ -318,7 +318,7 @@ public class DoorCode : IDoor
         if (CurrentState == KeypadState.Enabled)
         {
             // Prevent entering via keyboard if on WebGL.  Sorry, this just makes mouse locking easier.
-            if(Singleton.Instance.IsWebplayer == false)
+            if (Singleton.Instance.IsWebplayer == false)
             {
                 // Go through all the accepted inputs on the keyboard
                 for (int index = 0; index < AllNumberKeyCodes.Length; ++index)
