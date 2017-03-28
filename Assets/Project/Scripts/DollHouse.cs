@@ -25,13 +25,13 @@ public class DollHouse : TierObject
     [SerializeField]
     Transform growPoint;
     [SerializeField]
+    Vector3 respawnOffest = Vector3.one * 3;
+    [SerializeField]
     Collider ceiling;
     [SerializeField]
     ItemHolder itemHolder;
     [SerializeField]
     Renderer houseRenderer;
-    //[SerializeField]
-    //BoxCollider insideRange;
 
     Vector3 offsetOnShrinkVector = Vector3.zero;
 
@@ -175,20 +175,22 @@ public class DollHouse : TierObject
             (IsPlayerBelowCeiling == true) &&
             (houseRenderer.bounds.Contains(FirstPersonController.Instance.transform.position) == false))
         {
-            FirstPersonController.Instance.transform.position = growPoint.position;
+            targetPosition = growPoint.position + respawnOffest;
+            FirstPersonController.Instance.transform.position = targetPosition;
         }
     }
 
-    Vector3 newPosition;
+    Vector3 targetPosition, playerPosition;
     void MovePlayerTowardsCenter(float obj)
     {
         if ((ResizeParent.Instance.LatestTier == ParentTier) && (IsPlayerBelowCeiling == false))
         {
-            newPosition = FirstPersonController.Instance.transform.position;
-            newPosition.x = Mathf.SmoothStep(newPosition.x, growPoint.position.x, (movePlayerSpeed * obj));
-            newPosition.y = Mathf.SmoothStep(newPosition.y, growPoint.position.y, (movePlayerSpeed * obj));
-            newPosition.z = Mathf.SmoothStep(newPosition.z, growPoint.position.z, (movePlayerSpeed * obj));
-            FirstPersonController.Instance.transform.position = newPosition;
+            playerPosition = FirstPersonController.Instance.transform.position;
+            targetPosition = growPoint.position + respawnOffest;
+            playerPosition.x = Mathf.SmoothStep(playerPosition.x, targetPosition.x, (movePlayerSpeed * obj));
+            playerPosition.y = Mathf.SmoothStep(playerPosition.y, targetPosition.y, (movePlayerSpeed * obj));
+            playerPosition.z = Mathf.SmoothStep(playerPosition.z, targetPosition.z, (movePlayerSpeed * obj));
+            FirstPersonController.Instance.transform.position = playerPosition;
         }
         else
         {
