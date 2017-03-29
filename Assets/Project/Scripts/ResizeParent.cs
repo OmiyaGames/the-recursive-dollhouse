@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 using OmiyaGames;
+
 [DisallowMultipleComponent]
 public class ResizeParent : MonoBehaviour
 {
