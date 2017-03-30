@@ -26,6 +26,10 @@ public class FirstPersonModifiedController : FirstPersonController
     [SerializeField]
     protected Gazer gazer;
 
+    [Header("Effects")]
+    [SerializeField]
+    UnityStandardAssets.CinematicEffects.DepthOfField depthOfField;
+
     PauseMenu pauseCache = null;
     bool allowMovement = true;
     Rigidbody controller;
@@ -138,6 +142,18 @@ public class FirstPersonModifiedController : FirstPersonController
     protected override void Start()
     {
         base.Start();
+
+#if UNITY_WEBGL
+        if (depthOfField != null)
+        {
+            Destroy(depthOfField);
+        }
+        if(m_BlurEffect != null)
+        {
+            Destroy(m_BlurEffect);
+        }
+#endif
+
         m_MouseLook.OnGetIsSmooth += GetSmooth;
         m_MouseLook.OnGetXRotationAxis += GetXRotationAxis;
         m_MouseLook.OnGetYRotationAxis += GetYRotationAxis;
@@ -239,21 +255,25 @@ public class FirstPersonModifiedController : FirstPersonController
             jumpOutEffect.Play();
         }
         GameSettings settings = Singleton.Get<GameSettings>();
-        if ((settings == null) || (settings.IsMotionBlursEnabled == true))
-        {
-            m_BlurEffect.enabled = true;
-        }
         if ((settings == null) || (settings.IsFlashesEnabled == true))
         {
             m_ZoomEffect.Play();
         }
+#if !UNITY_WEBGL
+        if ((settings == null) || (settings.IsMotionBlursEnabled == true))
+        {
+            m_BlurEffect.enabled = true;
+        }
+#endif
     }
 
     public override void StopSlowdown()
     {
         base.StopSlowdown();
-        m_BlurEffect.enabled = false;
         m_ZoomEffect.Stop();
+#if !UNITY_WEBGL
+        m_BlurEffect.enabled = false;
+#endif
     }
 
     void StartMovement(IMenu menu)

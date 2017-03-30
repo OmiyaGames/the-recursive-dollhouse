@@ -1431,6 +1431,7 @@ MonoBehaviour:
   diveInEffect: {fileID: 114000013788413176}
   jumpOutEffect: {fileID: 114000013082165556}
   gazer: {fileID: 114000012821192306}
+  depthOfField: {fileID: 114000013431892016}
 --- !u!114 &114000012385361188
 MonoBehaviour:
   m_ObjectHideFlags: 1

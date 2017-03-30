@@ -5277,6 +5277,7 @@ MonoBehaviour:
     table: {fileID: 23000011975585482}
   - dollhouse: {fileID: 23000014183761660}
     table: {fileID: 23000010683664422}
+  depthOfField: {fileID: 114859313676215066}
 --- !u!114 &114415696428210870
 MonoBehaviour:
   m_ObjectHideFlags: 1

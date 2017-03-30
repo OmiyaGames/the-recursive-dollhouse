@@ -56,7 +56,7 @@ public class InteractiveDecoration : TierObject
         body.isKinematic = true;
 
         // Check if this object should now be out of view
-        if((obj.CurrentTier - ThisTier) > MaxTierDistance)
+        if ((obj.CurrentTier - ThisTier) > MaxTierDistance)
         {
             body.velocity = Vector3.zero;
             transform.localPosition = originalLocalPosition;
