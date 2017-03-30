@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90cd9fb5cf3c0144d9298647e729ec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingForce: 10
+  startingTorque: 20
+  sizeRange: {x: 0.5, y: 1.25}
 --- !u!136 &136000012525204682
 CapsuleCollider:
   m_ObjectHideFlags: 1
