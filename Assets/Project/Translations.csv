@@ -74,26 +74,46 @@ This game will lock your mouse, but you can always recover by holding ESC.",,
 Credits Created By,Created by Omiya Games,,
 Credits Programming,"Programming:
 	Taro Omiya",,
-Credits Graphics,"Graphics:
+Credits Models,"3D Models:
 	Taro Omiya",,
+Credits Textures,"Textures:
+	“Spring”
+	by Taro Omiya
+
+	“Seamless Space/Stars”
+	by n4
+	<size=24>Licensed under CC0 1.0 Universal (Public Domain)</size>
+	<size=24>opengameart.org/content/seamless-space-stars</size>
+
+	All other textures
+	by Nobiax
+	<size=24>Licensed under CC0 1.0 Universal (Public Domain)</size>
+	<size=24>nobiax.deviantart.com</size>",,
 Credits Music,"Music:
-	Petey Pezzulo
-	Graham Lerch",,
+	Petey Pezzulo & Graham Lerch",,
 Credits Sound,"Sound:
-	Unity
-	Taro Omiya
-	Petey Pezzulo
-	Graham Lerch",,
+	“Jump” & “Footsteps”
+	by Unity
+
+	“Lever,” “Buttons,” & “Key”
+	by Petey Pezzulo & Graham Lerch
+
+	All other sound effects
+	by Taro Omiya",,
 Credits Fonts,"Fonts:
-	""Kodomo Rounded"" by Yoshinaga Nakai
+	""Kodomo Rounded""
+	by Yoshinaga Nakai
 	Licensed under IPA Font License
 	<size=24>ipafont.ipa.go.jp/ipa_font_license_v1.html</size>","Fonts:
 	「こども丸ゴシック」 by 中井 良尚
 	Licensed under IPA Font License
 	<size=24>ipafont.ipa.go.jp/ipa_font_license_v1.html</size>",
 Credits Special Effects,"Special Effects:
-	Particles by Unity
-	Motion Blurs by Keijiro Takahashi
+	All particles effects
+	by Unity
+
+	Motion Blurs
+	by Keijiro Takahashi
 	<size=24>github.com/keijiro/KinoMotion</size>","Special Effects:
 	Particles by Unity
 	Motion Blurs by 高橋 圭次郎
