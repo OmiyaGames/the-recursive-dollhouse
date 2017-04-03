@@ -26,10 +26,6 @@ public class FirstPersonModifiedController : FirstPersonController
     [SerializeField]
     protected Gazer gazer;
 
-    [Header("Effects")]
-    [SerializeField]
-    UnityStandardAssets.CinematicEffects.DepthOfField depthOfField;
-
     PauseMenu pauseCache = null;
     bool allowMovement = true;
     Rigidbody controller;
@@ -144,10 +140,6 @@ public class FirstPersonModifiedController : FirstPersonController
         base.Start();
 
 #if UNITY_WEBGL
-        if (depthOfField != null)
-        {
-            Destroy(depthOfField);
-        }
         if(m_BlurEffect != null)
         {
             Destroy(m_BlurEffect);

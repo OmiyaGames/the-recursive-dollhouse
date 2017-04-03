@@ -25,13 +25,17 @@ public class DollHouse : TierObject
     [SerializeField]
     Transform growPoint;
     [SerializeField]
-    Vector3 respawnOffest = Vector3.one * 3;
-    [SerializeField]
     Collider ceiling;
     [SerializeField]
     ItemHolder itemHolder;
     [SerializeField]
     Renderer houseRenderer;
+
+    [Header("Respawn point")]
+    [SerializeField]
+    Vector2 possibleScaleRange = new Vector2(1, 20);
+    [SerializeField]
+    Vector2 yOffsetRange = new Vector2(8, 5);
 
     Vector3 offsetOnShrinkVector = Vector3.zero;
 
@@ -168,6 +172,13 @@ public class DollHouse : TierObject
         }
     }
 
+    Vector3 targetPosition, playerPosition;
+    private void TargetSpawnPosition(ref Vector3 targetPosition)
+    {
+        targetPosition = growPoint.position;
+        targetPosition.y += Mathf.Lerp(yOffsetRange.x, yOffsetRange.y, Mathf.InverseLerp(possibleScaleRange.x, possibleScaleRange.y, transform.lossyScale.y));
+    }
+
     private void OnEveryFrame(float obj)
     {
         // Check if the player is outside of the bounds
@@ -175,18 +186,17 @@ public class DollHouse : TierObject
             (IsPlayerBelowCeiling == true) &&
             (houseRenderer.bounds.Contains(FirstPersonController.Instance.transform.position) == false))
         {
-            targetPosition = growPoint.position + respawnOffest;
+            TargetSpawnPosition(ref targetPosition);
             FirstPersonController.Instance.transform.position = targetPosition;
         }
     }
 
-    Vector3 targetPosition, playerPosition;
     void MovePlayerTowardsCenter(float obj)
     {
         if ((ResizeParent.Instance.LatestTier == ParentTier) && (IsPlayerBelowCeiling == false))
         {
             playerPosition = FirstPersonController.Instance.transform.position;
-            targetPosition = growPoint.position + respawnOffest;
+            TargetSpawnPosition(ref targetPosition);
             playerPosition.x = Mathf.SmoothStep(playerPosition.x, targetPosition.x, (movePlayerSpeed * obj));
             playerPosition.y = Mathf.SmoothStep(playerPosition.y, targetPosition.y, (movePlayerSpeed * obj));
             playerPosition.z = Mathf.SmoothStep(playerPosition.z, targetPosition.z, (movePlayerSpeed * obj));

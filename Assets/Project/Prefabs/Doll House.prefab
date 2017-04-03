@@ -1201,7 +1201,7 @@ MonoBehaviour:
   enabledSpring: 1
   lastHouse: 0
   offsetOnShrink: 2.175
-  movePlayerSpeed: 1
+  movePlayerSpeed: 20
   bottom: {fileID: 4000011152957058}
   growPoint: {fileID: 4000014277520094}
   respawnOffest: {x: 3, y: 3, z: 3}

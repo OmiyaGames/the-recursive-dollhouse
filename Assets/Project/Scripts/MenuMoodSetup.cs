@@ -31,19 +31,10 @@ public class MenuMoodSetup : MonoBehaviour
     MoodSetter mood;
     [SerializeField]
     DollhouseSet[] allDollhouses;
-    [SerializeField]
-    UnityStandardAssets.CinematicEffects.DepthOfField depthOfField;
 
     // Use this for initialization
     void Start()
     {
-#if UNITY_WEBGL
-        if (depthOfField != null)
-        {
-            Destroy(depthOfField);
-        }
-#endif
-
         if (allDollhouses.Length > 0)
         {
             // Setup the first dollhouse

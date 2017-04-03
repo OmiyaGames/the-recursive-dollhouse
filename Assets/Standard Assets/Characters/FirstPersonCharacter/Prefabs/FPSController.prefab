@@ -32,7 +32,6 @@ GameObject:
   - component: {fileID: 12474086}
   - component: {fileID: 114000011565046258}
   - component: {fileID: 114000012804794384}
-  - component: {fileID: 114000013431892016}
   - component: {fileID: 114000012385361188}
   - component: {fileID: 114000012626130564}
   - component: {fileID: 114000012821192306}
@@ -129,7 +128,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -608,7 +607,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 0.5, y: 0.25, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82000010043318646
 AudioSource:
@@ -1431,7 +1430,7 @@ MonoBehaviour:
   diveInEffect: {fileID: 114000013788413176}
   jumpOutEffect: {fileID: 114000013082165556}
   gazer: {fileID: 114000012821192306}
-  depthOfField: {fileID: 114000013431892016}
+  depthOfField: {fileID: 0}
 --- !u!114 &114000012385361188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1689,45 +1688,6 @@ MonoBehaviour:
   pitchMutationRange: {x: 0.5, y: 1.5}
   mutateVolume: 0
   volumeMutationRange: {x: 0.5, y: 1}
---- !u!114 &114000013431892016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a338d679868f45439ea43c7ae035e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings:
-    visualizeFocus: 0
-    tweakMode: 0
-    filteringQuality: 2
-    apertureShape: 0
-    apertureOrientation: 0
-  focus:
-    transform: {fileID: 0}
-    focusPlane: 10
-    range: 35
-    nearPlane: -7.5
-    nearFalloff: 15
-    farPlane: 27.5
-    farFalloff: 50
-    nearBlurRadius: 2.5
-    farBlurRadius: 5
-  bokehTexture:
-    texture: {fileID: 0}
-    scale: 1
-    intensity: 50
-    threshold: 2
-    spawnHeuristic: 0.15
-  m_FilmicDepthOfFieldShader: {fileID: 4800000, guid: bff0e5458fb914f5c9985ba4f09171d2,
-    type: 3}
-  m_MedianFilterShader: {fileID: 4800000, guid: a058b22d4123add4b807e832604e5e7b,
-    type: 3}
-  m_TextureBokehShader: {fileID: 4800000, guid: c961b8ed1f00f924d804ada5143bd0e8,
-    type: 3}
 --- !u!114 &114000013683951580
 MonoBehaviour:
   m_ObjectHideFlags: 1

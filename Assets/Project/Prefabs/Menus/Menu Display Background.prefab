@@ -902,7 +902,6 @@ GameObject:
   - component: {fileID: 124097159765309800}
   - component: {fileID: 81003156776059616}
   - component: {fileID: 114547354605838062}
-  - component: {fileID: 114859313676215066}
   - component: {fileID: 114918389006217140}
   - component: {fileID: 114472617363314104}
   m_Layer: 0
@@ -5277,7 +5276,7 @@ MonoBehaviour:
     table: {fileID: 23000011975585482}
   - dollhouse: {fileID: 23000014183761660}
     table: {fileID: 23000010683664422}
-  depthOfField: {fileID: 114859313676215066}
+  depthOfField: {fileID: 0}
 --- !u!114 &114415696428210870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5647,45 +5646,6 @@ MonoBehaviour:
   backgroundMusic: {fileID: 8300000, guid: 65a07aab82ab8c947a22b21f8db387da, type: 3}
   directionLight: {fileID: 108294378426933228}
   houseMesh: {fileID: 0}
---- !u!114 &114859313676215066
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1157371444371108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a338d679868f45439ea43c7ae035e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings:
-    visualizeFocus: 0
-    tweakMode: 0
-    filteringQuality: 2
-    apertureShape: 0
-    apertureOrientation: 0
-  focus:
-    transform: {fileID: 0}
-    focusPlane: 10
-    range: 35
-    nearPlane: -7.5
-    nearFalloff: 15
-    farPlane: 27.5
-    farFalloff: 50
-    nearBlurRadius: 2.5
-    farBlurRadius: 5
-  bokehTexture:
-    texture: {fileID: 0}
-    scale: 1
-    intensity: 50
-    threshold: 2
-    spawnHeuristic: 0.15
-  m_FilmicDepthOfFieldShader: {fileID: 4800000, guid: bff0e5458fb914f5c9985ba4f09171d2,
-    type: 3}
-  m_MedianFilterShader: {fileID: 4800000, guid: a058b22d4123add4b807e832604e5e7b,
-    type: 3}
-  m_TextureBokehShader: {fileID: 4800000, guid: c961b8ed1f00f924d804ada5143bd0e8,
-    type: 3}
 --- !u!114 &114876138016536730
 MonoBehaviour:
   m_ObjectHideFlags: 1
