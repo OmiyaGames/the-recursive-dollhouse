@@ -8,6 +8,8 @@ public class DollHouse : TierObject
     readonly List<EnterTrigger> growTriggers = new List<EnterTrigger>();
     readonly List<EnterTrigger> shrinkTriggers = new List<EnterTrigger>();
 
+    public const float MaxDistanceFromCenter = 20f;
+
     [SerializeField]
     bool enableItemHolder = true;
     [SerializeField]
@@ -182,12 +184,18 @@ public class DollHouse : TierObject
     private void OnEveryFrame(float obj)
     {
         // Check if the player is outside of the bounds
-        if ((ResizeParent.Instance.LatestTier == ParentTier) &&
-            (IsPlayerBelowCeiling == true) &&
-            (houseRenderer.bounds.Contains(FirstPersonController.Instance.transform.position) == false))
+        if (ResizeParent.Instance.LatestTier == ParentTier)
         {
-            TargetSpawnPosition(ref targetPosition);
-            FirstPersonController.Instance.transform.position = targetPosition;
+            if ((IsPlayerBelowCeiling == true) && (houseRenderer.bounds.Contains(FirstPersonController.Instance.transform.position) == false))
+            {
+                TargetSpawnPosition(ref targetPosition);
+                FirstPersonController.Instance.transform.position = targetPosition;
+            }
+            else if((Vector3.Distance(FirstPersonController.Instance.transform.position, growPoint.position) > MaxDistanceFromCenter) && (ResizeParent.Instance.currentDirection == ResizeParent.ResizeDirection.None))
+            {
+                TargetSpawnPosition(ref targetPosition);
+                FirstPersonController.Instance.transform.position = targetPosition;
+            }
         }
     }
 
