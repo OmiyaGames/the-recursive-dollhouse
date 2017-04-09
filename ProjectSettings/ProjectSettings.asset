@@ -679,7 +679,7 @@ PlayerSettings:
     Purchasing: 0
     UNet: 1
     Unity_Ads: 0
-  facebookSdkVersion: 7.9.1
+  facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: 49fa16f0-2460-4b6a-9af3-59e4dcc08636
   projectName: The Recursive Dollhouse
